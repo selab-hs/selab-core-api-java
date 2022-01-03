@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.properties;
+package kr.ac.hs.selab.common.properties;
 
 import java.util.ArrayList;
 import java.util.Arrays;

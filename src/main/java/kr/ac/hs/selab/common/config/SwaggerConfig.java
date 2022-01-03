@@ -1,6 +1,6 @@
-package kr.ac.hs.selab.config;
+package kr.ac.hs.selab.common.config;
 
-import kr.ac.hs.selab.properties.SwaggerProperties;
+import kr.ac.hs.selab.common.properties.SwaggerProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

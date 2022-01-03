@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.config;
+package kr.ac.hs.selab.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
