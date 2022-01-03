@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.error;
+package kr.ac.hs.selab.error.dto;
 
 import java.time.LocalDateTime;
 import lombok.Getter;
