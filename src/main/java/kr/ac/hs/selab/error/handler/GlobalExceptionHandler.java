@@ -1,5 +1,6 @@
-package kr.ac.hs.selab.error;
+package kr.ac.hs.selab.error.handler;
 
+import kr.ac.hs.selab.error.exception.BusinessException;
 import kr.ac.hs.selab.error.dto.ErrorMessage;
 import kr.ac.hs.selab.error.dto.ErrorResponseDto;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponseDto> handleException() {
-        return ErrorResponseDto.of(ErrorMessage.INTERNAL_SERVER_ERROR);
+        return ErrorResponseDto.of(ErrorMessage.INTERNAL_ERROR);
     }
 }

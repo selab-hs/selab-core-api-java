@@ -10,7 +10,12 @@ public enum ResponseMessage {
     /**
      * Health CHECK
      */
-    HEALTH_GOOD("R-H001", HttpStatus.OK, "서버 상태가 양호합니다."),
+    HEALTH_GOOD("R-H-001", HttpStatus.OK, "서버 상태가 양호합니다."),
+
+    /**
+     * MEMBER SUCCESS RESPONSE MESSAGE
+     **/
+    MEMBER_INSERT_SUCCESS("R-M-001", HttpStatus.CREATED, "회원 가입을 완료했습니다."),
 
     ;
 
