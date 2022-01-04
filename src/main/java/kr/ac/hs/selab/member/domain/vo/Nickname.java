@@ -27,7 +27,7 @@ public class Nickname {
     }
 
     public void validate(String nickname) {
-        if (ValidationUtils.isWrong(nickname, MAX_LENGTH)) {
+        if (ValidationUtils.isWrongWithMaxLength(nickname, MAX_LENGTH)) {
             throw new InvalidArgumentException(ErrorMessage.MEMBER_NICKNAME_INVALID_ARGUMENT_ERROR);
         }
     }

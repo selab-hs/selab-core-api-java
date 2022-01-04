@@ -9,6 +9,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreateMemberResponse {
 
-    private final String email;
     private final String nickname;
 }

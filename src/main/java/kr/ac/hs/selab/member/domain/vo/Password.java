@@ -28,7 +28,7 @@ public class Password {
     }
 
     private void validate(String password) {
-        if (ValidationUtils.isWrong(password, PASSWORD_REGEX)) {
+        if (ValidationUtils.isWrongWithRegex(password, PASSWORD_REGEX)) {
             throw new InvalidArgumentException(ErrorMessage.MEMBER_PASSWORD_INVALID_ARGUMENT_ERROR);
         }
     }

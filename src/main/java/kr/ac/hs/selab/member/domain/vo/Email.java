@@ -27,7 +27,7 @@ public class Email {
     }
 
     private void validate(String email) {
-        if (ValidationUtils.isWrong(email, EMAIL_REGEX)) {
+        if (ValidationUtils.isWrongWithRegex(email, EMAIL_REGEX)) {
             throw new InvalidArgumentException(ErrorMessage.MEMBER_EMAIL_INVALID_ARGUMENT_ERROR);
         }
     }
