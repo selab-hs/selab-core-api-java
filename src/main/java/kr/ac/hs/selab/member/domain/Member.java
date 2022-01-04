@@ -14,6 +14,7 @@ import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.domain.vo.Name;
 import kr.ac.hs.selab.member.domain.vo.Nickname;
 import kr.ac.hs.selab.member.domain.vo.Password;
+import kr.ac.hs.selab.member.domain.vo.Terms;
 import kr.ac.hs.selab.member.domain.vo.Role;
 import kr.ac.hs.selab.member.domain.vo.StudentId;
 import lombok.AccessLevel;
@@ -45,6 +46,9 @@ public class Member extends BaseEntity {
 
     @Embedded
     private Avatar avatar;
+
+    @Embedded
+    private Terms terms;
 
     @Column(name = "member_role")
     @Enumerated(EnumType.STRING)
