@@ -25,7 +25,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberConverter memberConverter;
 
-    @ApiOperation("MEMBER - 회원가입")
+    @ApiOperation("Member - 회원가입")
     @PostMapping
     public ResponseEntity<ResponseDto<CreateMemberResponse>> insert(
         @RequestBody CreateMemberRequest request) {
