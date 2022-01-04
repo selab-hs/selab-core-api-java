@@ -8,12 +8,10 @@ import org.springframework.http.ResponseEntity;
 public class ErrorResponseDto {
 
     private final String code;
-    private final String name;
     private final LocalDateTime serverDateTime;
 
     private ErrorResponseDto(ErrorMessage message) {
         this.code = message.getCode();
-        this.name = message.name();
         this.serverDateTime = LocalDateTime.now();
     }
 
