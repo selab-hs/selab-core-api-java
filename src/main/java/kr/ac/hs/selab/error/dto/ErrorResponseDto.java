@@ -7,10 +7,12 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class ErrorResponseDto {
 
+    private final String message;
     private final String code;
     private final LocalDateTime serverDateTime;
 
     private ErrorResponseDto(ErrorMessage message) {
+        this.message = message.name();
         this.code = message.getCode();
         this.serverDateTime = LocalDateTime.now();
     }

@@ -7,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class ResponseDto<T> {
 
+    private final String message;
     private final String code;
     private final LocalDateTime serverDateTime;
     private final T data;
 
     private ResponseDto(ResponseMessage message, T data) {
+        this.message = message.name();
         this.code = message.getCode();
         this.serverDateTime = LocalDateTime.now();
         this.data = data;

@@ -9,7 +9,7 @@ public abstract class BusinessException extends RuntimeException {
     private final ErrorMessage errorMessage;
 
     public BusinessException(ErrorMessage message) {
-        super(message.getMessage());
+        super(message.getDetail());
         this.errorMessage = message;
     }
 }
