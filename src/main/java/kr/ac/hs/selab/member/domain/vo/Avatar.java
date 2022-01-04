@@ -17,7 +17,7 @@ public class Avatar {
     @Column(name = "member_avatar")
     private String avatar;
 
-    public Avatar(String avatar) {
+    private Avatar(String avatar) {
         this.avatar = validate(avatar);
     }
 
@@ -26,5 +26,9 @@ public class Avatar {
             return avatar;
         }
         return DEFAULT_IMAGE_URL;
+    }
+
+    public static Avatar of(String avatar) {
+        return new Avatar(avatar);
     }
 }

@@ -7,8 +7,10 @@ import kr.ac.hs.selab.common.utils.ValidationUtils;
 import kr.ac.hs.selab.error.dto.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.InvalidArgumentException;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Email {
@@ -19,7 +21,7 @@ public class Email {
     @Column(name = "member_email", unique = true)
     private String email;
 
-    public Email(String email) {
+    private Email(String email) {
         validate(email);
         this.email = email;
     }
@@ -28,5 +30,9 @@ public class Email {
         if (ValidationUtils.isWrong(email, EMAIL_REGEX)) {
             throw new InvalidArgumentException(ErrorMessage.MEMBER_EMAIL_INVALID_ARGUMENT_ERROR);
         }
+    }
+
+    public static Email of(String email) {
+        return new Email(email);
     }
 }

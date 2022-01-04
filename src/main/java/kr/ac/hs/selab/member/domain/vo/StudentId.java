@@ -15,7 +15,7 @@ public class StudentId {
     @Column(name = "member_student_id", unique = true)
     private String studentId;
 
-    public StudentId(String studentId) {
+    private StudentId(String studentId) {
         validate(studentId);
         this.studentId = studentId;
     }
@@ -25,5 +25,9 @@ public class StudentId {
             throw new InvalidArgumentException(
                 ErrorMessage.MEMBER_STUDENT_ID_INVALID_ARGUMENT_ERROR);
         }
+    }
+
+    public static StudentId of(String studentId) {
+        return new StudentId(studentId);
     }
 }

@@ -10,8 +10,17 @@ import lombok.NoArgsConstructor;
 public class Terms {
 
     @Column(name = "member_term_service")
-    private String termService;
+    private boolean termService;
 
     @Column(name = "member_term_privacy")
-    private String termPrivacy;
+    private boolean termPrivacy;
+
+    private Terms(boolean termService, boolean termPrivacy) {
+        this.termService = termService;
+        this.termPrivacy = termPrivacy;
+    }
+
+    public static Terms of(boolean termService, boolean termPrivacy) {
+        return new Terms(termService, termPrivacy);
+    }
 }

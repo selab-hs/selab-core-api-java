@@ -19,7 +19,7 @@ public class Name {
     @Column(name = "member_name")
     private String name;
 
-    public Name(String name) {
+    private Name(String name) {
         validate(name);
         this.name = name;
     }
@@ -28,5 +28,9 @@ public class Name {
         if (ValidationUtils.isWrong(name, NAME_REGEX)) {
             throw new InvalidArgumentException(ErrorMessage.MEMBER_NAME_INVALID_ARGUMENT_ERROR);
         }
+    }
+
+    public static Name of(String name) {
+        return new Name(name);
     }
 }

@@ -18,6 +18,8 @@ import kr.ac.hs.selab.member.domain.vo.Terms;
 import kr.ac.hs.selab.member.domain.vo.Role;
 import kr.ac.hs.selab.member.domain.vo.StudentId;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -53,4 +55,25 @@ public class Member extends BaseEntity {
     @Column(name = "member_role")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Builder
+    private Member(Email email, Password password, StudentId studentId,
+        Name name, Nickname nickname, Avatar avatar, Terms terms) {
+        this.email = email;
+        this.password = password;
+        this.studentId = studentId;
+        this.name = name;
+        this.nickname = nickname;
+        this.avatar = avatar;
+        this.terms = terms;
+        this.role = Role.USER;
+    }
+
+    public String getEmailValue() {
+        return email.getEmail();
+    }
+
+    public String getNicknameValue() {
+        return nickname.getNickname();
+    }
 }

@@ -12,6 +12,11 @@ public enum ResponseMessage {
      */
     HEALTH_GOOD("R-H001", HttpStatus.OK, "서버 상태가 양호합니다."),
 
+    /**
+     * MEMBER SUCCESS RESPONSE MESSAGE
+     **/
+    MEMBER_INSERT_SUCCESS("R-M001", HttpStatus.CREATED, "회원 가입을 완료했습니다."),
+    
     ;
 
     private final String code;

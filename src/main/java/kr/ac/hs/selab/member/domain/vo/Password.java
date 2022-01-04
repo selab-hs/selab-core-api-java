@@ -22,7 +22,7 @@ public class Password {
     @Column(name = "member_password")
     private String password;
 
-    public Password(String password) {
+    private Password(String password) {
         validate(password);
         this.password = password;
     }
@@ -31,5 +31,9 @@ public class Password {
         if (ValidationUtils.isWrong(password, PASSWORD_REGEX)) {
             throw new InvalidArgumentException(ErrorMessage.MEMBER_PASSWORD_INVALID_ARGUMENT_ERROR);
         }
+    }
+
+    public static Password of(String password) {
+        return new Password(password);
     }
 }
