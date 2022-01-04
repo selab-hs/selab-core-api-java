@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.error;
+package kr.ac.hs.selab.error.exception;
 
 import kr.ac.hs.selab.error.dto.ErrorMessage;
 import lombok.Getter;

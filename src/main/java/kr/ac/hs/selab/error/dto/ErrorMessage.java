@@ -12,6 +12,16 @@ public enum ErrorMessage {
      **/
     INTERNAL_SERVER_ERROR("E-IS001", HttpStatus.INTERNAL_SERVER_ERROR, "예기치 못한 에러가 발생했습니다."),
 
+    /**
+     * MEMBER ERROR RESPONSE MESSAGE
+     **/
+    MEMBER_EMAIL_INVALID_ARGUMENT_ERROR("E-M001", HttpStatus.BAD_REQUEST,
+        "회원 이메일 입력 규칙에서 문제가 발생했습니다."),
+    MEMBER_NAME_INVALID_ARGUMENT_ERROR("E-M002", HttpStatus.BAD_REQUEST,
+        "회원 이름 입력 규칙에서 문제가 발생했습니다."),
+    MEMBER_NICKNAME_INVALID_ARGUMENT_ERROR("E-M003", HttpStatus.BAD_REQUEST,
+        "회원 닉네임 입력 규칙에서 문제가 발생했습니다."),
+
     ;
 
     private final String code;
