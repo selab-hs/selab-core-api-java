@@ -21,6 +21,10 @@ public enum ErrorMessage {
         "회원 이름 입력 규칙에서 문제가 발생했습니다."),
     MEMBER_NICKNAME_INVALID_ARGUMENT_ERROR("E-M003", HttpStatus.BAD_REQUEST,
         "회원 닉네임 입력 규칙에서 문제가 발생했습니다."),
+    MEMBER_STUDENT_ID_INVALID_ARGUMENT_ERROR("E-M004", HttpStatus.BAD_REQUEST,
+        "회원 학번 입력 규칙에서 문제가 발생했습니다."),
+    MEMBER_PASSWORD_INVALID_ARGUMENT_ERROR("E-M005", HttpStatus.BAD_REQUEST,
+        "회원 비밀번호 입력 규칙에서 문제가 발생했습니다."),
 
     ;
 

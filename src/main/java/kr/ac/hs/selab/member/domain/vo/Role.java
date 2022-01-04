@@ -2,6 +2,7 @@ package kr.ac.hs.selab.member.domain.vo;
 
 import java.util.Arrays;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Getter
