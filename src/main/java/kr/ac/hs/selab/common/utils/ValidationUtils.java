@@ -12,6 +12,10 @@ public class ValidationUtils {
     public static boolean isWrong(String target, int maxLength) {
         return !StringUtils.hasText(target) || target.length() > maxLength;
     }
+    
+    public static boolean isWrong(String target) {
+        return !StringUtils.hasText(target);
+    }
 
     public static boolean isCorrect(String target) {
         return StringUtils.hasText(target);
