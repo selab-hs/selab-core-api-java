@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Email {
+public class Name {
 
-    @Column(name = "member_email", unique = true)
-    private String email;
+    @Column(name = "member_name")
+    private String name;
 }

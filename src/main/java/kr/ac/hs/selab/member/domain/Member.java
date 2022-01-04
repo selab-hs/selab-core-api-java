@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import kr.ac.hs.selab.common.domain.BaseEntity;
 import kr.ac.hs.selab.member.domain.vo.Avatar;
 import kr.ac.hs.selab.member.domain.vo.Email;
+import kr.ac.hs.selab.member.domain.vo.Name;
 import kr.ac.hs.selab.member.domain.vo.Nickname;
 import kr.ac.hs.selab.member.domain.vo.Password;
 import kr.ac.hs.selab.member.domain.vo.Role;
@@ -35,6 +36,9 @@ public class Member extends BaseEntity {
 
     @Embedded
     private StudentId studentId;
+
+    @Embedded
+    private Name name;
 
     @Embedded
     private Nickname nickname;
