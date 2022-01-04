@@ -19,6 +19,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponseDto> handleException() {
-        return ErrorResponseDto.of(ErrorMessage.INTERNAL_ERROR);
+        return ErrorResponseDto.of(ErrorMessage.NOT_DEFINE_ERROR);
     }
 }

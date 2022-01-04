@@ -1,7 +1,5 @@
 package kr.ac.hs.selab.member.presentation;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import kr.ac.hs.selab.common.dto.ResponseDto;
 import kr.ac.hs.selab.common.dto.ResponseMessage;
 import kr.ac.hs.selab.member.application.MemberService;
@@ -10,22 +8,22 @@ import kr.ac.hs.selab.member.dto.bundle.CreateMemberBundle;
 import kr.ac.hs.selab.member.dto.request.CreateMemberRequest;
 import kr.ac.hs.selab.member.dto.response.CreateMemberResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api("Member V1 REST API")
 @RestController
-@RequestMapping("/api/v1/members")
+@RequestMapping(value = "/api/v1/members", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class MemberController {
+public class MemberController extends MemberAbstractController {
 
     private final MemberService memberService;
     private final MemberConverter memberConverter;
 
-    @ApiOperation("Member - 회원가입")
+    @Override
     @PostMapping
     public ResponseEntity<ResponseDto<CreateMemberResponse>> insert(
         @RequestBody CreateMemberRequest request) {

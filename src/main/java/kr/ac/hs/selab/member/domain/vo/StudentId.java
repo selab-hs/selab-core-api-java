@@ -21,7 +21,7 @@ public class StudentId {
     }
 
     private void validate(String studentId) {
-        if (ValidationUtils.isWrong(studentId)) {
+        if (ValidationUtils.isWrongWithEmpty(studentId)) {
             throw new InvalidArgumentException(
                 ErrorMessage.MEMBER_STUDENT_ID_INVALID_ARGUMENT_ERROR);
         }

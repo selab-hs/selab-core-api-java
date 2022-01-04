@@ -41,6 +41,6 @@ public class MemberConverter {
     }
 
     public CreateMemberResponse toCreateMemberResponse(Member member) {
-        return new CreateMemberResponse(member.getEmailValue(), member.getNicknameValue());
+        return new CreateMemberResponse(member.getNicknameValue());
     }
 }

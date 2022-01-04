@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class HealthController {
+public class HealthController extends HealthAbstractController{
 
     private static final String HEALTH_MESSAGE = "Health Good!!~~";
 
+    @Override
     @GetMapping("/v1/health")
     public ResponseEntity<ResponseDto<String>> check() {
         return ResponseDto.of(ResponseMessage.HEALTH_GOOD, HEALTH_MESSAGE);

@@ -68,10 +68,6 @@ public class Member extends BaseEntity {
         this.role = Role.USER;
     }
 
-    public String getEmailValue() {
-        return email.getEmail();
-    }
-
     public String getNicknameValue() {
         return nickname.getNickname();
     }

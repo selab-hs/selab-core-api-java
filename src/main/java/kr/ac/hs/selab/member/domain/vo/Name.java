@@ -25,7 +25,7 @@ public class Name {
     }
 
     private void validate(String name) {
-        if (ValidationUtils.isWrong(name, NAME_REGEX)) {
+        if (ValidationUtils.isWrongWithRegex(name, NAME_REGEX)) {
             throw new InvalidArgumentException(ErrorMessage.MEMBER_NAME_INVALID_ARGUMENT_ERROR);
         }
     }
