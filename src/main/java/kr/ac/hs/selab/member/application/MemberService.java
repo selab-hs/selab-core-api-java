@@ -11,6 +11,7 @@ import kr.ac.hs.selab.member.dto.bundle.CreateMemberBundle;
 import kr.ac.hs.selab.member.dto.response.CreateMemberResponse;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +21,12 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberConverter memberConverter;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public CreateMemberResponse create(CreateMemberBundle bundle) {
         isDuplication(bundle);
-        Member instance = memberConverter.toMember(bundle);
+        Member instance = memberConverter.toMember(bundle, passwordEncoder);
         Member member = memberRepository.save(instance);
         return memberConverter.toCreateMemberResponse(member);
     }

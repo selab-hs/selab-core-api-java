@@ -8,6 +8,7 @@ import kr.ac.hs.selab.error.dto.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.InvalidArgumentException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,6 +32,11 @@ public class Password {
         if (ValidationUtils.isWrongWithRegex(password, PASSWORD_REGEX)) {
             throw new InvalidArgumentException(ErrorMessage.MEMBER_PASSWORD_INVALID_ARGUMENT_ERROR);
         }
+    }
+
+    public Password encode(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(this.password);
+        return this;
     }
 
     public static Password of(String password) {
