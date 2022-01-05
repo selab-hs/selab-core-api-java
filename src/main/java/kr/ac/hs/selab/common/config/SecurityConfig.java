@@ -19,11 +19,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CorsConfig corsConfig;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -31,9 +26,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .configurationSource(CorsConfigurationSource());
 
         httpSecurity
-            .csrf().disable()
-            .formLogin().disable()
+            .csrf().disable();
+
+        httpSecurity
+            .formLogin().disable();
+
+        httpSecurity
             .httpBasic().disable();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     private UrlBasedCorsConfigurationSource CorsConfigurationSource() {
