@@ -1,6 +1,6 @@
 package kr.ac.hs.selab.member.presentation;
 
-import kr.ac.hs.selab.common.dto.ResponseDto;
+import kr.ac.hs.selab.common.dto.ResponseTemplate;
 import kr.ac.hs.selab.common.dto.ResponseMessage;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.converter.MemberConverter;
@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/v1/members", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class MemberController extends MemberAbstractController {
+public class MemberController extends MemberSwaggerController {
 
     private final MemberService memberService;
     private final MemberConverter memberConverter;
 
     @Override
     @PostMapping
-    public ResponseEntity<ResponseDto<CreateMemberResponse>> insert(
+    public ResponseEntity<ResponseTemplate<CreateMemberResponse>> insert(
         @RequestBody CreateMemberRequest request) {
         CreateMemberBundle bundle = memberConverter.toCreateMemberBundle(request);
         CreateMemberResponse response = memberService.create(bundle);
-        return ResponseDto.of(ResponseMessage.MEMBER_INSERT_SUCCESS, response);
+        return ResponseTemplate.of(ResponseMessage.MEMBER_INSERT_SUCCESS, response);
     }
 }

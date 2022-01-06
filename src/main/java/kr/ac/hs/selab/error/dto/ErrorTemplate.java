@@ -5,25 +5,25 @@ import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 
 @Getter
-public class ErrorResponseDto {
+public class ErrorTemplate {
 
     private final String message;
     private final String code;
     private final LocalDateTime serverDateTime;
 
-    private ErrorResponseDto(ErrorMessage message) {
+    private ErrorTemplate(ErrorMessage message) {
         this.message = message.name();
         this.code = message.getCode();
         this.serverDateTime = LocalDateTime.now();
     }
 
-    public static ResponseEntity<ErrorResponseDto> of(ErrorMessage message) {
+    public static ResponseEntity<ErrorTemplate> of(ErrorMessage message) {
         return ResponseEntity
             .status(
                 message.getStatus()
             )
             .body(
-                new ErrorResponseDto(message)
+                new ErrorTemplate(message)
             );
     }
 }
