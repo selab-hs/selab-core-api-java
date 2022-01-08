@@ -1,8 +1,8 @@
 package kr.ac.hs.selab.error.handler;
 
 import kr.ac.hs.selab.error.exception.BusinessException;
-import kr.ac.hs.selab.error.dto.ErrorMessage;
-import kr.ac.hs.selab.error.dto.ErrorTemplate;
+import kr.ac.hs.selab.error.template.ErrorMessage;
+import kr.ac.hs.selab.error.template.ErrorTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

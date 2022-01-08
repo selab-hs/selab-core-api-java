@@ -1,7 +1,7 @@
 package kr.ac.hs.selab.common.utils;
 
 import java.util.Objects;
-import kr.ac.hs.selab.error.dto.ErrorMessage;
+import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package kr.ac.hs.selab.member.application;
 
-import kr.ac.hs.selab.error.dto.ErrorMessage;
+import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.DuplicationException;
 import kr.ac.hs.selab.member.converter.MemberConverter;
 import kr.ac.hs.selab.member.domain.Member;

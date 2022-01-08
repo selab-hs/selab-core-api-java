@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import kr.ac.hs.selab.common.dto.ResponseTemplate;
+import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.member.dto.request.CreateMemberRequest;
 import kr.ac.hs.selab.member.dto.response.CreateMemberResponse;
 import org.springframework.http.ResponseEntity;

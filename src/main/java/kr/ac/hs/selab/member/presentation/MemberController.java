@@ -1,7 +1,7 @@
 package kr.ac.hs.selab.member.presentation;
 
-import kr.ac.hs.selab.common.dto.ResponseTemplate;
-import kr.ac.hs.selab.common.dto.ResponseMessage;
+import kr.ac.hs.selab.common.template.ResponseTemplate;
+import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.converter.MemberConverter;
 import kr.ac.hs.selab.member.dto.bundle.CreateMemberBundle;

@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.error.dto;
+package kr.ac.hs.selab.error.template;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

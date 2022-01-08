@@ -1,15 +1,17 @@
 package kr.ac.hs.selab.member.domain.vo;
 
+import java.util.regex.Pattern;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
-import kr.ac.hs.selab.common.utils.ValidationUtils;
-import kr.ac.hs.selab.error.dto.ErrorMessage;
+import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.InvalidArgumentException;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Getter
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Password {
@@ -29,8 +31,9 @@ public class Password {
     }
 
     private void validate(String password) {
-        if (ValidationUtils.isWrongWithRegex(password, PASSWORD_REGEX)) {
-            throw new InvalidArgumentException(ErrorMessage.MEMBER_PASSWORD_INVALID_ARGUMENT_ERROR);
+        if (!Pattern.matches(PASSWORD_REGEX, password)) {
+            throw new InvalidArgumentException(
+                ErrorMessage.MEMBER_PASSWORD_INVALID_ARGUMENT_ERROR);
         }
     }
 

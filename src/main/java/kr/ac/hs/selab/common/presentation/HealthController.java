@@ -1,7 +1,7 @@
 package kr.ac.hs.selab.common.presentation;
 
-import kr.ac.hs.selab.common.dto.ResponseTemplate;
-import kr.ac.hs.selab.common.dto.ResponseMessage;
+import kr.ac.hs.selab.common.template.ResponseTemplate;
+import kr.ac.hs.selab.common.template.ResponseMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

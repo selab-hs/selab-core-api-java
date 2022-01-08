@@ -1,29 +1,31 @@
-package kr.ac.hs.selab.error.dto;
+package kr.ac.hs.selab.common.template;
 
 import java.time.LocalDateTime;
 import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 
 @Getter
-public class ErrorTemplate {
+public class ResponseTemplate<T> {
 
     private final String message;
     private final String code;
     private final LocalDateTime serverDateTime;
+    private final T data;
 
-    private ErrorTemplate(ErrorMessage message) {
+    private ResponseTemplate(ResponseMessage message, T data) {
         this.message = message.name();
         this.code = message.getCode();
         this.serverDateTime = LocalDateTime.now();
+        this.data = data;
     }
 
-    public static ResponseEntity<ErrorTemplate> of(ErrorMessage message) {
+    public static <T> ResponseEntity<ResponseTemplate<T>> of(ResponseMessage message, T data) {
         return ResponseEntity
             .status(
                 message.getStatus()
             )
             .body(
-                new ErrorTemplate(message)
+                new ResponseTemplate<>(message, data)
             );
     }
 }

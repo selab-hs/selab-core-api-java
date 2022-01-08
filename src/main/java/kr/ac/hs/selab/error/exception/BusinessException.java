@@ -1,6 +1,6 @@
 package kr.ac.hs.selab.error.exception;
 
-import kr.ac.hs.selab.error.dto.ErrorMessage;
+import kr.ac.hs.selab.error.template.ErrorMessage;
 import lombok.Getter;
 
 @Getter
