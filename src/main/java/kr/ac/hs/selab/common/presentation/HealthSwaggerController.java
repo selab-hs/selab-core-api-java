@@ -2,12 +2,12 @@ package kr.ac.hs.selab.common.presentation;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kr.ac.hs.selab.common.dto.ResponseDto;
+import kr.ac.hs.selab.common.template.ResponseTemplate;
 import org.springframework.http.ResponseEntity;
 
 @Api(tags = "Health Check API")
-public abstract class HealthAbstractController {
+public abstract class HealthSwaggerController {
 
     @ApiOperation("Health Check")
-    public abstract ResponseEntity<ResponseDto<String>> check();
+    public abstract ResponseEntity<ResponseTemplate<String>> check();
 }

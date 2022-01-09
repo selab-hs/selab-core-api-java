@@ -1,5 +1,7 @@
 package kr.ac.hs.selab.member.domain;
 
+import java.util.Collection;
+import java.util.Collections;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -19,12 +21,15 @@ import kr.ac.hs.selab.member.domain.vo.Role;
 import kr.ac.hs.selab.member.domain.vo.StudentId;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
 
+    @Getter
     @Id
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,5 +75,22 @@ public class Member extends BaseEntity {
 
     public String getNicknameValue() {
         return nickname.getNickname();
+    }
+
+    public String getEmailValue() {
+        return email.getEmail();
+    }
+
+    public String getPasswordValue() {
+        return password.getPassword();
+    }
+
+    public Collection<GrantedAuthority> getAuthority() {
+        return Collections
+            .singletonList(role.getGrantedAuthority());
+    }
+
+    public String getRoleValue() {
+        return role.getDescription();
     }
 }

@@ -2,7 +2,7 @@ package kr.ac.hs.selab.member.domain.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import kr.ac.hs.selab.error.dto.ErrorMessage;
+import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.InvalidArgumentException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

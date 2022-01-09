@@ -3,9 +3,9 @@ package kr.ac.hs.selab.member.domain.vo;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
-import kr.ac.hs.selab.common.utils.ValidationUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,7 +23,7 @@ public class Avatar {
     }
 
     private String validate(String avatar) {
-        if (ValidationUtils.isCorrect(avatar)) {
+        if (StringUtils.hasText(avatar)) {
             return avatar;
         }
         return DEFAULT_IMAGE_URL;

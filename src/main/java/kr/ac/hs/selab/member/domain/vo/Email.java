@@ -1,10 +1,10 @@
 package kr.ac.hs.selab.member.domain.vo;
 
+import java.util.regex.Pattern;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
-import kr.ac.hs.selab.common.utils.ValidationUtils;
-import kr.ac.hs.selab.error.dto.ErrorMessage;
+import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.InvalidArgumentException;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class Email {
     }
 
     private void validate(String email) {
-        if (ValidationUtils.isWrongWithRegex(email, EMAIL_REGEX)) {
+        if (!Pattern.matches(EMAIL_REGEX, email)) {
             throw new InvalidArgumentException(ErrorMessage.MEMBER_EMAIL_INVALID_ARGUMENT_ERROR);
         }
     }

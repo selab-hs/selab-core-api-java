@@ -11,6 +11,7 @@ import kr.ac.hs.selab.member.domain.vo.Terms;
 import kr.ac.hs.selab.member.dto.bundle.CreateMemberBundle;
 import kr.ac.hs.selab.member.dto.request.CreateMemberRequest;
 import kr.ac.hs.selab.member.dto.response.CreateMemberResponse;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,10 +29,10 @@ public class MemberConverter {
             .build();
     }
 
-    public Member toMember(CreateMemberBundle bundle) {
+    public Member toMember(CreateMemberBundle bundle, PasswordEncoder passwordEncoder) {
         return Member.builder()
             .email(bundle.getEmail())
-            .password(bundle.getPassword())
+            .password(bundle.getPassword().encode(passwordEncoder))
             .studentId(bundle.getStudentId())
             .name(bundle.getName())
             .nickname(bundle.getNickname())

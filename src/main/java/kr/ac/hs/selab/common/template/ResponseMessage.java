@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.common.dto;
+package kr.ac.hs.selab.common.template;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

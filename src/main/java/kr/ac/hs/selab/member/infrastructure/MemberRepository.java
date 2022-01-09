@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.member.infrastructure;
 
+import java.util.Optional;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.domain.vo.Nickname;
@@ -18,4 +19,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     boolean existsByStudentId(StudentId studentId);
 
     boolean existsByNickname(Nickname nickname);
+
+    Optional<Member> findByEmail(Email email);
 }

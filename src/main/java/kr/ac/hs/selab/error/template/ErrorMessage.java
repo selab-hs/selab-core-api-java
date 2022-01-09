@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.error.dto;
+package kr.ac.hs.selab.error.template;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +33,7 @@ public enum ErrorMessage {
         "중복된 회원 학번 입력입니다."),
     MEMBER_NICKNAME_DUPLICATION_ERROR("E-M-009", HttpStatus.BAD_REQUEST,
         "중복된 회원 닉네임 입력입니다."),
-
-    ;
+    MEMBER_NOT_EXISTS_ERROR("E-M-009", HttpStatus.NOT_FOUND, "존재하지 않는 회원 입니다.");
 
     private final String code;
     private final HttpStatus status;
