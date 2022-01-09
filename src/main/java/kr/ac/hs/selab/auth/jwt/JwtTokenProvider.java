@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
+import kr.ac.hs.selab.common.properties.JwtProperties;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -40,11 +42,10 @@ public class JwtTokenProvider implements InitializingBean {
     private Key key;
 
 
-    public JwtTokenProvider(
-        @Value("${jwt.secret}") String secret,
-        @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
-        this.secret = secret;
-        this.tokenValidityInMilliseconds = tokenValidityInSeconds * TOKEN_VALIDITY_TIME;
+    public JwtTokenProvider(JwtProperties jwtProperties) {
+        this.secret = jwtProperties.getSecret();
+        this.tokenValidityInMilliseconds =
+            jwtProperties.getTokenValidityInSeconds() * TOKEN_VALIDITY_TIME;
     }
 
     @Override
