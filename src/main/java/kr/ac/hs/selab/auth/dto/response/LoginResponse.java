@@ -1,11 +1,14 @@
-package kr.ac.hs.selab.auth;
+package kr.ac.hs.selab.auth.dto.response;
 
 import kr.ac.hs.selab.member.domain.vo.Role;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@Getter
 @Builder
+@RequiredArgsConstructor
 public class LoginResponse {
 
     private final String nickname;

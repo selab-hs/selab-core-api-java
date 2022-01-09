@@ -1,9 +1,9 @@
 package kr.ac.hs.selab.common.config;
 
-import kr.ac.hs.selab.auth.JwtAccessDeniedHandler;
-import kr.ac.hs.selab.auth.JwtAuthenticationEntryPoint;
-import kr.ac.hs.selab.auth.JwtSecurityConfig;
-import kr.ac.hs.selab.auth.JwtTokenProvider;
+import kr.ac.hs.selab.auth.jwt.JwtAccessDeniedHandler;
+import kr.ac.hs.selab.auth.jwt.JwtAuthenticationEntryPoint;
+import kr.ac.hs.selab.auth.jwt.JwtSecurityConfig;
+import kr.ac.hs.selab.auth.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,8 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             .authorizeRequests()
-            .antMatchers("/api/hello").permitAll()
-            .antMatchers("/api/v1/members/login").permitAll()
+            .antMatchers("/api/v1/health").permitAll()
+            .antMatchers("/api/v1/auth/login").permitAll()
             .antMatchers("/api/v1/members").permitAll()
 
             .anyRequest().authenticated()

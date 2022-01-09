@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.auth;
+package kr.ac.hs.selab.auth.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenProvider implements InitializingBean {
+
     private final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     private static final String AUTHORITIES_KEY = "auth";
@@ -40,8 +41,8 @@ public class JwtTokenProvider implements InitializingBean {
 
 
     public JwtTokenProvider(
-            @Value("${jwt.secret}") String secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+        @Value("${jwt.secret}") String secret,
+        @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
         this.secret = secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * TOKEN_VALIDITY_TIME;
     }
@@ -61,18 +62,18 @@ public class JwtTokenProvider implements InitializingBean {
         Date validity = expireTime(now);
 
         return Jwts.builder()
-                .setSubject(authentication.getName())
-                .claim(AUTHORITIES_KEY, authorities)
-                .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
-                .compact();
+            .setSubject(authentication.getName())
+            .claim(AUTHORITIES_KEY, authorities)
+            .signWith(key, SignatureAlgorithm.HS512)
+            .setExpiration(validity)
+            .compact();
     }
 
 
     private String authoritiesToString(Authentication authentication) {
         return authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(CLAIMS_REGEX));
+            .map(GrantedAuthority::getAuthority)
+            .collect(Collectors.joining(CLAIMS_REGEX));
     }
 
     private long currentTime() {
@@ -95,31 +96,30 @@ public class JwtTokenProvider implements InitializingBean {
 
     private Claims makeClaims(String token) {
         return Jwts
-                .parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+            .parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
     }
 
     private Collection<? extends GrantedAuthority> makeAuthorities(Claims claims) {
         return Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(CLAIMS_REGEX))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
     }
 
     private User newPrincipal(Claims claims, Collection<? extends GrantedAuthority> authorities) {
         return new User(claims.getSubject(), EMPTY_REGEX, authorities);
     }
 
-    // TODO :: Exception 처리 진행 필요
     public boolean validateToken(String token) {
         try {
             Jwts
-                    .parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(token);
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             logger.info("잘못된 JWT 서명입니다.");

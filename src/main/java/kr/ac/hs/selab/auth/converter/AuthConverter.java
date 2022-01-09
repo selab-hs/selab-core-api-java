@@ -1,5 +1,6 @@
-package kr.ac.hs.selab.auth;
+package kr.ac.hs.selab.auth.converter;
 
+import kr.ac.hs.selab.auth.dto.response.LoginResponse;
 import kr.ac.hs.selab.member.domain.Member;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
@@ -7,11 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthConverter {
 
-    public LoginResponse toLoginResponse(Member member, TokenBundle token) {
+    public LoginResponse toLoginResponse(Member member, String token) {
         return LoginResponse.builder()
             .nickname(member.getNicknameValue())
             .role(member.getRoleValue())
-            .token(token.getToken())
+            .token(token)
             .build();
     }
 

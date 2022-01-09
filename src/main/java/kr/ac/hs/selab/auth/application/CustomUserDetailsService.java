@@ -1,5 +1,6 @@
-package kr.ac.hs.selab.auth;
+package kr.ac.hs.selab.auth.application;
 
+import kr.ac.hs.selab.auth.converter.AuthConverter;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.member.domain.vo.Email;

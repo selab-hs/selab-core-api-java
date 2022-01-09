@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.auth;
+package kr.ac.hs.selab.auth.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
