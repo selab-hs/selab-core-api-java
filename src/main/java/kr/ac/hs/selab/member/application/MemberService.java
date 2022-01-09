@@ -31,6 +31,12 @@ public class MemberService {
         return memberConverter.toCreateMemberResponse(member);
     }
 
+    @Transactional(readOnly = true)
+    public Member findByEmail(Email email) {
+        return memberRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("hell"));
+    }
+
     private void isDuplication(CreateMemberBundle bundle) {
         isDuplicationEmail(bundle.getEmail());
         isDuplicationStudentId(bundle.getStudentId());

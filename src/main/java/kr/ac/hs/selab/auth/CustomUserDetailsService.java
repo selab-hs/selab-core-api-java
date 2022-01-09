@@ -1,5 +1,8 @@
 package kr.ac.hs.selab.auth;
 
+import kr.ac.hs.selab.error.exception.common.NonExitsException;
+import kr.ac.hs.selab.error.template.ErrorMessage;
+import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,10 +19,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(final String inputEmail) {
-        Email email = new Email(inputEmail);
-        return memberRepository.findOneWithAuthoritiesByEmail(email)
+    public UserDetails loadUserByUsername(final String username) {
+        Email email = Email.of(username);
+        return memberRepository.findByEmail(email)
             .map(authConverter::toUser)
-            .orElseThrow(() -> new AuthException(ErrorMessage.NOT_EXIST_MEMBER));
+            .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
     }
 }

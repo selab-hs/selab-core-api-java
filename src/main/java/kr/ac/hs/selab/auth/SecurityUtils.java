@@ -1,8 +1,8 @@
 package kr.ac.hs.selab.auth;
 
 import java.util.Objects;
-import kr.ac.hs.oing.error.ErrorMessage;
-import kr.ac.hs.oing.error.exception.NonExitsException;
+import kr.ac.hs.selab.error.exception.common.NonExitsException;
+import kr.ac.hs.selab.error.template.ErrorMessage;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -26,21 +26,21 @@ public class SecurityUtils {
         }
 
         if (Objects.isNull(authentication.getPrincipal())) {
-            throw new NonExitsException(ErrorMessage.NOT_EXIST_MEMBER);
+            throw new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR);
         }
 
         return authentication.getPrincipal().toString();
     }
-    
+
     private static void isNullAuthentication(Authentication authentication) {
         if (Objects.isNull(authentication)) {
-            throw new NonExitsException(ErrorMessage.NOT_EXIST_MEMBER);
+            throw new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR);
         }
     }
 
     private static void isNullSpringSecurityUser(UserDetails springSecurityUser) {
         if (Objects.isNull(springSecurityUser.getUsername())) {
-            throw new NonExitsException(ErrorMessage.NOT_EXIST_MEMBER);
+            throw new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR);
         }
     }
 }

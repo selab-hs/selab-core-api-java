@@ -1,5 +1,9 @@
 package kr.ac.hs.selab.common.config;
 
+import kr.ac.hs.selab.auth.JwtAccessDeniedHandler;
+import kr.ac.hs.selab.auth.JwtAuthenticationEntryPoint;
+import kr.ac.hs.selab.auth.JwtSecurityConfig;
+import kr.ac.hs.selab.auth.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,26 +22,47 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final JwtTokenProvider tokenProvider;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
     private final CorsConfig corsConfig;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+            .csrf().disable();
+
+        httpSecurity
             .cors()
             .configurationSource(CorsConfigurationSource());
 
         httpSecurity
-            .csrf().disable();
+            .exceptionHandling()
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .accessDeniedHandler(jwtAccessDeniedHandler)
 
-        httpSecurity
-            .formLogin().disable();
+            // enable h2-console
+            .and()
+            .headers()
+            .frameOptions()
+            .sameOrigin()
 
-        httpSecurity
-            .httpBasic().disable();
-
-        httpSecurity
+            // 세션을 사용하지 않기 때문에 STATELESS로 설정
+            .and()
             .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+            .and()
+            .authorizeRequests()
+            .antMatchers("/api/hello").permitAll()
+            .antMatchers("/api/v1/members/login").permitAll()
+            .antMatchers("/api/v1/members").permitAll()
+
+            .anyRequest().authenticated()
+
+            .and()
+            .apply(new JwtSecurityConfig(tokenProvider));
     }
 
     @Bean

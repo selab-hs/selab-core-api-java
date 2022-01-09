@@ -2,12 +2,12 @@ package kr.ac.hs.selab.auth;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import kr.ac.hs.oing.common.converter.ResponseConverter;
-import kr.ac.hs.oing.common.dto.ResponseDto;
-import kr.ac.hs.oing.common.dto.ResponseMessage;
-import kr.ac.hs.oing.member.application.MemberService;
-import kr.ac.hs.oing.member.dto.bundle.MemberLoginBundle;
+import kr.ac.hs.selab.common.template.ResponseMessage;
+import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.member.application.MemberService;
+import kr.ac.hs.selab.member.domain.Member;
+import kr.ac.hs.selab.member.domain.vo.Email;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api("Auth")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -29,18 +29,17 @@ public class AuthController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final MemberService memberService;
     private final AuthConverter authConverter;
-    private final ResponseConverter responseConverter;
 
     @ApiOperation("로그인")
-    @PostMapping("/member/login")
-    public ResponseEntity<ResponseDto<LoginResponse>> login(@RequestBody LoginRequest dto) {
-        return responseConverter.toResponseEntity(ResponseMessage.LOGIN_SUCCESS,
-            loginResponse(dto));
+    @PostMapping("/members/login")
+    public ResponseEntity<ResponseTemplate<LoginResponse>> login(@RequestBody LoginRequest dto) {
+        final LoginResponse loginResponse = loginResponse(dto);
+        return ResponseTemplate.of(ResponseMessage.HEALTH_GOOD, loginResponse);
     }
 
     private LoginResponse loginResponse(LoginRequest dto) {
         TokenBundle token = newToken(dto);
-        MemberLoginBundle member = memberService.findMember(dto.getEmail());
+        Member member = memberService.findByEmail(Email.of(dto.getEmail()));
 
         return authConverter.toLoginResponse(member, token);
     }
@@ -65,11 +64,11 @@ public class AuthController {
     }
 
     private String email(LoginRequest loginDto) {
-        return loginDto.getEmail().toString();
+        return loginDto.getEmail();
     }
 
     private String password(LoginRequest loginDto) {
-        return loginDto.getPassword().toString();
+        return loginDto.getPassword();
     }
 
     private Authentication newAuthentication(

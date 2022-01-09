@@ -1,17 +1,10 @@
 package kr.ac.hs.selab.auth;
 
-import kr.ac.hs.oing.member.domain.vo.Email;
-import kr.ac.hs.oing.member.domain.vo.Password;
+import lombok.Getter;
 
+@Getter
 public class LoginRequest {
-    private Email email;
-    private Password password;
 
-    public Email getEmail() {
-        return email;
-    }
-
-    public Password getPassword() {
-        return password;
-    }
+    private String email;
+    private String password;
 }
