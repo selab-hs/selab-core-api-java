@@ -35,14 +35,15 @@ public class JwtTokenProvider implements InitializingBean {
     private static final int TOKEN_VALIDITY_TIME = 1000;
     private static final String CLAIMS_REGEX = ",";
     private static final String EMPTY_REGEX = "";
-
+    private final String issuer;
     private final String secret;
-    private final long tokenValidityInMilliseconds;
+    private final Long tokenValidityInMilliseconds;
 
     private Key key;
 
 
     public JwtTokenProvider(JwtProperties jwtProperties) {
+        this.issuer = jwtProperties.getIssuer();
         this.secret = jwtProperties.getSecret();
         this.tokenValidityInMilliseconds =
             jwtProperties.getTokenValidityInSeconds() * TOKEN_VALIDITY_TIME;
@@ -64,6 +65,7 @@ public class JwtTokenProvider implements InitializingBean {
 
         return Jwts.builder()
             .setSubject(authentication.getName())
+            .setIssuer(issuer)
             .claim(AUTHORITIES_KEY, authorities)
             .signWith(key, SignatureAlgorithm.HS512)
             .setExpiration(validity)
@@ -81,11 +83,9 @@ public class JwtTokenProvider implements InitializingBean {
         return (new Date()).getTime();
     }
 
-
     private Date expireTime(long now) {
         return new Date(now + this.tokenValidityInMilliseconds);
     }
-
 
     public Authentication getAuthentication(String token) {
         Claims claims = makeClaims(token);

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class JwtProperties {
 
     private String header;
+    @Getter
     private String issuer;
     @Getter
     private String secret;
