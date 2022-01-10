@@ -1,6 +1,5 @@
 package kr.ac.hs.selab.auth.dto.response;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

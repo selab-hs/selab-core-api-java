@@ -7,9 +7,6 @@ import kr.ac.hs.selab.auth.jwt.JwtTokenProvider;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.member.application.MemberService;
-import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.member.domain.vo.Email;
-import kr.ac.hs.selab.member.domain.vo.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +25,6 @@ public class AuthController extends AuthSwaggerController {
 
     private final JwtTokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final MemberService memberService;
     private final AuthConverter authConverter;
 
     @Override
