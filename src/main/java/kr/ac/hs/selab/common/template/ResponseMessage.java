@@ -17,6 +17,11 @@ public enum ResponseMessage {
      **/
     MEMBER_INSERT_SUCCESS("R-M-001", HttpStatus.CREATED, "회원 가입을 완료했습니다."),
 
+    /**
+     * AUTH SUCCESS RESPONSE MESSAGE
+     **/
+    AUTH_LOGIN_SUCCESS("R-M-001", HttpStatus.OK, "로그인을 성공했습니다."),
+
     ;
 
     private final String code;

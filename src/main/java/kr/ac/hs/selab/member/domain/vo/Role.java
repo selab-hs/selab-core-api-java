@@ -1,6 +1,7 @@
 package kr.ac.hs.selab.member.domain.vo;
 
 import java.util.Arrays;
+import java.util.Collection;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

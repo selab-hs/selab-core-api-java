@@ -9,6 +9,7 @@ import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.Email;
+import kr.ac.hs.selab.member.domain.vo.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,13 +33,9 @@ public class AuthController extends AuthSwaggerController {
 
     @Override
     @PostMapping("/auth/login")
-    public ResponseEntity<ResponseTemplate<LoginResponse>> login(@RequestBody LoginRequest dto) {
-        final LoginResponse loginResponse = loginResponse(dto);
-        return ResponseTemplate.of(ResponseMessage.HEALTH_GOOD, loginResponse);
-    }
-
-    private LoginResponse loginResponse(LoginRequest request) {
-        final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+    public ResponseEntity<ResponseTemplate<LoginResponse>> login(
+        @RequestBody LoginRequest request) {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
             request.getEmail(),
             request.getPassword()
         );
@@ -49,8 +46,7 @@ public class AuthController extends AuthSwaggerController {
 
         String token = tokenProvider.createToken(authentication);
 
-        Member member = memberService.findByEmail(Email.of(request.getEmail()));
-
-        return authConverter.toLoginResponse(member, token);
+        LoginResponse loginResponse = authConverter.toLoginResponse(authentication, token);
+        return ResponseTemplate.of(ResponseMessage.AUTH_LOGIN_SUCCESS, loginResponse);
     }
 }
