@@ -25,7 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-
     private final CorsConfig corsConfig;
 
     @Override
@@ -73,4 +72,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UrlBasedCorsConfigurationSource CorsConfigurationSource() {
         return corsConfig.corsConfigurationSource();
     }
+
 }

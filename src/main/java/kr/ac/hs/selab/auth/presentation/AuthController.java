@@ -1,7 +1,5 @@
 package kr.ac.hs.selab.auth.presentation;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import kr.ac.hs.selab.auth.converter.AuthConverter;
 import kr.ac.hs.selab.auth.dto.request.LoginRequest;
 import kr.ac.hs.selab.auth.dto.response.LoginResponse;
