@@ -19,11 +19,7 @@ public class ErrorTemplate {
 
     public static ResponseEntity<ErrorTemplate> of(ErrorMessage message) {
         return ResponseEntity
-            .status(
-                message.getStatus()
-            )
-            .body(
-                new ErrorTemplate(message)
-            );
+            .status(message.getStatus())
+            .body(new ErrorTemplate(message));
     }
 }
