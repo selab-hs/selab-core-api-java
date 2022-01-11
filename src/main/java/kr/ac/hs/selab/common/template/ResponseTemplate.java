@@ -21,11 +21,7 @@ public class ResponseTemplate<T> {
 
     public static <T> ResponseEntity<ResponseTemplate<T>> of(ResponseMessage message, T data) {
         return ResponseEntity
-            .status(
-                message.getStatus()
-            )
-            .body(
-                new ResponseTemplate<>(message, data)
-            );
+            .status(message.getStatus())
+            .body(new ResponseTemplate<>(message, data));
     }
 }
