@@ -22,6 +22,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String[] AUTH_WHITELIST = {
+        "/v2/api-docs",
+        "/swagger-resources",
+        "/swagger-resources/**",
+        "/configuration/ui",
+        "/configuration/security",
+        "/swagger-ui.html",
+        "/webjars/**",
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/health"
+    };
+
     private final JwtTokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
@@ -41,20 +54,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationEntryPoint(jwtAuthenticationEntryPoint)
             .accessDeniedHandler(jwtAccessDeniedHandler)
 
-            // enable h2-console
             .and()
             .headers()
             .frameOptions()
             .sameOrigin()
 
-            // 세션을 사용하지 않기 때문에 STATELESS로 설정
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
             .and()
             .authorizeRequests()
-            .antMatchers("/api/v1/health").permitAll()
+            .antMatchers(AUTH_WHITELIST).permitAll()
             .antMatchers("/api/v1/auth/login").permitAll()
             .antMatchers("/api/v1/members").permitAll()
 
