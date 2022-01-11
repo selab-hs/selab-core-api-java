@@ -19,6 +19,7 @@ import springfox.documentation.service.SecurityReference;
 @ConfigurationProperties(prefix = "swagger")
 public class SwaggerProperties {
 
+    private static final String SWAGGER_SPLIT_REGEX = ",";
     private String projectName;
     private String githubUrl;
     private String developerEmail;
@@ -35,6 +36,11 @@ public class SwaggerProperties {
     private String apiPassAs;
     private String authorizationScope;
     private String authorizationDescription;
+    private String whiteList;
+
+    public String[] getWhiteList() {
+        return whiteList.split(SWAGGER_SPLIT_REGEX);
+    }
 
     public Set<String> toProducesAndConsumes() {
         return new HashSet<>(Arrays.asList(typeJson, typeXml));

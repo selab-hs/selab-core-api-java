@@ -21,24 +21,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private static final String[] AUTH_WHITELIST = {
-        "/v2/api-docs",
-        "/swagger-resources",
-        "/swagger-resources/**",
-        "/configuration/ui",
-        "/configuration/security",
-        "/swagger-ui.html",
-        "/webjars/**",
-        "/v3/api-docs/**",
-        "/swagger-ui/**",
-        "/health"
-    };
-
+    
     private final JwtTokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final CorsConfig corsConfig;
+    private final SwaggerConfig swaggerConfig;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -65,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             .authorizeRequests()
-            .antMatchers(AUTH_WHITELIST).permitAll()
+            .antMatchers(swaggerConfig.whiteListInSwagger()).permitAll()
             .antMatchers("/api/v1/auth/login").permitAll()
             .antMatchers("/api/v1/members").permitAll()
 
