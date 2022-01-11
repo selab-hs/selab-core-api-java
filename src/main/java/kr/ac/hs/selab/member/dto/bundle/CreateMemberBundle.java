@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.member.dto.bundle;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import kr.ac.hs.selab.member.domain.vo.Avatar;
 import kr.ac.hs.selab.member.domain.vo.Email;
 import kr.ac.hs.selab.member.domain.vo.Name;
