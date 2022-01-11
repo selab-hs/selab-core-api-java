@@ -21,11 +21,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+    
     private final JwtTokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final CorsConfig corsConfig;
+    private final SwaggerConfig swaggerConfig;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -41,20 +42,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationEntryPoint(jwtAuthenticationEntryPoint)
             .accessDeniedHandler(jwtAccessDeniedHandler)
 
-            // enable h2-console
             .and()
             .headers()
             .frameOptions()
             .sameOrigin()
 
-            // 세션을 사용하지 않기 때문에 STATELESS로 설정
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
             .and()
             .authorizeRequests()
-            .antMatchers("/api/v1/health").permitAll()
+            .antMatchers(swaggerConfig.whiteListInSwagger()).permitAll()
             .antMatchers("/api/v1/auth/login").permitAll()
             .antMatchers("/api/v1/members").permitAll()
 
