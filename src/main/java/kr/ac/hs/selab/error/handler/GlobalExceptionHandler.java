@@ -19,6 +19,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorTemplate> handleException() {
-        return ErrorTemplate.of(ErrorMessage.NOT_DEFINE_ERROR);
+        return ErrorTemplate.of(ErrorMessage.CONFLICT_ERROR);
     }
 }
