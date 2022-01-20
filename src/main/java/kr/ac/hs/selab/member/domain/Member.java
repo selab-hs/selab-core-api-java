@@ -12,13 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import kr.ac.hs.selab.common.domain.BaseEntity;
 import kr.ac.hs.selab.member.domain.vo.Avatar;
-import kr.ac.hs.selab.member.domain.vo.Email;
-import kr.ac.hs.selab.member.domain.vo.Name;
-import kr.ac.hs.selab.member.domain.vo.Nickname;
 import kr.ac.hs.selab.member.domain.vo.Password;
 import kr.ac.hs.selab.member.domain.vo.Terms;
 import kr.ac.hs.selab.member.domain.vo.Role;
-import kr.ac.hs.selab.member.domain.vo.StudentId;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,22 +31,23 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
-    private Email email;
+    @Getter
+    private String email;
 
     @Embedded
     private Password password;
 
-    @Embedded
-    private StudentId studentId;
+    @Column(name = "member_student_id", unique = true)
+    private String studentId;
 
-    @Embedded
-    private Name name;
+    @Column(name = "member_name")
+    private String name;
 
-    @Embedded
-    private Nickname nickname;
+    @Getter
+    @Column(name = "member_nickname", unique = true)
+    private String nickname;
 
-    @Embedded
+    @Column(name = "member_avatar")
     private Avatar avatar;
 
     @Embedded
@@ -61,8 +58,8 @@ public class Member extends BaseEntity {
     private Role role;
 
     @Builder
-    private Member(Email email, Password password, StudentId studentId,
-        Name name, Nickname nickname, Avatar avatar, Terms terms) {
+    private Member(String email, Password password, String studentId, String name,
+        String nickname, Avatar avatar, Terms terms) {
         this.email = email;
         this.password = password;
         this.studentId = studentId;
@@ -71,14 +68,6 @@ public class Member extends BaseEntity {
         this.avatar = avatar;
         this.terms = terms;
         this.role = Role.USER;
-    }
-
-    public String getNicknameValue() {
-        return nickname.getNickname();
-    }
-
-    public String getEmailValue() {
-        return email.getEmail();
     }
 
     public String getPasswordValue() {
