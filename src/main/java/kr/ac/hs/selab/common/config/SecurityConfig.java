@@ -4,6 +4,7 @@ import kr.ac.hs.selab.auth.jwt.JwtAccessDeniedHandler;
 import kr.ac.hs.selab.auth.jwt.JwtAuthenticationEntryPoint;
 import kr.ac.hs.selab.auth.jwt.JwtSecurityConfig;
 import kr.ac.hs.selab.auth.jwt.JwtTokenProvider;
+import kr.ac.hs.selab.member.domain.vo.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,10 +22,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     private final JwtTokenProvider tokenProvider;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final CorsConfig corsConfig;
     private final SwaggerConfig swaggerConfig;
 
@@ -39,8 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity
             .exceptionHandling()
-            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-            .accessDeniedHandler(jwtAccessDeniedHandler)
+            .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+            .accessDeniedHandler(new JwtAccessDeniedHandler())
 
             .and()
             .headers()
@@ -51,12 +50,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
+            // TODO : Admin 및 일반 유저에 대한 필터링 기능 제공하기
             .and()
             .authorizeRequests()
             .antMatchers(swaggerConfig.whiteListInSwagger()).permitAll()
             .antMatchers("/api/v1/auth/login").permitAll()
             .antMatchers("/api/v1/members").permitAll()
-
+            .antMatchers("/api/**/admin/**").hasAnyAuthority("ROLE_ADMIN")
+            .antMatchers("/api/**").hasAnyAuthority("ROLE_USER")
             .anyRequest().authenticated()
 
             .and()

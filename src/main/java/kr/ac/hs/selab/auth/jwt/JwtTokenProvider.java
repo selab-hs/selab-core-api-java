@@ -14,8 +14,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 import kr.ac.hs.selab.common.properties.JwtProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,28 +24,18 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider implements InitializingBean {
-
-    private final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     private static final String AUTHORITIES_KEY = "auth";
     private static final int TOKEN_VALIDITY_TIME = 1000;
     private static final String CLAIMS_REGEX = ",";
     private static final String EMPTY_REGEX = "";
-    private final String issuer;
-    private final String secret;
-    private final Long tokenValidityInMilliseconds;
+    private final JwtProperties jwtProperties;
 
     private Key key;
-
-
-    public JwtTokenProvider(JwtProperties jwtProperties) {
-        this.issuer = jwtProperties.getIssuer();
-        this.secret = jwtProperties.getSecret();
-        this.tokenValidityInMilliseconds =
-            jwtProperties.getTokenValidityInSeconds() * TOKEN_VALIDITY_TIME;
-    }
 
     @Override
     public void afterPropertiesSet() {
@@ -53,7 +43,7 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     private byte[] decodeBytes() {
-        return Decoders.BASE64.decode(secret);
+        return Decoders.BASE64.decode(jwtProperties.getSecret());
     }
 
     public String createToken(Authentication authentication) {
@@ -63,7 +53,7 @@ public class JwtTokenProvider implements InitializingBean {
 
         return Jwts.builder()
             .setSubject(authentication.getName())
-            .setIssuer(issuer)
+            .setIssuer(jwtProperties.getIssuer())
             .claim(AUTHORITIES_KEY, authorities)
             .signWith(key, SignatureAlgorithm.HS512)
             .setExpiration(validity)
@@ -82,9 +72,12 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     private Date expireTime(long now) {
-        return new Date(now + this.tokenValidityInMilliseconds);
+        final long time = jwtProperties.getTokenValidityInSeconds() * TOKEN_VALIDITY_TIME;
+        return new Date(now + time);
     }
 
+    // TODO : Provider와 상관 없는 내용임으로 분리해야 한다.
+    // 이건아님
     public Authentication getAuthentication(String token) {
         Claims claims = makeClaims(token);
         Collection<? extends GrantedAuthority> authorities = makeAuthorities(claims);
@@ -93,6 +86,7 @@ public class JwtTokenProvider implements InitializingBean {
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
+    // 이건아님
     private Claims makeClaims(String token) {
         return Jwts
             .parserBuilder()
@@ -102,16 +96,20 @@ public class JwtTokenProvider implements InitializingBean {
             .getBody();
     }
 
+    // 이건아님
     private Collection<? extends GrantedAuthority> makeAuthorities(Claims claims) {
         return Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(CLAIMS_REGEX))
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
     }
 
+    // 이건아님
     private User newPrincipal(Claims claims, Collection<? extends GrantedAuthority> authorities) {
         return new User(claims.getSubject(), EMPTY_REGEX, authorities);
     }
 
+    // 이건아님
+    // TODO : 필터를 회원가입, 로그인 health check 등등에서는 못타도록 구성해야 한다.
     public boolean validateToken(String token) {
         try {
             Jwts
@@ -121,13 +119,14 @@ public class JwtTokenProvider implements InitializingBean {
                 .parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            logger.info("잘못된 JWT 서명입니다.");
+            log.info("잘못된 JWT 서명입니다.");
         } catch (ExpiredJwtException e) {
-            logger.info("만료된 JWT 토큰입니다.");
+            log.info("만료된 JWT 토큰입니다.");
         } catch (UnsupportedJwtException e) {
-            logger.info("지원되지 않는 JWT 토큰입니다.");
+            log.info("지원되지 않는 JWT 토큰입니다.");
         } catch (IllegalArgumentException e) {
-            logger.info("JWT 토큰이 잘못되었습니다.");
+            e.printStackTrace();
+            log.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
     }

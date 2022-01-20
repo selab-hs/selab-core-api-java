@@ -5,14 +5,15 @@ import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class SecurityUtils {
 
-    public static String getCurrentUsername() {
+    public String getCurrentUsername() {
         Authentication authentication = getAuthentication();
 
         if (authentication.getPrincipal() instanceof UserDetails) {
@@ -22,36 +23,36 @@ public class SecurityUtils {
         return getAuthenticationPrincipal(authentication);
     }
 
-    private static Authentication getAuthentication() {
+    private Authentication getAuthentication() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         isNullAuthentication(authentication);
         return authentication;
     }
 
-    private static void isNullAuthentication(Authentication authentication) {
+    private void isNullAuthentication(Authentication authentication) {
         if (Objects.isNull(authentication)) {
             throw new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR);
         }
     }
 
-    private static UserDetails getUserDetails(Authentication authentication) {
+    private UserDetails getUserDetails(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         isNullUserDetails(userDetails);
         return userDetails;
     }
 
-    private static void isNullUserDetails(UserDetails userDetails) {
+    private void isNullUserDetails(UserDetails userDetails) {
         if (Objects.isNull(userDetails.getUsername())) {
             throw new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR);
         }
     }
 
-    private static String getAuthenticationPrincipal(Authentication authentication) {
+    private String getAuthenticationPrincipal(Authentication authentication) {
         isNullAuthenticationPrincipal(authentication);
         return authentication.getPrincipal().toString();
     }
 
-    private static void isNullAuthenticationPrincipal(Authentication authentication) {
+    private void isNullAuthenticationPrincipal(Authentication authentication) {
         if (Objects.isNull(authentication.getPrincipal())) {
             throw new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR);
         }

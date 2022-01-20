@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.common.config;
 
+import javax.validation.constraints.NotNull;
 import kr.ac.hs.selab.common.properties.CorsProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -8,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+// TODO : 네이밍 전략 수정 진행하기
 @Configuration
 @EnableConfigurationProperties(CorsProperties.class)
 @RequiredArgsConstructor
 public class CorsConfig {
 
+    @NotNull
     private final CorsProperties corsProperties;
 
     @Bean
@@ -26,32 +29,12 @@ public class CorsConfig {
     }
 
     private CorsConfiguration registerCorsConfiguration(CorsConfiguration corsConfig) {
-        registerAllowedHeaders(corsConfig);
-        registerAllowedMethods(corsConfig);
-        registerAllowedOrigins(corsConfig);
-        registerAllowedCredentials(corsConfig);
-        registerMaxAge(corsConfig);
-        return corsConfig;
-    }
-
-    private void registerAllowedHeaders(CorsConfiguration corsConfig) {
         corsConfig.setAllowedHeaders(corsProperties.getAllowedHeaders());
-    }
-
-    private void registerAllowedMethods(CorsConfiguration corsConfig) {
         corsConfig.setAllowedMethods(corsProperties.getAllowedMethods());
-    }
-
-    private void registerAllowedOrigins(CorsConfiguration corsConfig) {
         corsConfig.setAllowedOrigins(corsProperties.getAllowedOrigins());
-    }
-
-    private void registerAllowedCredentials(CorsConfiguration corsConfig) {
         corsConfig.setAllowCredentials(true);
-    }
-
-    private void registerMaxAge(CorsConfiguration corsConfig) {
         corsConfig.setMaxAge(corsConfig.getMaxAge());
+        return corsConfig;
     }
 
     private UrlBasedCorsConfigurationSource makeUrlBasedCorsConfigurationSource(

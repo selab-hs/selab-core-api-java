@@ -19,6 +19,7 @@ import springfox.documentation.service.SecurityReference;
 @ConfigurationProperties(prefix = "swagger")
 public class SwaggerProperties {
 
+    // TODO : 정말 보안에 취약한 부분에 한하여 Properties로 관리하기
     private static final String SWAGGER_SPLIT_REGEX = ",";
     private String projectName;
     private String githubUrl;

@@ -1,14 +1,12 @@
 package kr.ac.hs.selab.member.application;
 
+import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.DuplicationException;
 import kr.ac.hs.selab.member.converter.MemberConverter;
 import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.member.domain.vo.Email;
-import kr.ac.hs.selab.member.domain.vo.Nickname;
-import kr.ac.hs.selab.member.domain.vo.StudentId;
-import kr.ac.hs.selab.member.dto.bundle.CreateMemberBundle;
-import kr.ac.hs.selab.member.dto.response.CreateMemberResponse;
+import kr.ac.hs.selab.member.dto.bundle.MemberCreateBundle;
+import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,56 +18,43 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final MemberConverter memberConverter;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public CreateMemberResponse create(CreateMemberBundle bundle) {
+    public MemberCreateResponse create(MemberCreateBundle bundle) {
         isDuplication(bundle);
-        Member instance = memberConverter.toMember(bundle, passwordEncoder);
+        Member instance = MemberConverter.toMember(bundle, passwordEncoder);
         Member member = memberRepository.save(instance);
-        return memberConverter.toCreateMemberResponse(member);
+        return MemberConverter.toCreateMemberResponse(member);
     }
 
     @Transactional(readOnly = true)
-    public Member findByEmail(Email email) {
+    public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("hell"));
+            .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
     }
 
-    private void isDuplication(CreateMemberBundle bundle) {
-        isDuplicationEmail(bundle.getEmail());
-        isDuplicationStudentId(bundle.getStudentId());
-        isDuplicationNickname(bundle.getNickname());
-    }
-
-    private void isDuplicationEmail(Email email) {
-        if (existsByEmail(email)) {
+    private void isDuplication(MemberCreateBundle bundle) {
+        if (existsByEmail(bundle.getEmail())) {
             throw new DuplicationException(ErrorMessage.MEMBER_EMAIL_DUPLICATION_ERROR);
         }
-    }
-
-    private void isDuplicationStudentId(StudentId studentId) {
-        if (existsByStudentId(studentId)) {
+        if (existsByStudentId(bundle.getStudentId())) {
             throw new DuplicationException(ErrorMessage.MEMBER_STUDENT_ID_DUPLICATION_ERROR);
         }
-    }
-
-    private void isDuplicationNickname(Nickname nickname) {
-        if (existsByNickname(nickname)) {
+        if (existsByNickname(bundle.getNickname())) {
             throw new DuplicationException(ErrorMessage.MEMBER_NICKNAME_DUPLICATION_ERROR);
         }
     }
 
-    private boolean existsByEmail(Email email) {
+    private boolean existsByEmail(String email) {
         return memberRepository.existsByEmail(email);
     }
 
-    private boolean existsByStudentId(StudentId studentId) {
+    private boolean existsByStudentId(String studentId) {
         return memberRepository.existsByStudentId(studentId);
     }
 
-    private boolean existsByNickname(Nickname nickname) {
+    private boolean existsByNickname(String nickname) {
         return memberRepository.existsByNickname(nickname);
     }
 }
