@@ -3,7 +3,6 @@ package kr.ac.hs.selab.common.template;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import org.springframework.http.ResponseEntity;
 
 @Getter
 public class ResponseTemplate<T> {
@@ -24,9 +23,7 @@ public class ResponseTemplate<T> {
         this.data = data;
     }
 
-    public static <T> ResponseEntity<ResponseTemplate<T>> of(ResponseMessage message, T data) {
-        return ResponseEntity
-            .status(message.getStatus())
-            .body(new ResponseTemplate<>(message, data));
+    public static <T> ResponseTemplate<T> of(ResponseMessage message, T data) {
+        return new ResponseTemplate<>(message, data);
     }
 }
