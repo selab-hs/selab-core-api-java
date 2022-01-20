@@ -1,12 +1,12 @@
 package kr.ac.hs.selab.auth.presentation;
 
+import javax.validation.Valid;
 import kr.ac.hs.selab.auth.converter.AuthConverter;
-import kr.ac.hs.selab.auth.dto.request.LoginRequest;
-import kr.ac.hs.selab.auth.dto.response.LoginResponse;
+import kr.ac.hs.selab.auth.dto.request.AuthLoginRequest;
+import kr.ac.hs.selab.auth.dto.response.AuthLoginResponse;
 import kr.ac.hs.selab.auth.jwt.JwtTokenProvider;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
-import kr.ac.hs.selab.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,16 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-public class AuthController extends AuthSwaggerController {
+public class AuthController implements AuthSdk {
 
     private final JwtTokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final AuthConverter authConverter;
 
     @Override
     @PostMapping("/auth/login")
-    public ResponseEntity<ResponseTemplate<LoginResponse>> login(
-        @RequestBody LoginRequest request) {
+    public AuthLoginResponse login(
+        @Valid @RequestBody AuthLoginRequest request) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
             request.getEmail(),
             request.getPassword()
@@ -42,7 +41,6 @@ public class AuthController extends AuthSwaggerController {
 
         String token = tokenProvider.createToken(authentication);
 
-        LoginResponse loginResponse = authConverter.toLoginResponse(authentication, token);
-        return ResponseTemplate.of(ResponseMessage.AUTH_LOGIN_SUCCESS, loginResponse);
+        return AuthConverter.toAuthLoginResponse(authentication, token);
     }
 }
