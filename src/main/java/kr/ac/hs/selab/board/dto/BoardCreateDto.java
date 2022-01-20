@@ -1,13 +1,16 @@
 package kr.ac.hs.selab.board.dto;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Getter
 public class BoardCreateDto {
-    private final String title;
-    private final String description;
+    private String title;
+    private String description;
+
+    private BoardCreateDto(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 
     public static BoardCreateDto of(String title, String description) {
         return new BoardCreateDto(title, description);
