@@ -6,8 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class CreateMemberResponse {
+public class MemberCreateResponse {
 
-    @Schema(description = "닉네임")
     private final String nickname;
 }
