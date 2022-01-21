@@ -36,6 +36,6 @@ public class MemberConverter {
     }
 
     public static MemberCreateResponse toCreateMemberResponse(Member member) {
-        return new MemberCreateResponse(member.getNickname());
+        return new MemberCreateResponse(member.getEmail());
     }
 }

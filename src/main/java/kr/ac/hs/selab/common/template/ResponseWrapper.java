@@ -1,6 +1,6 @@
 package kr.ac.hs.selab.common.template;
 
-import java.util.Objects;
+import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -25,10 +25,7 @@ public class ResponseWrapper implements ResponseBodyAdvice<Object> {
         final ServerHttpRequest request,
         final ServerHttpResponse response) {
 
-        final Response methodAnnotation = returnType.getMethodAnnotation(Response.class);
-
-        response.setStatusCode(methodAnnotation.status());
-
-        return ResponseTemplate.of(methodAnnotation.message(), body);
+        response.setStatusCode(((ResponseTemplate<?>) body).getStatus());
+        return body;
     }
 }

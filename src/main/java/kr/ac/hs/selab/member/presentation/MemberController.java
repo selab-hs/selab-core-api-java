@@ -14,15 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/members", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/members")
 @RequiredArgsConstructor
 public class MemberController implements MemberSdk {
 
     private final MemberService memberService;
-    
+
+    // TODO : @Valid와 @Validated 학습 진행하기
     @Override
-    @PostMapping
-    public MemberCreateResponse insert(
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseTemplate<MemberCreateResponse> insert(
         @Valid @RequestBody MemberCreateRequest request) {
         MemberCreateBundle bundle = MemberConverter.toCreateMemberBundle(request);
         return memberService.create(bundle);

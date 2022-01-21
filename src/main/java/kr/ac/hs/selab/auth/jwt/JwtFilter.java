@@ -24,7 +24,7 @@ public class JwtFilter implements Filter {
         FilterChain filterChain)
         throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String jwt = new JwtToken().resolveToken(httpServletRequest);
+        String jwt = tokenProvider.resolveToken(httpServletRequest);
         if (tokenProvider.validateToken(jwt)) {
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -4,6 +4,7 @@ import kr.ac.hs.selab.auth.dto.response.AuthLoginResponse;
 import kr.ac.hs.selab.member.domain.Member;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class AuthConverter {
 
@@ -12,11 +13,11 @@ public class AuthConverter {
         return new AuthLoginResponse(authentication.getName(), token);
     }
 
-    public static User toUser(Member member) {
-        return new User(
-            member.getEmail(),
-            member.getPasswordValue(),
-            member.getAuthority()
-        );
+    public static UserDetails toUser(Member member) {
+        return User.builder()
+            .username(member.getEmail())
+            .password(member.getPasswordValue())
+            .authorities(member.getAuthority())
+            .build();
     }
 }

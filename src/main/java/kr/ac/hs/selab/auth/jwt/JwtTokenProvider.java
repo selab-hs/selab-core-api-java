@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import kr.ac.hs.selab.common.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 @Slf4j
 @Component
@@ -76,6 +78,19 @@ public class JwtTokenProvider implements InitializingBean {
         return new Date(now + time);
     }
 
+    public static final String BEARER_TOKEN = "Bearer ";
+    private static final int BEARER_TOKEN_SUBSTRING_INDEX = 7;
+
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TOKEN)) {
+            return bearerToken.substring(BEARER_TOKEN_SUBSTRING_INDEX);
+        }
+        return null;
+    }
+
     // TODO : Provider와 상관 없는 내용임으로 분리해야 한다.
     // 이건아님
     public Authentication getAuthentication(String token) {
@@ -110,6 +125,7 @@ public class JwtTokenProvider implements InitializingBean {
 
     // 이건아님
     // TODO : 필터를 회원가입, 로그인 health check 등등에서는 못타도록 구성해야 한다.
+    // Exception 잡아서 진행하기!!
     public boolean validateToken(String token) {
         try {
             Jwts

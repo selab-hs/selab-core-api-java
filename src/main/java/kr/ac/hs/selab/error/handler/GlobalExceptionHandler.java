@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     protected ResponseEntity<ErrorTemplate> handleBusinessException(
         BusinessException e) {
-        log.error("Exception -> {}", e.getStackTrace());
+        log.error("Exception -> {}", e);
         ErrorMessage message = e.getErrorMessage();
         return ResponseEntity
             .status(e.getStatus())
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorTemplate> handleException(Exception e) {
-        log.error("Exception -> {}", e.getStackTrace());
+        log.error("Exception -> {}", e);
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
             .body(new ErrorTemplate(ErrorMessage.CONFLICT_ERROR));

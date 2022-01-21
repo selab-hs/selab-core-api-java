@@ -28,12 +28,6 @@ public class MemberService {
         return MemberConverter.toCreateMemberResponse(member);
     }
 
-    @Transactional(readOnly = true)
-    public Member findByEmail(String email) {
-        return memberRepository.findByEmail(email)
-            .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
-    }
-
     private void isDuplication(MemberCreateBundle bundle) {
         if (existsByEmail(bundle.getEmail())) {
             throw new DuplicationException(ErrorMessage.MEMBER_EMAIL_DUPLICATION_ERROR);

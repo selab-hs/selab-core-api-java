@@ -50,8 +50,12 @@ public class Member extends BaseEntity {
     @Column(name = "member_avatar")
     private Avatar avatar;
 
+    // TODO : 동의문은 따로 테이블을 가져가야.,,,
+    // TODO : 테이블을 나눠서 가져가야! one to one이라도.. Member 만들때 넣어주기!
     @Embedded
-    private Terms terms;
+    private Terms terms; //TODO : Terms는 테이블...컬럼...(회원가입인지, 동의문인지 enum으로 관리하기..)
+    // TODO : 거래를 할 때도 Terms Check, 허가되징 낳은
+    // TODO : 법 상으로 동의문을 저장하여 증명용으로 남겨야 될 때
 
     @Column(name = "member_role")
     @Enumerated(EnumType.STRING)
@@ -77,9 +81,5 @@ public class Member extends BaseEntity {
     public Collection<GrantedAuthority> getAuthority() {
         return Collections
             .singletonList(role.getGrantedAuthority());
-    }
-
-    public String getRoleValue() {
-        return role.getDescription();
     }
 }

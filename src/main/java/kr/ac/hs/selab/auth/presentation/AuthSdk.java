@@ -6,11 +6,9 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
-import kr.ac.hs.selab.common.template.Response;
 import kr.ac.hs.selab.auth.dto.request.AuthLoginRequest;
 import kr.ac.hs.selab.auth.dto.response.AuthLoginResponse;
-import kr.ac.hs.selab.common.template.ResponseMessage;
-import org.springframework.http.HttpStatus;
+import kr.ac.hs.selab.common.template.ResponseTemplate;
 
 @Api(tags = "Auth REST API", description = "인증 및 인가 api")
 public interface AuthSdk {
@@ -19,8 +17,7 @@ public interface AuthSdk {
     @ApiResponses({
         @ApiResponse(code = 200, message = "로그인 성공")
     })
-    @Response(status = HttpStatus.OK, message = ResponseMessage.AUTH_LOGIN_SUCCESS)
-    AuthLoginResponse login(
+    ResponseTemplate<AuthLoginResponse> login(
         @ApiParam(value = "이메일과 비밀번호")
             AuthLoginRequest request);
 }

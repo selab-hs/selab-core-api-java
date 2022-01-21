@@ -8,7 +8,6 @@ import kr.ac.hs.selab.auth.jwt.JwtTokenProvider;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -28,7 +27,7 @@ public class AuthController implements AuthSdk {
 
     @Override
     @PostMapping("/auth/login")
-    public AuthLoginResponse login(
+    public ResponseTemplate<AuthLoginResponse> login(
         @Valid @RequestBody AuthLoginRequest request) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
             request.getEmail(),
@@ -41,6 +40,9 @@ public class AuthController implements AuthSdk {
 
         String token = tokenProvider.createToken(authentication);
 
-        return AuthConverter.toAuthLoginResponse(authentication, token);
+        final AuthLoginResponse response = AuthConverter.toAuthLoginResponse(
+            authentication, token);
+
+        return ResponseTemplate.ok(ResponseMessage.AUTH_LOGIN_SUCCESS, response);
     }
 }

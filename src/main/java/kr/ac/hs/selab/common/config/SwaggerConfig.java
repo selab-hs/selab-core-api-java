@@ -1,6 +1,7 @@
 package kr.ac.hs.selab.common.config;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import kr.ac.hs.selab.common.properties.SwaggerProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -17,6 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @RequiredArgsConstructor
 public class SwaggerConfig {
 
+    @NotNull
     private final SwaggerProperties swaggerProperties;
 
     private SecurityContext securityContext() {
