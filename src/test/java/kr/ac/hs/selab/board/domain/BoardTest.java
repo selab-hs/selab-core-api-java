@@ -17,14 +17,6 @@ class BoardTest {
     }
 
     @Test
-    void 저장_성공() {
-        // when, then
-        assertEquals("자유게시판", board.getTitle());
-        assertEquals("자유롭게 작성할 수 있는 게시판입니다.", board.getDescription());
-        assertEquals(false, board.getDeleteFlag());
-    }
-
-    @Test
     void 수정_성공() {
         // when
         board.update("장터게시판", "물건을 사고 팔 수 있는 게시판입니다.");

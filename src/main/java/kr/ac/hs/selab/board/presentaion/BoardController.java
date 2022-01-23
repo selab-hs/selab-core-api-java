@@ -10,9 +10,7 @@ import kr.ac.hs.selab.board.dto.response.BoardsResponse;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,11 +18,10 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping(value = "api/v1/boards")
 @RestController
-public class BoardController implements BoardSwaggerController {
+public class BoardController implements BoardSdk {
     private final BoardService boardService;
 
     @Override
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<ResponseTemplate<BoardResponse>> create(@Valid @RequestBody BoardRequest request) {
         BoardCreateDto dto = BoardCreateDto.of(request.getTitle(), request.getDescription());
@@ -47,7 +44,6 @@ public class BoardController implements BoardSwaggerController {
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<ResponseTemplate<BoardResponse>> update(@PathVariable Long id,
                                                                   @Valid @RequestBody BoardRequest request) {
@@ -57,7 +53,6 @@ public class BoardController implements BoardSwaggerController {
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<ResponseTemplate<BoardResponse>> delete(@PathVariable Long id) {
         BoardResponse response = boardService.delete(id);

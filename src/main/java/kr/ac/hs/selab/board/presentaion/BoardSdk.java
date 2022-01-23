@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Api(tags = "Board REST API", description = "게시판 api")
-public interface BoardSwaggerController {
+public interface BoardSdk {
     @Operation(summary = "게시판 생성", description = "게시판 정보를 이용해서 게시판을 생성한다.")
     @ApiResponses({
             @ApiResponse(code = 201, message = "게시판 생성 성공"),
