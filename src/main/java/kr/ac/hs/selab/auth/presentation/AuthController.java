@@ -29,16 +29,16 @@ public class AuthController implements AuthSdk {
     @PostMapping("/auth/login")
     public ResponseTemplate<AuthLoginResponse> login(
         @Valid @RequestBody AuthLoginRequest request) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+        final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
             request.getEmail(),
             request.getPassword()
         );
 
-        Authentication authentication = authenticationManagerBuilder.getObject()
+        final Authentication authentication = authenticationManagerBuilder.getObject()
             .authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = tokenProvider.createToken(authentication);
+        final String token = tokenProvider.createToken(authentication);
 
         final AuthLoginResponse response = AuthConverter.toAuthLoginResponse(
             authentication, token);

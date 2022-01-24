@@ -27,9 +27,12 @@ public class MemberCreateRequest {
     private final String nickname;
     private final String avatar;
 
-    // TODO : 데이터로 받는게 아니라, API를 쏴서 동의했는지 확인..
-    // TODO : 바로 TERMS에서 만들기...\
-    // TODO : API를 따로 빼는게 좋을듯..
+    /**
+     * TODO : Request 분리
+     * 데이터로 받는게 아니라, API를 쏴서 동의했는지 확인..
+     * 바로 TERMS에서 만들기..
+     * API를 따로 빼는게 좋을듯..
+     */
     @AssertTrue
     private final boolean termService;
     @AssertTrue

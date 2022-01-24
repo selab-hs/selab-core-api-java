@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     protected ResponseEntity<ErrorTemplate> handleBusinessException(
-        BusinessException e) {
+        final BusinessException e) {
         log.error("Exception -> {}", e);
         ErrorMessage message = e.getErrorMessage();
         return ResponseEntity
@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    protected ResponseEntity<ErrorTemplate> handleException(Exception e) {
+    protected ResponseEntity<ErrorTemplate> handleException(final Exception e) {
         log.error("Exception -> {}", e);
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)

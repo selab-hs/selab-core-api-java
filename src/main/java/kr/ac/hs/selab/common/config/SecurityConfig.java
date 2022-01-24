@@ -1,6 +1,5 @@
 package kr.ac.hs.selab.common.config;
 
-import javax.validation.constraints.NotNull;
 import kr.ac.hs.selab.auth.jwt.JwtAccessDeniedHandler;
 import kr.ac.hs.selab.auth.jwt.JwtAuthenticationEntryPoint;
 import kr.ac.hs.selab.auth.jwt.JwtSecurityConfig;
@@ -34,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity
             .cors()
-            .configurationSource(CorsConfigurationSource());
+            .configurationSource(corsConfigurationSource());
 
         httpSecurity
             .exceptionHandling()
@@ -50,14 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-            // TODO : Admin 및 일반 유저에 대한 필터링 기능 제공하기
             .and()
             .authorizeRequests()
             .antMatchers(swaggerConfig.whiteListInSwagger()).permitAll()
             .antMatchers("/api/v1/auth/login").permitAll()
             .antMatchers("/api/v1/members").permitAll()
-            //   .antMatchers("/api/**/admin/**").hasAnyAuthority("ROLE_ADMIN")
-            //  .antMatchers("/api/**").hasAnyAuthority("ROLE_USER")
+            .antMatchers("/api/**/admin/**").hasAnyAuthority("ROLE_ADMIN")
+            .antMatchers("/api/**").hasAnyAuthority("ROLE_USER")
             .anyRequest().authenticated()
 
             .and()
@@ -69,8 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    private UrlBasedCorsConfigurationSource CorsConfigurationSource() {
+    private UrlBasedCorsConfigurationSource corsConfigurationSource() {
         return corsConfig.corsConfigurationSource();
     }
-
 }

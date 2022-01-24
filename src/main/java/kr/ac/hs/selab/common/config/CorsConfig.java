@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-// TODO : 네이밍 전략 수정 진행하기
 @Configuration
 @EnableConfigurationProperties(CorsProperties.class)
 @RequiredArgsConstructor
@@ -28,7 +27,8 @@ public class CorsConfig {
         return registerCorsConfiguration(new CorsConfiguration());
     }
 
-    private CorsConfiguration registerCorsConfiguration(CorsConfiguration corsConfig) {
+    private CorsConfiguration registerCorsConfiguration(
+        @NotNull final CorsConfiguration corsConfig) {
         corsConfig.setAllowedHeaders(corsProperties.getAllowedHeaders());
         corsConfig.setAllowedMethods(corsProperties.getAllowedMethods());
         corsConfig.setAllowedOrigins(corsProperties.getAllowedOrigins());
@@ -38,12 +38,13 @@ public class CorsConfig {
     }
 
     private UrlBasedCorsConfigurationSource makeUrlBasedCorsConfigurationSource(
-        CorsConfiguration corsConfig) {
+        @NotNull final CorsConfiguration corsConfig) {
         return addCorsConfiguration(corsConfig, new UrlBasedCorsConfigurationSource());
     }
 
-    private UrlBasedCorsConfigurationSource addCorsConfiguration(CorsConfiguration corsConfig,
-        UrlBasedCorsConfigurationSource corsConfigSource) {
+    private UrlBasedCorsConfigurationSource addCorsConfiguration(
+        @NotNull final CorsConfiguration corsConfig,
+        @NotNull final UrlBasedCorsConfigurationSource corsConfigSource) {
         corsConfigSource.registerCorsConfiguration(corsProperties.getApplyUrlRange(), corsConfig);
         return corsConfigSource;
     }

@@ -17,7 +17,7 @@ public class ErrorTemplate implements Serializable {
     @Schema(description = "서버시간")
     private final LocalDateTime serverDateTime;
 
-    public ErrorTemplate(@NotNull ErrorMessage message) {
+    public ErrorTemplate(@NotNull final ErrorMessage message) {
         this.message = message.name();
         this.code = message.getCode();
         this.serverDateTime = LocalDateTime.now();

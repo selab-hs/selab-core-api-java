@@ -19,7 +19,7 @@ public class ResponseTemplate<T> implements Serializable {
     @Schema(description = "응답 데이터")
     private final T data;
 
-    private ResponseTemplate(@NotNull ResponseMessage message, @NotNull T data,
+    private ResponseTemplate(@NotNull final ResponseMessage message, @NotNull final T data,
         @NotNull HttpStatus status) {
         this.message = message.name();
         this.code = message.getCode();
@@ -30,11 +30,11 @@ public class ResponseTemplate<T> implements Serializable {
 
     // 주로 사용하는 것만 공통으로 빼자..
     // 가끔 쓰는 건 쓰는곳에서 사용하기
-    public static <T> ResponseTemplate<T> created(ResponseMessage message, T data) {
+    public static <T> ResponseTemplate<T> created(final ResponseMessage message, final T data) {
         return ResponseTemplate.of(message, data, HttpStatus.CREATED);
     }
 
-    public static <T> ResponseTemplate<T> ok(ResponseMessage message, T data) {
+    public static <T> ResponseTemplate<T> ok(final ResponseMessage message, final T data) {
         return ResponseTemplate.of(message, data, HttpStatus.OK);
     }
 }

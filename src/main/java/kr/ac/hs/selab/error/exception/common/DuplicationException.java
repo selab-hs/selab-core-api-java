@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 public class DuplicationException extends BusinessException {
 
-    public DuplicationException(ErrorMessage message) {
+    public DuplicationException(final ErrorMessage message) {
         super(message, HttpStatus.BAD_REQUEST);
     }
 }

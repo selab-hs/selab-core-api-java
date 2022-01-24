@@ -8,7 +8,6 @@ import kr.ac.hs.selab.common.template.ResponseTemplate;
 @Api(tags = "Health Check API", description = "헬스 체크 api")
 public interface HealthSdk {
 
-    // TODO : 반환 값 오류 발생
     @Operation(summary = "Health Check", description = "서버의 상태를 체크합니다.")
     @ApiResponse(code = 200, message = "Health Good")
     ResponseTemplate<String> check();

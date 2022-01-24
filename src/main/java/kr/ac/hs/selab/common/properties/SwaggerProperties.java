@@ -74,7 +74,7 @@ public class SwaggerProperties {
         return List.of(toReference(authorizationScope));
     }
 
-    private SecurityReference toReference(@NotNull AuthorizationScope authorizationScope) {
+    private SecurityReference toReference(@NotNull final AuthorizationScope authorizationScope) {
         return new SecurityReference(apiName, new AuthorizationScope[]{authorizationScope});
     }
 

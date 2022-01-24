@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 public class InvalidArgumentException extends BusinessException {
 
-    public InvalidArgumentException(ErrorMessage message) {
+    public InvalidArgumentException(final ErrorMessage message) {
         super(message, HttpStatus.BAD_REQUEST);
     }
 }

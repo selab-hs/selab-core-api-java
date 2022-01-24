@@ -30,8 +30,9 @@ public class Password {
         this.password = password;
     }
 
-    // TODO ErrorMessage가 전부 Detail 해보이는데, 각 하나씩 구현하기보다는, 올바르지 않은 사용자 값 : {}
-    //이런식의 input값 에러메세지가 통일되는게 좋아보입니다.
+    // TODO ErrorMessage 변경
+    // Error가 전부 Detail 해보이는데, 각 하나씩 구현하기보다는, 올바르지 않은 사용자 값 : {}
+    // 이런식의 input값 에러메세지가 통일되는게 좋아보입니다.
     private void validate(String password) {
         if (!Pattern.matches(PASSWORD_REGEX, password)) {
             throw new InvalidArgumentException(
@@ -39,7 +40,8 @@ public class Password {
         }
     }
 
-    // TODO Spring Converter를 통해서 받는 것이 좋습니다!
+    // TODO Password Encoder DI 변경
+    // Spring Converter를 통해서 받는 것이 좋습니다!
     public Password encode(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);
         return this;

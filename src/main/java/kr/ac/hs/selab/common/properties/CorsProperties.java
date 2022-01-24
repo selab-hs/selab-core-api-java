@@ -14,8 +14,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class CorsProperties {
 
     private static final String COMMA = ",";
-
-    // TODO : 기본적으로 제공하는 방어로직이 있는 건 어떨까?
     private String allowedOrigins;
     private String allowedMethods;
     private String allowedHeaders;

@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 public class NonExitsException extends BusinessException {
 
-    public NonExitsException(ErrorMessage message) {
+    public NonExitsException(final ErrorMessage message) {
         super(message, HttpStatus.NOT_FOUND);
     }
 }

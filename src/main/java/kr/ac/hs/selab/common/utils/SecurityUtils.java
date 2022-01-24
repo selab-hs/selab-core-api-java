@@ -29,30 +29,30 @@ public class SecurityUtils {
         return authentication;
     }
 
-    private void isNullAuthentication(Authentication authentication) {
+    private void isNullAuthentication(final Authentication authentication) {
         if (Objects.isNull(authentication)) {
             throw new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR);
         }
     }
 
-    private UserDetails getUserDetails(Authentication authentication) {
+    private UserDetails getUserDetails(final Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         isNullUserDetails(userDetails);
         return userDetails;
     }
 
-    private void isNullUserDetails(UserDetails userDetails) {
+    private void isNullUserDetails(final UserDetails userDetails) {
         if (Objects.isNull(userDetails.getUsername())) {
             throw new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR);
         }
     }
 
-    private String getAuthenticationPrincipal(Authentication authentication) {
+    private String getAuthenticationPrincipal(final Authentication authentication) {
         isNullAuthenticationPrincipal(authentication);
         return authentication.getPrincipal().toString();
     }
 
-    private void isNullAuthenticationPrincipal(Authentication authentication) {
+    private void isNullAuthenticationPrincipal(final Authentication authentication) {
         if (Objects.isNull(authentication.getPrincipal())) {
             throw new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR);
         }

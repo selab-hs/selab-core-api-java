@@ -20,7 +20,6 @@ public class MemberController implements MemberSdk {
 
     private final MemberService memberService;
 
-    // TODO : @Valid와 @Validated 학습 진행하기
     @Override
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseTemplate<MemberCreateResponse> insert(
