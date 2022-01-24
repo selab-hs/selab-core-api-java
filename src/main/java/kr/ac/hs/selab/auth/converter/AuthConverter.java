@@ -1,24 +1,23 @@
 package kr.ac.hs.selab.auth.converter;
 
-import kr.ac.hs.selab.auth.dto.response.LoginResponse;
+import kr.ac.hs.selab.auth.dto.response.AuthLoginResponse;
 import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.member.domain.vo.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Component
 public class AuthConverter {
 
-    public LoginResponse toLoginResponse(Authentication authentication, String token) {
-        return new LoginResponse(authentication.getName(), token);
+    public static AuthLoginResponse toAuthLoginResponse(Authentication authentication,
+        String token) {
+        return new AuthLoginResponse(authentication.getName(), token);
     }
 
-    public User toUser(Member member) {
-        return new User(
-            member.getEmailValue(),
-            member.getPasswordValue(),
-            member.getAuthority()
-        );
+    public static UserDetails toUser(Member member) {
+        return User.builder()
+            .username(member.getEmail())
+            .password(member.getPasswordValue())
+            .authorities(member.getAuthority())
+            .build();
     }
 }

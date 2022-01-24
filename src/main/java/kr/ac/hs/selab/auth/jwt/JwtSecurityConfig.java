@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.auth.jwt;
 
+import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class JwtSecurityConfig extends
     SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
+    @NotNull
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override

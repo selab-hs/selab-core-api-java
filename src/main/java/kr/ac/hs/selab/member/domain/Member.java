@@ -12,13 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import kr.ac.hs.selab.common.domain.BaseEntity;
 import kr.ac.hs.selab.member.domain.vo.Avatar;
-import kr.ac.hs.selab.member.domain.vo.Email;
-import kr.ac.hs.selab.member.domain.vo.Name;
-import kr.ac.hs.selab.member.domain.vo.Nickname;
 import kr.ac.hs.selab.member.domain.vo.Password;
 import kr.ac.hs.selab.member.domain.vo.Terms;
 import kr.ac.hs.selab.member.domain.vo.Role;
-import kr.ac.hs.selab.member.domain.vo.StudentId;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,34 +31,43 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
-    private Email email;
+    @Getter
+    private String email;
 
     @Embedded
     private Password password;
 
-    @Embedded
-    private StudentId studentId;
+    @Column(name = "member_student_id", unique = true)
+    private String studentId;
 
-    @Embedded
-    private Name name;
+    @Column(name = "member_name")
+    private String name;
 
-    @Embedded
-    private Nickname nickname;
+    @Getter
+    @Column(name = "member_nickname", unique = true)
+    private String nickname;
 
-    @Embedded
+    @Column(name = "member_avatar")
     private Avatar avatar;
 
     @Embedded
     private Terms terms;
+    /**
+     * TODO :  TERMS 도메인 분리
+     * 동의문은 따로 테이블을 가져가야.,,,
+     * 테이블을 나눠서 가져가야! one to one이라도.. Member 만들때 넣어주기!
+     * Terms는 테이블...컬럼...(회원가입인지, 동의문인지 enum으로 관리하기..)
+     * 거래를 할 때도 Terms Check, 허가되징 낳은
+     * 법 상으로 동의문을 저장하여 증명용으로 남겨야 될 때
+     **/
 
     @Column(name = "member_role")
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Builder
-    private Member(Email email, Password password, StudentId studentId,
-        Name name, Nickname nickname, Avatar avatar, Terms terms) {
+    private Member(String email, Password password, String studentId, String name,
+        String nickname, Avatar avatar, Terms terms) {
         this.email = email;
         this.password = password;
         this.studentId = studentId;
@@ -73,14 +78,6 @@ public class Member extends BaseEntity {
         this.role = Role.USER;
     }
 
-    public String getNicknameValue() {
-        return nickname.getNickname();
-    }
-
-    public String getEmailValue() {
-        return email.getEmail();
-    }
-
     public String getPasswordValue() {
         return password.getPassword();
     }
@@ -88,9 +85,5 @@ public class Member extends BaseEntity {
     public Collection<GrantedAuthority> getAuthority() {
         return Collections
             .singletonList(role.getGrantedAuthority());
-    }
-
-    public String getRoleValue() {
-        return role.getDescription();
     }
 }

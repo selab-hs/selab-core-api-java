@@ -1,8 +1,10 @@
 package kr.ac.hs.selab.common.config;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import kr.ac.hs.selab.common.properties.SwaggerProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.spi.DocumentationType;
@@ -12,9 +14,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
+@EnableConfigurationProperties(SwaggerProperties.class)
 @RequiredArgsConstructor
 public class SwaggerConfig {
 
+    @NotNull
     private final SwaggerProperties swaggerProperties;
 
     private SecurityContext securityContext() {

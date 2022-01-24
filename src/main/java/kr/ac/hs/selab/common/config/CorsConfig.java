@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.common.config;
 
+import javax.validation.constraints.NotNull;
 import kr.ac.hs.selab.common.properties.CorsProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,6 +14,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class CorsConfig {
 
+    @NotNull
     private final CorsProperties corsProperties;
 
     @Bean
@@ -25,42 +27,24 @@ public class CorsConfig {
         return registerCorsConfiguration(new CorsConfiguration());
     }
 
-    private CorsConfiguration registerCorsConfiguration(CorsConfiguration corsConfig) {
-        registerAllowedHeaders(corsConfig);
-        registerAllowedMethods(corsConfig);
-        registerAllowedOrigins(corsConfig);
-        registerAllowedCredentials(corsConfig);
-        registerMaxAge(corsConfig);
+    private CorsConfiguration registerCorsConfiguration(
+        @NotNull final CorsConfiguration corsConfig) {
+        corsConfig.setAllowedHeaders(corsProperties.getAllowedHeaders());
+        corsConfig.setAllowedMethods(corsProperties.getAllowedMethods());
+        corsConfig.setAllowedOrigins(corsProperties.getAllowedOrigins());
+        corsConfig.setAllowCredentials(true);
+        corsConfig.setMaxAge(corsConfig.getMaxAge());
         return corsConfig;
     }
 
-    private void registerAllowedHeaders(CorsConfiguration corsConfig) {
-        corsConfig.setAllowedHeaders(corsProperties.getAllowedHeaders());
-    }
-
-    private void registerAllowedMethods(CorsConfiguration corsConfig) {
-        corsConfig.setAllowedMethods(corsProperties.getAllowedMethods());
-    }
-
-    private void registerAllowedOrigins(CorsConfiguration corsConfig) {
-        corsConfig.setAllowedOrigins(corsProperties.getAllowedOrigins());
-    }
-
-    private void registerAllowedCredentials(CorsConfiguration corsConfig) {
-        corsConfig.setAllowCredentials(true);
-    }
-
-    private void registerMaxAge(CorsConfiguration corsConfig) {
-        corsConfig.setMaxAge(corsConfig.getMaxAge());
-    }
-
     private UrlBasedCorsConfigurationSource makeUrlBasedCorsConfigurationSource(
-        CorsConfiguration corsConfig) {
+        @NotNull final CorsConfiguration corsConfig) {
         return addCorsConfiguration(corsConfig, new UrlBasedCorsConfigurationSource());
     }
 
-    private UrlBasedCorsConfigurationSource addCorsConfiguration(CorsConfiguration corsConfig,
-        UrlBasedCorsConfigurationSource corsConfigSource) {
+    private UrlBasedCorsConfigurationSource addCorsConfiguration(
+        @NotNull final CorsConfiguration corsConfig,
+        @NotNull final UrlBasedCorsConfigurationSource corsConfigSource) {
         corsConfigSource.registerCorsConfiguration(corsProperties.getApplyUrlRange(), corsConfig);
         return corsConfigSource;
     }

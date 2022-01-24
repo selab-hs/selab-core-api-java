@@ -1,15 +1,18 @@
 package kr.ac.hs.selab.auth.dto.request;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class LoginRequest {
+public class AuthLoginRequest {
 
-    @Schema(description = "이메일")
+    @NotNull
+    @Email
     private final String email;
-    @Schema(description = "비밀번호")
+    @NotBlank
     private final String password;
 }
