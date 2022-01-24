@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
-import org.springframework.http.ResponseEntity;
 
 @Getter
 public class ErrorTemplate implements Serializable {
