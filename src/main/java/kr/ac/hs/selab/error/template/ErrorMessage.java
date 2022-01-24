@@ -39,8 +39,12 @@ public enum ErrorMessage {
      * BOARD ERROR RESPONSE MESSAGE
      **/
     BOARD_NOT_EXISTS_ERROR("E-B-0001", HttpStatus.NOT_FOUND, "존재하지 않는 게시판입니다."),
-    BOARD_TITLE_DUPLICATION_ERROR("E-B-0002", HttpStatus.BAD_REQUEST, "중복된 게시판 제목입니다."),
 
+    /**
+     * POST ERROR RESPONSE MESSAGE
+     */
+    POST_NOT_EXISTS_ERROR("E-P-0001", HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다.")
+    
     ;
 
     private final String code;
