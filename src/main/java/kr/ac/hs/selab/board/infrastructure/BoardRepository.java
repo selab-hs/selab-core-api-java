@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("select b from Board b where b.deleteFlag = :deleteFlag")
-    List<Board> findAll(@Param("deleteFlag") Boolean deleteFlag);
+    List<Board> findAll(@Param("deleteFlag") boolean deleteFlag);
 
     @Query("select b from Board b where b.deleteFlag = :deleteFlag and b.id = :id")
-    Optional<Board> find(@Param("id") Long id, @Param("deleteFlag") Boolean deleteFlag);
+    Optional<Board> find(@Param("id") Long id, @Param("deleteFlag") boolean deleteFlag);
 }

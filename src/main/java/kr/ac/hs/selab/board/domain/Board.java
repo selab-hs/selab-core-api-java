@@ -1,13 +1,14 @@
 package kr.ac.hs.selab.board.domain;
 
 import kr.ac.hs.selab.common.domain.BaseEntity;
-import kr.ac.hs.selab.common.utils.Constants;
+import kr.ac.hs.selab.common.utils.BoardConstants;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -25,7 +26,7 @@ public class Board extends BaseEntity {
     private String description;
 
     @Column(name = "board_delete_flag")
-    private Boolean deleteFlag;
+    private boolean deleteFlag;
 
     @Builder
     private Board(String title, String description) {
@@ -41,7 +42,7 @@ public class Board extends BaseEntity {
     }
 
     public Board delete() {
-        this.title = Constants.DELETED_BOARD_TITLE;
+        this.title = this.title + BoardConstants.TITLE_SEPARATOR + UUID.randomUUID();
         this.deleteFlag = true;
         return this;
     }
