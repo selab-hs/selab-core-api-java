@@ -17,7 +17,7 @@ public class Terms {
     @Column(name = "member_term_privacy")
     private boolean termPrivacy;
 
-    private Terms(boolean termService, boolean termPrivacy) {
+    public Terms(boolean termService, boolean termPrivacy) {
         this.termService = termService;
         this.termPrivacy = termPrivacy;
     }
@@ -30,9 +30,5 @@ public class Terms {
 
     private boolean unChecked(boolean termService, boolean termPrivacy) {
         return !termService || !termPrivacy;
-    }
-
-    public static Terms of(boolean termService, boolean termPrivacy) {
-        return new Terms(termService, termPrivacy);
     }
 }

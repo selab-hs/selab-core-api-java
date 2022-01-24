@@ -1,12 +1,13 @@
 package kr.ac.hs.selab.error.template;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
-import org.springframework.http.ResponseEntity;
 
 @Getter
-public class ErrorTemplate {
+public class ErrorTemplate implements Serializable {
 
     @Schema(description = "응답 메세지")
     private final String message;
@@ -15,15 +16,9 @@ public class ErrorTemplate {
     @Schema(description = "서버시간")
     private final LocalDateTime serverDateTime;
 
-    private ErrorTemplate(ErrorMessage message) {
+    public ErrorTemplate(@NotNull final ErrorMessage message) {
         this.message = message.name();
         this.code = message.getCode();
         this.serverDateTime = LocalDateTime.now();
-    }
-
-    public static ResponseEntity<ErrorTemplate> of(ErrorMessage message) {
-        return ResponseEntity
-            .status(message.getStatus())
-            .body(new ErrorTemplate(message));
     }
 }
