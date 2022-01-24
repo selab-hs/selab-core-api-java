@@ -9,5 +9,4 @@ public class SelabApplication {
     public static void main(String[] args) {
         SpringApplication.run(SelabApplication.class, args);
     }
-
 }
