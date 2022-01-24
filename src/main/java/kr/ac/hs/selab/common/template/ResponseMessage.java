@@ -26,10 +26,10 @@ public enum ResponseMessage implements Serializable {
     /**
      * BOARD SUCCESS RESPONSE MESSAGE
      **/
-    BOARD_CREATE_SUCCESS("R-B-0001", HttpStatus.CREATED, "게시판 생성을 완료했습니다."),
-    BOARD_FIND_SUCCESS("R-B-0002", HttpStatus.FOUND, "게시판을 정상적으로 찾았습니다."),
-    BOARD_UPDATE_SUCCESS("R-B-0003", HttpStatus.OK, "게시판을 정상적으로 수정했습니다."),
-    BOARD_DELETE_SUCCESS("R-B-0004", HttpStatus.OK, "게시판을 정상적으로 삭제 했습니다."),
+    BOARD_CREATE_SUCCESS("R-B-0001", "게시판 생성을 완료했습니다."),
+    BOARD_FIND_SUCCESS("R-B-0002", "게시판을 정상적으로 찾았습니다."),
+    BOARD_UPDATE_SUCCESS("R-B-0003", "게시판을 정상적으로 수정했습니다."),
+    BOARD_DELETE_SUCCESS("R-B-0004", "게시판을 정상적으로 삭제 했습니다."),
 
     ;
 
