@@ -1,6 +1,8 @@
 package kr.ac.hs.selab.member.presentation;
 
 import javax.validation.Valid;
+import kr.ac.hs.selab.common.template.ResponseMessage;
+import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.converter.MemberConverter;
 import kr.ac.hs.selab.member.dto.bundle.MemberCreateBundle;
@@ -24,7 +26,8 @@ public class MemberController implements MemberSdk {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseTemplate<MemberCreateResponse> insert(
         @Valid @RequestBody MemberCreateRequest request) {
-        MemberCreateBundle bundle = MemberConverter.toCreateMemberBundle(request);
-        return memberService.create(bundle);
+        final MemberCreateBundle bundle = MemberConverter.toCreateMemberBundle(request);
+        final MemberCreateResponse response = memberService.create(bundle);
+        return ResponseTemplate.created(ResponseMessage.MEMBER_INSERT_SUCCESS, response);
     }
 }

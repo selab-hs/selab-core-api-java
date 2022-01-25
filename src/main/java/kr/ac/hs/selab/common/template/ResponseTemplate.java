@@ -1,9 +1,12 @@
 package kr.ac.hs.selab.common.template;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 public class ResponseTemplate<T> implements Serializable {
@@ -20,7 +23,7 @@ public class ResponseTemplate<T> implements Serializable {
     private final T data;
 
     private ResponseTemplate(@NotNull final ResponseMessage message, @NotNull final T data,
-        @NotNull HttpStatus status) {
+        @NotNull final HttpStatus status) {
         this.message = message.name();
         this.code = message.getCode();
         this.serverDateTime = LocalDateTime.now();
@@ -35,6 +38,6 @@ public class ResponseTemplate<T> implements Serializable {
     }
 
     public static <T> ResponseTemplate<T> ok(final ResponseMessage message, final T data) {
-        return ResponseTemplate.of(message, data, HttpStatus.OK);
+        return new ResponseTemplate<>(message, data, HttpStatus.OK);
     }
 }

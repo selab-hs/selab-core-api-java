@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.common.config;
 
+import javax.validation.constraints.NotNull;
 import kr.ac.hs.selab.auth.jwt.JwtAccessDeniedHandler;
 import kr.ac.hs.selab.auth.jwt.JwtAuthenticationEntryPoint;
 import kr.ac.hs.selab.auth.jwt.JwtSecurityConfig;
@@ -22,8 +23,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @NotNull
     private final JwtTokenProvider tokenProvider;
+    @NotNull
     private final CorsConfig corsConfig;
+    @NotNull
     private final SwaggerConfig swaggerConfig;
 
     @Override

@@ -2,6 +2,7 @@ package kr.ac.hs.selab.common.template;
 
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -15,7 +16,13 @@ public class ResponseWrapper implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(final MethodParameter returnType,
         final Class<? extends HttpMessageConverter<?>> converterType) {
-        return Objects.nonNull(returnType.getMethodAnnotation(Response.class));
+
+        final Class<?> instance = GenericTypeResolver.resolveReturnType(
+            returnType.getMethod(),
+            ResponseTemplate.class
+        );
+
+        return instance == ResponseTemplate.class;
     }
 
     @Override
@@ -24,8 +31,10 @@ public class ResponseWrapper implements ResponseBodyAdvice<Object> {
         final Class<? extends HttpMessageConverter<?>> selectedConverterType,
         final ServerHttpRequest request,
         final ServerHttpResponse response) {
+        final HttpStatus status = ((ResponseTemplate<?>) body).getStatus();
 
-        response.setStatusCode(((ResponseTemplate<?>) body).getStatus());
+        response.setStatusCode(status);
+
         return body;
     }
 }
