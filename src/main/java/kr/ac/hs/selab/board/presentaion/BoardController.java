@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "api/v1/boards")
+@RequestMapping(value = "api/v1/admin/boards")
 @RestController
 public class BoardController implements BoardSdk {
 
