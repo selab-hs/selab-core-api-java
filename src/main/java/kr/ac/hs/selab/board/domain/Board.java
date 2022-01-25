@@ -1,7 +1,7 @@
 package kr.ac.hs.selab.board.domain;
 
 import kr.ac.hs.selab.common.domain.BaseEntity;
-import kr.ac.hs.selab.common.utils.BoardConstants;
+import kr.ac.hs.selab.common.utils.Constants;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,7 +42,7 @@ public class Board extends BaseEntity {
     }
 
     public Board delete() {
-        this.title = this.title + BoardConstants.TITLE_SEPARATOR + UUID.randomUUID();
+        this.title = this.title + Constants.TITLE_SEPARATOR + UUID.randomUUID();
         this.deleteFlag = true;
         return this;
     }
