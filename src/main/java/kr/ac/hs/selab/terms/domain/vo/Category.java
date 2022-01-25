@@ -15,6 +15,7 @@ public enum Category {
 
     private final String description;
 
+    //TODO : EnumMap을 이용하여, cache를 하나 만들기
     public static Category of(String description) {
         return Arrays.stream(Category.values())
             .filter(r -> r.isEquals(description))
