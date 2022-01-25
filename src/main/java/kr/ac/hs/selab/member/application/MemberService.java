@@ -24,6 +24,7 @@ public class MemberService {
         isDuplication(bundle);
         Member instance = MemberConverter.toMember(bundle, passwordEncoder);
         Member member = memberRepository.save(instance);
+        member.termsOfSign();
         return MemberConverter.toCreateMemberResponse(member);
     }
 

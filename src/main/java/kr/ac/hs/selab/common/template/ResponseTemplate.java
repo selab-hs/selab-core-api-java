@@ -31,8 +31,6 @@ public class ResponseTemplate<T> implements Serializable {
         this.status = status;
     }
 
-    // 주로 사용하는 것만 공통으로 빼자..
-    // 가끔 쓰는 건 쓰는곳에서 사용하기
     public static <T> ResponseTemplate<T> created(final ResponseMessage message, final T data) {
         return ResponseTemplate.of(message, data, HttpStatus.CREATED);
     }

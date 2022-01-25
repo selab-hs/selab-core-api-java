@@ -40,6 +40,11 @@ public enum ErrorMessage {
     BOARD_NOT_EXISTS_ERROR("E-B-0001", "존재하지 않는 게시판입니다."),
     BOARD_TITLE_DUPLICATION_ERROR("E-B-0002", "중복된 게시판 제목입니다."),
 
+    /**
+     * TERMS ERROR RESPONSE MESSAGE
+     **/
+    TERMS_NOT_EXISTS_ERROR("E-T-0001", "존재하지 않는 약관 카테코리입니다."),
+
     ;
 
     private final String code;
