@@ -32,6 +32,7 @@ public class Member extends BaseEntity {
     private Long id;
 
     @Getter
+    @Column(name = "member_email", unique = true)
     private String email;
 
     @Embedded
