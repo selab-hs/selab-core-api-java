@@ -32,7 +32,7 @@ public class ResponseTemplate<T> implements Serializable {
     }
 
     public static <T> ResponseTemplate<T> created(final ResponseMessage message, final T data) {
-        return ResponseTemplate.of(message, data, HttpStatus.CREATED);
+        return new ResponseTemplate<>(message, data, HttpStatus.CREATED);
     }
 
     public static <T> ResponseTemplate<T> ok(final ResponseMessage message, final T data) {
