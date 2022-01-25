@@ -23,8 +23,8 @@ public class MemberService {
     public MemberCreateResponse create(MemberCreateBundle bundle) {
         isDuplication(bundle);
         Member instance = MemberConverter.toMember(bundle, passwordEncoder);
+        instance.termsOfSign();
         Member member = memberRepository.save(instance);
-        member.termsOfSign();
         return MemberConverter.toCreateMemberResponse(member);
     }
 

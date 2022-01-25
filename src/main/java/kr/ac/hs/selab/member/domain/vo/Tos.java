@@ -16,7 +16,9 @@ public class Tos {
     private Set<Terms> terms = new HashSet<>();
 
     public void addSign(Member member) {
-        terms.add(Terms.of(Category.PRIVACY, member));
-        terms.add(Terms.of(Category.SERVICE, member));
+        Category.sign()
+            .forEach(category ->
+                terms.add(Terms.of(category, member))
+            );
     }
 }

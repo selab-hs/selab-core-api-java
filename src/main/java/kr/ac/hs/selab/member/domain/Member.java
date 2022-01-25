@@ -68,6 +68,7 @@ public class Member extends BaseEntity {
         this.nickname = nickname;
         this.avatar = avatar;
         this.role = Role.USER;
+        this.tos = new Tos();
     }
 
     public void termsOfSign() {
