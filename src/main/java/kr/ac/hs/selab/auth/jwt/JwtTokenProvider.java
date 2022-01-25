@@ -48,7 +48,7 @@ public class JwtTokenProvider implements InitializingBean {
         return Decoders.BASE64.decode(jwtProperties.getSecret());
     }
 
-    public String createToken(Authentication authentication) {
+    public String createToken(final Authentication authentication) {
         String authorities = authoritiesToString(authentication);
         long now = currentTime();
         Date validity = expireTime(now);

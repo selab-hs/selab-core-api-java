@@ -3,7 +3,6 @@ package kr.ac.hs.selab.common.template;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor

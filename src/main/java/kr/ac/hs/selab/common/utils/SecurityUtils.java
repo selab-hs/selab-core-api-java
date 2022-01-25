@@ -3,8 +3,6 @@ package kr.ac.hs.selab.common.utils;
 import java.util.Objects;
 import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @UtilityClass
 public class SecurityUtils {
 
+    // TODO : 메서드 역할 분리 작업 진행 필요
     public String getCurrentUsername() {
         Authentication authentication = getAuthentication();
 
