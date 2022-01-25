@@ -3,7 +3,6 @@ package kr.ac.hs.selab.member.converter;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.Avatar;
 import kr.ac.hs.selab.member.domain.vo.Password;
-import kr.ac.hs.selab.member.domain.vo.Terms;
 import kr.ac.hs.selab.member.dto.bundle.MemberCreateBundle;
 import kr.ac.hs.selab.member.dto.request.MemberCreateRequest;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
@@ -19,7 +18,6 @@ public class MemberConverter {
             .name(request.getName())
             .nickname(request.getNickname())
             .avatar(new Avatar(request.getAvatar()))
-            .terms(new Terms(request.isTermService(), request.isTermPrivacy()))
             .build();
     }
 
@@ -31,7 +29,6 @@ public class MemberConverter {
             .name(bundle.getName())
             .nickname(bundle.getNickname())
             .avatar(bundle.getAvatar())
-            .terms(bundle.getTerms())
             .build();
     }
 
