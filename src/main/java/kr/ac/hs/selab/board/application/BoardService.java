@@ -10,6 +10,7 @@ import kr.ac.hs.selab.board.infrastructure.BoardRepository;
 import kr.ac.hs.selab.common.utils.Constants;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
+import kr.ac.hs.selab.post.infrastructure.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import java.util.List;
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final PostRepository postRepository;
 
     @Transactional
     public BoardResponse create(BoardCreateDto dto) {
@@ -47,6 +49,7 @@ public class BoardService {
     @Transactional
     public BoardResponse delete(Long id) {
         Board board = getBoard(id).delete();
+        postRepository.deleteByBoard(board, Constants.DELETED);
         return BoardConverter.toBoardResponse(board);
     }
 
