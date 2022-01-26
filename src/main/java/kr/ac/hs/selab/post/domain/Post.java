@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -54,7 +53,7 @@ public class Post extends BaseEntity {
     }
 
     public Post delete() {
-        this.title = this.title + Constants.TITLE_SEPARATOR + UUID.randomUUID();
+        this.title = this.title + Constants.HYPHEN + this.id;
         this.deleteFlag = true;
         return this;
     }
