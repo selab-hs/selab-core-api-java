@@ -2,7 +2,6 @@ package kr.ac.hs.selab.post.domain;
 
 import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.common.domain.BaseEntity;
-import kr.ac.hs.selab.common.utils.Constants;
 import kr.ac.hs.selab.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -53,7 +52,6 @@ public class Post extends BaseEntity {
     }
 
     public Post delete() {
-        this.title = this.title + Constants.HYPHEN + this.id;
         this.deleteFlag = true;
         return this;
     }
