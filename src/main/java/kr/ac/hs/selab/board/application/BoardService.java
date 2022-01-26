@@ -29,8 +29,7 @@ public class BoardService {
     }
 
     public BoardResponse find(Long id) {
-        Board board = boardRepository.find(id, Constants.NOT_DELETED)
-                .orElseThrow(() -> new NonExitsException(ErrorMessage.BOARD_NOT_EXISTS_ERROR));
+        Board board = getBoard(id);
         return BoardConverter.toBoardResponse(board);
     }
 
@@ -41,17 +40,18 @@ public class BoardService {
 
     @Transactional
     public BoardResponse update(BoardUpdateDto dto) {
-        Board board = boardRepository.find(dto.getId(), Constants.NOT_DELETED)
-                .orElseThrow(() -> new NonExitsException(ErrorMessage.BOARD_NOT_EXISTS_ERROR))
-                .update(dto.getTitle(), dto.getDescription());
+        Board board = getBoard(dto.getId()).update(dto.getTitle(), dto.getDescription());
         return BoardConverter.toBoardResponse(board);
     }
 
     @Transactional
     public BoardResponse delete(Long id) {
-        Board board = boardRepository.find(id, Constants.NOT_DELETED)
-                .orElseThrow(() -> new NonExitsException(ErrorMessage.BOARD_NOT_EXISTS_ERROR))
-                .delete();
+        Board board = getBoard(id).delete();
         return BoardConverter.toBoardResponse(board);
+    }
+
+    private Board getBoard(Long id) {
+        return boardRepository.find(id, Constants.NOT_DELETED)
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.BOARD_NOT_EXISTS_ERROR));
     }
 }

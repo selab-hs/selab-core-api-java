@@ -31,41 +31,48 @@ public class PostService {
 
     @Transactional
     public PostResponse create(PostCreateDto dto) {
-        Member member = memberRepository.findByEmail(dto.getMemberEmail())
-                .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
-        Board board = boardRepository.find(dto.getBoardId(), Constants.NOT_DELETED)
-                .orElseThrow(() -> new NonExitsException(ErrorMessage.BOARD_NOT_EXISTS_ERROR));
+        Member member = getMember(dto.getMemberEmail());
+        Board board = getBoard(dto.getBoardId());
 
         Post post = postRepository.save(PostConverter.toPost(dto, member, board));
         return PostConverter.toPostResponse(post);
     }
 
     public PostResponse find(Long id) {
-        Post post = postRepository.find(id, Constants.NOT_DELETED)
-                .orElseThrow(() -> new NonExitsException(ErrorMessage.POST_NOT_EXISTS_ERROR));
+        Post post = getPost(id);
         return PostConverter.toPostResponse(post);
     }
 
     public PostsResponse findByBoard(Long boardId) {
-        Board board = boardRepository.find(boardId, Constants.NOT_DELETED)
-                .orElseThrow(() -> new NonExitsException(ErrorMessage.BOARD_NOT_EXISTS_ERROR));
+        Board board = getBoard(boardId);
         List<Post> posts = postRepository.findByBoard(board);
         return PostConverter.toPostsResponse(posts);
     }
 
     @Transactional
     public PostResponse update(PostUpdateDto dto) {
-        Post post = postRepository.find(dto.getId(), Constants.NOT_DELETED)
-                .orElseThrow(() -> new NonExitsException(ErrorMessage.POST_NOT_EXISTS_ERROR))
-                .update(dto.getTitle(), dto.getContent());
+        Post post = getPost(dto.getId()).update(dto.getTitle(), dto.getContent());
         return PostConverter.toPostResponse(post);
     }
 
     @Transactional
     public PostResponse delete(Long id) {
-        Post post = postRepository.find(id, Constants.NOT_DELETED)
-                .orElseThrow(() -> new NonExitsException(ErrorMessage.POST_NOT_EXISTS_ERROR))
-                .delete();
+        Post post = getPost(id).delete();
         return PostConverter.toPostResponse(post);
+    }
+
+    private Post getPost(Long id) {
+        return postRepository.find(id, Constants.NOT_DELETED)
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.POST_NOT_EXISTS_ERROR));
+    }
+
+    private Member getMember(String memberEmail) {
+        return memberRepository.findByEmail(memberEmail)
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
+    }
+
+    private Board getBoard(Long boardId) {
+        return boardRepository.find(boardId, Constants.NOT_DELETED)
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.BOARD_NOT_EXISTS_ERROR));
     }
 }
