@@ -1,8 +1,9 @@
 package kr.ac.hs.selab.common.template;
 
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.io.Serializable;
 
 @Getter
 @RequiredArgsConstructor
@@ -29,6 +30,14 @@ public enum ResponseMessage implements Serializable {
     BOARD_FIND_SUCCESS("R-B-0002", "게시판을 정상적으로 찾았습니다."),
     BOARD_UPDATE_SUCCESS("R-B-0003", "게시판을 정상적으로 수정했습니다."),
     BOARD_DELETE_SUCCESS("R-B-0004", "게시판을 정상적으로 삭제 했습니다."),
+
+    /**
+     * POST SUCCESS RESPONSE MESSAGE
+     */
+    POST_CREATE_SUCCESS("R-P-0001", "게시글 생성을 완료했습니다."),
+    POST_FIND_SUCCESS("R-P-0002", "게시글을 정상적으로 찾았습니다."),
+    POST_UPDATE_SUCCESS("R-P-0003", "게시글을 정상적으로 수정했습니다."),
+    POST_DELETE_SUCCESS("R-P-0004", "게시글을 정상적으로 삭제 했습니다."),
 
     ;
 
