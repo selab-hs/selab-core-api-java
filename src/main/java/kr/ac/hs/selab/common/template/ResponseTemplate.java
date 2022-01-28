@@ -2,15 +2,16 @@ package kr.ac.hs.selab.common.template;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
 public class ResponseTemplate<T> implements Serializable {
-
     @JsonIgnore
     private final transient HttpStatus status;
     @Schema(description = "응답 메세지")
@@ -23,7 +24,7 @@ public class ResponseTemplate<T> implements Serializable {
     private final T data;
 
     private ResponseTemplate(@NotNull final ResponseMessage message, @NotNull final T data,
-        @NotNull final HttpStatus status) {
+                             @NotNull final HttpStatus status) {
         this.message = message.name();
         this.code = message.getCode();
         this.serverDateTime = LocalDateTime.now();
