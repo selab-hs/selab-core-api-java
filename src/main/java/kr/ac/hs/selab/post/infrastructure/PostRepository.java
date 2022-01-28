@@ -14,7 +14,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("select p from Post p where p.deleteFlag = :deleteFlag and p.id = :id")
     Optional<Post> find(@Param("id") Long id, @Param("deleteFlag") boolean deleteFlag);
 
-    @Query("select p from Post p where p.board = :board")
     List<Post> findByBoard(@Param("board") Board board);
 
     @Modifying

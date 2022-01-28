@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.board.presentaion;
+package kr.ac.hs.selab.board.presentation;
 
 import kr.ac.hs.selab.board.application.BoardService;
 import kr.ac.hs.selab.board.converter.BoardConverter;
@@ -7,6 +7,7 @@ import kr.ac.hs.selab.board.dto.BoardUpdateDto;
 import kr.ac.hs.selab.board.dto.request.BoardRequest;
 import kr.ac.hs.selab.board.dto.response.BoardResponse;
 import kr.ac.hs.selab.board.dto.response.BoardsResponse;
+import kr.ac.hs.selab.board.facade.BoardFacade;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 public class BoardController implements BoardSdk {
 
     private final BoardService boardService;
+    private final BoardFacade boardFacade;
 
     @Override
     @PostMapping
@@ -55,7 +57,7 @@ public class BoardController implements BoardSdk {
     @Override
     @PatchMapping("/{id}")
     public ResponseTemplate<BoardResponse> delete(@PathVariable Long id) {
-        BoardResponse response = boardService.delete(id);
+        BoardResponse response = boardFacade.delete(id);
         return ResponseTemplate.ok(ResponseMessage.BOARD_DELETE_SUCCESS, response);
     }
 }

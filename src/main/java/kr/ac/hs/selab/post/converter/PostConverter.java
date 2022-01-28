@@ -51,7 +51,7 @@ public class PostConverter {
     /**
      * to dto
      */
-    public static PostCreateDto toPostCreateDto(Long boardId, PostRequest request, String memberEmail) {
+    public static PostCreateDto toPostCreateDto(PostRequest request, Long boardId, String memberEmail) {
         return PostCreateDto.builder()
                 .memberEmail(memberEmail)
                 .boardId(boardId)

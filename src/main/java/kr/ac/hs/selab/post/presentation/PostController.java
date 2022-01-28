@@ -10,23 +10,27 @@ import kr.ac.hs.selab.post.dto.PostUpdateDto;
 import kr.ac.hs.selab.post.dto.request.PostRequest;
 import kr.ac.hs.selab.post.dto.response.PostResponse;
 import kr.ac.hs.selab.post.dto.response.PostsResponse;
+import kr.ac.hs.selab.post.facade.PostFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RequestMapping(value = "api/v1")
 @RestController
 public class PostController implements PostSdk {
     private final PostService postService;
+    private final PostFacade postFacade;
 
     @Override
     @PostMapping(value = "boards/{boardId}/posts")
     public ResponseTemplate<PostResponse> create(@PathVariable Long boardId,
-                                                 @RequestBody PostRequest request) {
+                                                 @Valid @RequestBody PostRequest request) {
         String memberEmail = SecurityUtils.getCurrentUsername();
-        PostCreateDto dto = PostConverter.toPostCreateDto(boardId, request, memberEmail);
+        PostCreateDto dto = PostConverter.toPostCreateDto(request, boardId, memberEmail);
 
-        PostResponse response = postService.create(dto);
+        PostResponse response = postFacade.create(dto);
         return ResponseTemplate.created(ResponseMessage.POST_CREATE_SUCCESS, response);
     }
 
@@ -40,17 +44,18 @@ public class PostController implements PostSdk {
     @Override
     @GetMapping(value = "/boards/{boardId}/posts")
     public ResponseTemplate<PostsResponse> findByBoard(@PathVariable Long boardId) {
-        PostsResponse response = postService.findByBoard(boardId);
+        PostsResponse response = postFacade.find(boardId);
         return ResponseTemplate.ok(ResponseMessage.POST_FIND_SUCCESS, response);
     }
 
     @Override
     @PutMapping("/{postId}")
     public ResponseTemplate<PostResponse> update(@PathVariable Long postId,
-                                                 @RequestBody PostRequest request) {
+                                                 @Valid @RequestBody PostRequest request) {
         PostUpdateDto dto = PostConverter.toPostUpdateDto(postId, request);
+
         PostResponse response = postService.update(dto);
-        return ResponseTemplate.ok(ResponseMessage.POST_FIND_SUCCESS, response);
+        return ResponseTemplate.ok(ResponseMessage.POST_UPDATE_SUCCESS, response);
     }
 
     @Override

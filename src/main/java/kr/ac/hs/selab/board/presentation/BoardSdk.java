@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.board.presentaion;
+package kr.ac.hs.selab.board.presentation;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
@@ -9,9 +9,6 @@ import kr.ac.hs.selab.board.dto.request.BoardRequest;
 import kr.ac.hs.selab.board.dto.response.BoardResponse;
 import kr.ac.hs.selab.board.dto.response.BoardsResponse;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Api(tags = "Board REST API", description = "게시판 api")
 public interface BoardSdk {
