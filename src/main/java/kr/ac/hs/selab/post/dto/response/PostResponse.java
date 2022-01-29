@@ -1,8 +1,8 @@
 package kr.ac.hs.selab.post.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import kr.ac.hs.selab.board.domain.Board;
-import kr.ac.hs.selab.member.domain.Member;
+import kr.ac.hs.selab.board.dto.response.BoardResponse;
+import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 @Getter
 public class PostResponse {
     @Schema(description = "회원 정보")
-    private final Member member;
+    private final MemberCreateResponse member;
 
     @Schema(description = "게시판 정보")
-    private final Board board;
+    private final BoardResponse board;
 
     @Schema(description = "게시글 제목")
     private final String title;

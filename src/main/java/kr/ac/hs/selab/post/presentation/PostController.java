@@ -49,7 +49,7 @@ public class PostController implements PostSdk {
     }
 
     @Override
-    @PutMapping("/{postId}")
+    @PutMapping("/posts/{postId}")
     public ResponseTemplate<PostResponse> update(@PathVariable Long postId,
                                                  @Valid @RequestBody PostRequest request) {
         PostUpdateDto dto = PostConverter.toPostUpdateDto(postId, request);
@@ -59,7 +59,7 @@ public class PostController implements PostSdk {
     }
 
     @Override
-    @PatchMapping("/{PostId}")
+    @PatchMapping("/posts/{PostId}")
     public ResponseTemplate<PostResponse> delete(@PathVariable Long PostId) {
         PostResponse response = postService.delete(PostId);
         return ResponseTemplate.ok(ResponseMessage.POST_DELETE_SUCCESS, response);
