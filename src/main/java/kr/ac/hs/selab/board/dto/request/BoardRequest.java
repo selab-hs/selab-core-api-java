@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Getter
 public class BoardRequest {
@@ -12,5 +13,6 @@ public class BoardRequest {
     private String title;
 
     @Schema(description = "게시판 설명")
+    @Size(max = 30, message = "게시판 설명이 너무 깁니다.")
     private String description;
 }
