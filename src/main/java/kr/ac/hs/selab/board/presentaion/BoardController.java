@@ -46,7 +46,7 @@ public class BoardController implements BoardSdk {
     @Override
     @PutMapping("/{id}")
     public ResponseTemplate<BoardResponse> update(@PathVariable Long id,
-        @Valid @RequestBody BoardRequest request) {
+                                                  @Valid @RequestBody BoardRequest request) {
         BoardUpdateDto dto = BoardConverter.toBoardUpdateDto(id, request);
         BoardResponse response = boardService.update(dto);
         return ResponseTemplate.ok(ResponseMessage.BOARD_FIND_SUCCESS, response);

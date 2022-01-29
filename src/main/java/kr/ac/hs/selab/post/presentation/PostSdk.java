@@ -10,7 +10,6 @@ import kr.ac.hs.selab.post.dto.request.PostRequest;
 import kr.ac.hs.selab.post.dto.response.PostResponse;
 import kr.ac.hs.selab.post.dto.response.PostsResponse;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Api(tags = "Post REST API", description = "게시글 api")
 public interface PostSdk {
@@ -19,8 +18,8 @@ public interface PostSdk {
             @ApiResponse(code = 201, message = "게시글 생성 성공"),
             @ApiResponse(code = 400, message = "게시글 생성 실패")
     })
-    ResponseTemplate<PostResponse> create(@Parameter(description = "게시판 id 값") @PathVariable Long boardId,
-                                          @Parameter(description = "게시글 정보") @RequestBody PostRequest request);
+    ResponseTemplate<PostResponse> create(@Parameter(description = "게시판 id 값") Long boardId,
+                                          @Parameter(description = "게시글 정보") PostRequest request);
 
     @Operation(summary = "게시글 조회", description = "게시글 정보를 이용해서 게시판을 조회한다.")
     @ApiResponses({
