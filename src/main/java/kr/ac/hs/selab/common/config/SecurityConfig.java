@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(swaggerConfig.whiteListInSwagger()).permitAll()
             .antMatchers("/api/v1/auth/login").permitAll()
-            .antMatchers("/api/v1/members").permitAll()
+            .antMatchers("/api/v1/members/sign").permitAll()
             .antMatchers("/api/**/admin/**").hasAnyAuthority("ROLE_ADMIN")
             .antMatchers("/api/**").hasAnyAuthority("ROLE_USER")
             .anyRequest().authenticated()

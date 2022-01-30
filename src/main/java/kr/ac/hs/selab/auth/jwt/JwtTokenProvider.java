@@ -62,6 +62,17 @@ public class JwtTokenProvider implements InitializingBean {
             .compact();
     }
 
+    public static final String BEARER_TOKEN = "Bearer ";
+    private static final int BEARER_TOKEN_SUBSTRING_INDEX = 7;
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TOKEN)) {
+            return bearerToken.substring(BEARER_TOKEN_SUBSTRING_INDEX);
+        }
+        return null;
+    }
 
     private String authoritiesToString(Authentication authentication) {
         return authentication.getAuthorities().stream()
@@ -76,19 +87,6 @@ public class JwtTokenProvider implements InitializingBean {
     private Date expireTime(long now) {
         final long time = jwtProperties.getTokenValidityInSeconds() * TOKEN_VALIDITY_TIME;
         return new Date(now + time);
-    }
-
-    public static final String BEARER_TOKEN = "Bearer ";
-    private static final int BEARER_TOKEN_SUBSTRING_INDEX = 7;
-
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-
-    public String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TOKEN)) {
-            return bearerToken.substring(BEARER_TOKEN_SUBSTRING_INDEX);
-        }
-        return null;
     }
 
     // TODO : Provider와 상관 없는 내용임으로 분리해야 한다.
@@ -124,7 +122,6 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     // 이건아님
-    // TODO : 필터를 회원가입, 로그인 health check 등등에서는 못타도록 구성해야 한다.
     // Exception 잡아서 진행하기!!
     public boolean validateToken(String token) {
         try {

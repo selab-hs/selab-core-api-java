@@ -23,7 +23,7 @@ public class MemberController implements MemberSdk {
     private final MemberService memberService;
 
     @Override
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/sign", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseTemplate<MemberCreateResponse> insert(
         @Valid @RequestBody MemberCreateRequest request) {
         final MemberCreateBundle bundle = MemberConverter.toCreateMemberBundle(request);
