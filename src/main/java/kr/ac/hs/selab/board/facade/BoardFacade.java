@@ -16,9 +16,9 @@ public class BoardFacade {
     private final PostService postService;
 
     @Transactional
-    public BoardResponse delete(Long id) {
-        Board board = boardService.delete(id);
-        postService.delete(board);
+    public BoardResponse deleteById(Long id) {
+        Board board = boardService.deleteById(id);
+        postService.deleteByBoard(board);
         return BoardConverter.toBoardResponse(board);
     }
 }

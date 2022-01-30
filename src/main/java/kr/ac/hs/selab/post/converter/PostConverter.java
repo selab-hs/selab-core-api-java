@@ -34,11 +34,10 @@ public class PostConverter {
      * to Response
      */
     public PostResponse toPostResponse(Post post) {
-        MemberCreateResponse memberCreateResponse = new MemberCreateResponse(post.getMember().getEmail());
         BoardResponse boardResponse = BoardConverter.toBoardResponse(post.getBoard());
 
         return PostResponse.builder()
-                .member(memberCreateResponse)
+                .member(getMemberCreateResponse(post.getMember().getEmail()))
                 .board(boardResponse)
                 .title(post.getTitle())
                 .content(post.getContent())
@@ -72,5 +71,12 @@ public class PostConverter {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .build();
+    }
+
+    /**
+     * private
+     */
+    private MemberCreateResponse getMemberCreateResponse(String email) {
+        return new MemberCreateResponse(email);
     }
 }

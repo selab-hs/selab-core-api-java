@@ -20,15 +20,15 @@ public class PostFacade {
     private final PostService postService;
 
     @Transactional
-    public PostResponse create(PostCreateDto postDto) {
-        Member member = memberService.findMember(postDto.getMemberEmail());
-        Board board = boardService.findBoard(postDto.getBoardId());
+    public PostResponse createByPostCreateDto(PostCreateDto postDto) {
+        Member member = memberService.findByEmail(postDto.getMemberEmail());
+        Board board = boardService.findBoardById(postDto.getBoardId());
 
-        return postService.create(postDto, member, board);
+        return postService.createByPostCreateDto(postDto, member, board);
     }
 
-    public PostsResponse find(Long boardId) {
-        Board board = boardService.findBoard(boardId);
-        return postService.find(board);
+    public PostsResponse findPostsResponseByBoardId(Long boardId) {
+        Board board = boardService.findBoardById(boardId);
+        return postService.findPostsResponseByBoard(board);
     }
 }

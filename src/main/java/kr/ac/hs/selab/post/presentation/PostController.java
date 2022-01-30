@@ -30,21 +30,21 @@ public class PostController implements PostSdk {
         String memberEmail = SecurityUtils.getCurrentUsername();
         PostCreateDto dto = PostConverter.toPostCreateDto(request, boardId, memberEmail);
 
-        PostResponse response = postFacade.create(dto);
+        PostResponse response = postFacade.createByPostCreateDto(dto);
         return ResponseTemplate.created(ResponseMessage.POST_CREATE_SUCCESS, response);
     }
 
     @Override
     @GetMapping("/posts/{postId}")
     public ResponseTemplate<PostResponse> find(@PathVariable Long postId) {
-        PostResponse response = postService.find(postId);
+        PostResponse response = postService.findPostResponseById(postId);
         return ResponseTemplate.ok(ResponseMessage.POST_FIND_SUCCESS, response);
     }
 
     @Override
     @GetMapping(value = "/boards/{boardId}/posts")
     public ResponseTemplate<PostsResponse> findByBoard(@PathVariable Long boardId) {
-        PostsResponse response = postFacade.find(boardId);
+        PostsResponse response = postFacade.findPostsResponseByBoardId(boardId);
         return ResponseTemplate.ok(ResponseMessage.POST_FIND_SUCCESS, response);
     }
 
@@ -54,14 +54,14 @@ public class PostController implements PostSdk {
                                                  @Valid @RequestBody PostRequest request) {
         PostUpdateDto dto = PostConverter.toPostUpdateDto(postId, request);
 
-        PostResponse response = postService.update(dto);
+        PostResponse response = postService.updateByPostUpdateDto(dto);
         return ResponseTemplate.ok(ResponseMessage.POST_UPDATE_SUCCESS, response);
     }
 
     @Override
     @PatchMapping("/posts/{PostId}")
     public ResponseTemplate<PostResponse> delete(@PathVariable Long PostId) {
-        PostResponse response = postService.delete(PostId);
+        PostResponse response = postService.deleteById(PostId);
         return ResponseTemplate.ok(ResponseMessage.POST_DELETE_SUCCESS, response);
     }
 }

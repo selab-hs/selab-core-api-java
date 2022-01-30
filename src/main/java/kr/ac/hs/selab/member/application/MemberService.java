@@ -29,7 +29,7 @@ public class MemberService {
         return MemberConverter.toCreateMemberResponse(member);
     }
 
-    public Member findMember(String email) {
+    public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
     }

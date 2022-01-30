@@ -23,34 +23,34 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public BoardResponse create(BoardCreateDto dto) {
+    public BoardResponse createByBoardCreateDto(BoardCreateDto dto) {
         Board board = boardRepository.save(BoardConverter.toBoard(dto));
         return BoardConverter.toBoardResponse(board);
     }
 
-    public BoardResponse find(Long id) {
-        Board board = findBoard(id);
+    public BoardResponse findBoardResponseById(Long id) {
+        Board board = findBoardById(id);
         return BoardConverter.toBoardResponse(board);
     }
 
-    public Board findBoard(Long id) {
-        return boardRepository.find(id, Constants.NOT_DELETED)
+    public Board findBoardById(Long id) {
+        return boardRepository.findByIdAndDeleteFlag(id, Constants.NOT_DELETED)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.BOARD_NOT_EXISTS_ERROR));
     }
 
-    public BoardsResponse findAll() {
-        List<Board> boards = boardRepository.findAll(Constants.NOT_DELETED);
+    public BoardsResponse findBoardsResponse() {
+        List<Board> boards = boardRepository.findByDeleteFlag(Constants.NOT_DELETED);
         return BoardConverter.toBoardsResponse(boards);
     }
 
     @Transactional
-    public BoardResponse update(BoardUpdateDto dto) {
-        Board board = findBoard(dto.getId()).update(dto.getTitle(), dto.getDescription());
+    public BoardResponse updateByBoardUpdateDto(BoardUpdateDto dto) {
+        Board board = findBoardById(dto.getId()).update(dto.getTitle(), dto.getDescription());
         return BoardConverter.toBoardResponse(board);
     }
 
     @Transactional
-    public Board delete(Long id) {
-        return findBoard(id).delete();
+    public Board deleteById(Long id) {
+        return findBoardById(id).delete();
     }
 }

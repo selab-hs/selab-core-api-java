@@ -25,39 +25,39 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public PostResponse create(PostCreateDto dto, Member member, Board board) {
+    public PostResponse createByPostCreateDto(PostCreateDto dto, Member member, Board board) {
         Post post = postRepository.save(PostConverter.toPost(dto, member, board));
         return PostConverter.toPostResponse(post);
     }
 
-    public PostResponse find(Long id) {
-        return PostConverter.toPostResponse(findPost(id));
+    public PostResponse findPostResponseById(Long id) {
+        return PostConverter.toPostResponse(findPostById(id));
     }
 
-    public Post findPost(Long id) {
-        return postRepository.find(id, Constants.NOT_DELETED)
+    public Post findPostById(Long id) {
+        return postRepository.findByIdAndDeleteFlag(id, Constants.NOT_DELETED)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.POST_NOT_EXISTS_ERROR));
     }
 
-    public PostsResponse find(Board board) {
+    public PostsResponse findPostsResponseByBoard(Board board) {
         List<Post> posts = postRepository.findByBoard(board);
         return PostConverter.toPostsResponse(posts);
     }
 
     @Transactional
-    public PostResponse update(PostUpdateDto dto) {
-        Post post = findPost(dto.getId()).update(dto.getTitle(), dto.getContent());
+    public PostResponse updateByPostUpdateDto(PostUpdateDto dto) {
+        Post post = findPostById(dto.getId()).update(dto.getTitle(), dto.getContent());
         return PostConverter.toPostResponse(post);
     }
 
     @Transactional
-    public PostResponse delete(Long id) {
-        Post post = findPost(id).delete();
+    public PostResponse deleteById(Long id) {
+        Post post = findPostById(id).delete();
         return PostConverter.toPostResponse(post);
     }
 
     @Transactional
-    public void delete(Board board) {
+    public void deleteByBoard(Board board) {
         postRepository.deleteByBoard(board, Constants.DELETED);
     }
 }
