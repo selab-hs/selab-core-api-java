@@ -39,7 +39,7 @@ public class BoardConverter {
         List<BoardResponse> boardResponses = boards.stream()
                 .map(BoardConverter::toBoardResponse)
                 .collect(Collectors.toList());
-        return BoardsResponse.of(boardResponses);
+        return new BoardsResponse(boardResponses);
     }
 
     /**

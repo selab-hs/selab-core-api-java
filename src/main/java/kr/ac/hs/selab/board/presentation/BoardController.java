@@ -26,7 +26,7 @@ public class BoardController implements BoardSdk {
     @Override
     @PostMapping
     public ResponseTemplate<BoardResponse> create(@Valid @RequestBody BoardRequest request) {
-        BoardCreateDto dto = BoardCreateDto.of(request.getTitle(), request.getDescription());
+        BoardCreateDto dto = new BoardCreateDto(request.getTitle(), request.getDescription());
         BoardResponse response = boardService.createByBoardCreateDto(dto);
         return ResponseTemplate.created(ResponseMessage.BOARD_CREATE_SUCCESS, response);
     }

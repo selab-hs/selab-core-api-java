@@ -50,7 +50,7 @@ public class PostConverter {
         List<PostResponse> postResponses = posts.stream()
                 .map(PostConverter::toPostResponse)
                 .collect(Collectors.toList());
-        return PostsResponse.of(postResponses);
+        return new PostsResponse(postResponses);
     }
 
     /**
