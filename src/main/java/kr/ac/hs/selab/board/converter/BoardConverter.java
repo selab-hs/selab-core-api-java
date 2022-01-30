@@ -13,9 +13,6 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class BoardConverter {
-    /**
-     * to entity
-     */
     public Board toBoard(BoardCreateDto dto) {
         return Board.builder()
                 .title(dto.getTitle())
@@ -23,9 +20,6 @@ public class BoardConverter {
                 .build();
     }
 
-    /**
-     * to response
-     */
     public BoardResponse toBoardResponse(Board board) {
         return BoardResponse.builder()
                 .title(board.getTitle())
@@ -42,9 +36,6 @@ public class BoardConverter {
         return new BoardsResponse(boardResponses);
     }
 
-    /**
-     * to dto
-     */
     public BoardUpdateDto toBoardUpdateDto(Long id, BoardRequest request) {
         return BoardUpdateDto.builder()
                 .id(id)

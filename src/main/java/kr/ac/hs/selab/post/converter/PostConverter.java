@@ -18,9 +18,6 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class PostConverter {
-    /**
-     * to entity
-     */
     public Post toPost(PostCreateDto dto, Member member, Board board) {
         return Post.builder()
                 .member(member)
@@ -30,14 +27,11 @@ public class PostConverter {
                 .build();
     }
 
-    /**
-     * to Response
-     */
     public PostResponse toPostResponse(Post post) {
         BoardResponse boardResponse = BoardConverter.toBoardResponse(post.getBoard());
 
         return PostResponse.builder()
-                .member(getMemberCreateResponse(post.getMember().getEmail()))
+                .member(toMemberCreateResponse(post.getMember().getEmail()))
                 .board(boardResponse)
                 .title(post.getTitle())
                 .content(post.getContent())
@@ -53,9 +47,6 @@ public class PostConverter {
         return new PostsResponse(postResponses);
     }
 
-    /**
-     * to dto
-     */
     public static PostCreateDto toPostCreateDto(PostRequest request, Long boardId, String memberEmail) {
         return PostCreateDto.builder()
                 .memberEmail(memberEmail)
@@ -73,10 +64,7 @@ public class PostConverter {
                 .build();
     }
 
-    /**
-     * private
-     */
-    private MemberCreateResponse getMemberCreateResponse(String email) {
+    private MemberCreateResponse toMemberCreateResponse(String email) {
         return new MemberCreateResponse(email);
     }
 }
