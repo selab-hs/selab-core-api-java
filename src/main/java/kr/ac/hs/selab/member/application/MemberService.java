@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.member.application;
 
+import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.error.exception.common.DuplicationException;
 import kr.ac.hs.selab.member.converter.MemberConverter;
@@ -26,6 +27,11 @@ public class MemberService {
         instance.termsOfSign();
         Member member = memberRepository.save(instance);
         return MemberConverter.toCreateMemberResponse(member);
+    }
+
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
     }
 
     private void isDuplication(MemberCreateBundle bundle) {

@@ -1,16 +1,11 @@
 package kr.ac.hs.selab.board.dto;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 @Getter
 public class BoardCreateDto {
-    private String title;
-    private String description;
-
-    public static BoardCreateDto of(String title, String description) {
-        return new BoardCreateDto(title, description);
-    }
+    private final String title;
+    private final String description;
 }

@@ -11,11 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query("select p from Post p where p.deleteFlag = :deleteFlag and p.id = :id")
-    Optional<Post> find(@Param("id") Long id, @Param("deleteFlag") boolean deleteFlag);
+    Optional<Post> findByIdAndDeleteFlag(Long id, boolean deleteFlag);
 
-    @Query("select p from Post p where p.board = :board")
-    List<Post> findByBoard(@Param("board") Board board);
+    List<Post> findByBoard(Board board);
 
     @Modifying
     @Query("update Post p set p.deleteFlag = :deleteFlag where p.board = :board")

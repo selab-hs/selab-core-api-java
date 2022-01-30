@@ -1,7 +1,10 @@
 package kr.ac.hs.selab.post.converter;
 
+import kr.ac.hs.selab.board.converter.BoardConverter;
 import kr.ac.hs.selab.board.domain.Board;
+import kr.ac.hs.selab.board.dto.response.BoardResponse;
 import kr.ac.hs.selab.member.domain.Member;
+import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
@@ -15,9 +18,6 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class PostConverter {
-    /**
-     * to entity
-     */
     public Post toPost(PostCreateDto dto, Member member, Board board) {
         return Post.builder()
                 .member(member)
@@ -27,13 +27,12 @@ public class PostConverter {
                 .build();
     }
 
-    /**
-     * to Response
-     */
     public PostResponse toPostResponse(Post post) {
+        BoardResponse boardResponse = BoardConverter.toBoardResponse(post.getBoard());
+
         return PostResponse.builder()
-                .member(post.getMember())
-                .board(post.getBoard())
+                .member(toMemberCreateResponse(post.getMember().getEmail()))
+                .board(boardResponse)
                 .title(post.getTitle())
                 .content(post.getContent())
                 .createdAt(post.getCreatedAt())
@@ -45,13 +44,10 @@ public class PostConverter {
         List<PostResponse> postResponses = posts.stream()
                 .map(PostConverter::toPostResponse)
                 .collect(Collectors.toList());
-        return PostsResponse.of(postResponses);
+        return new PostsResponse(postResponses);
     }
 
-    /**
-     * to dto
-     */
-    public static PostCreateDto toPostCreateDto(Long boardId, PostRequest request, String memberEmail) {
+    public static PostCreateDto toPostCreateDto(PostRequest request, Long boardId, String memberEmail) {
         return PostCreateDto.builder()
                 .memberEmail(memberEmail)
                 .boardId(boardId)
@@ -66,5 +62,9 @@ public class PostConverter {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .build();
+    }
+
+    private MemberCreateResponse toMemberCreateResponse(String email) {
+        return new MemberCreateResponse(email);
     }
 }

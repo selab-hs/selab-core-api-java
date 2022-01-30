@@ -10,9 +10,5 @@ import java.util.List;
 @Getter
 public class BoardsResponse {
     @Schema(description = "게시판 전체 리스트")
-    private final List<BoardResponse> boardResponses;
-
-    public static BoardsResponse of(List<BoardResponse> boardResponses) {
-        return new BoardsResponse(boardResponses);
-    }
+    private final List<BoardResponse> boards;
 }

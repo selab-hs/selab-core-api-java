@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BoardTest {
     private Board board;
@@ -32,6 +33,7 @@ class BoardTest {
         board.delete();
 
         // then
-        assertEquals(true, board.getDeleteFlag());
+        assertEquals("자유게시판-" + board.getId(), board.getTitle());
+        assertTrue(board.isDeleteFlag());
     }
 }
