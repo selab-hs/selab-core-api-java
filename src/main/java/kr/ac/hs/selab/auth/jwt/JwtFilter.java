@@ -20,7 +20,7 @@ public class JwtFilter implements Filter {
     private final JwtTokenProvider tokenProvider;
 
     private final static List<String> EXCLUDE_URL = List.of(
-        "/api/v1/members",
+        "/api/v1/members/sign",
         "/api/v1/auth/login"
     );
 

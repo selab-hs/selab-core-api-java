@@ -124,7 +124,6 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     // 이건아님
-    // TODO : 필터를 회원가입, 로그인 health check 등등에서는 못타도록 구성해야 한다.
     // Exception 잡아서 진행하기!!
     public boolean validateToken(String token) {
         try {
