@@ -61,7 +61,7 @@ public class PostController implements PostSdk {
     @Override
     @PatchMapping("/posts/{PostId}")
     public ResponseTemplate<PostResponse> delete(@PathVariable Long PostId) {
-        PostResponse response = postService.deleteById(PostId);
+        PostResponse response = postFacade.deleteById(PostId);
         return ResponseTemplate.ok(ResponseMessage.POST_DELETE_SUCCESS, response);
     }
 }
