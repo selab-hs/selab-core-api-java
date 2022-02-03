@@ -14,6 +14,10 @@ import org.springframework.security.core.userdetails.User;
 @NoArgsConstructor
 public class JwtAuthentication {
 
+    private static final String AUTHORITIES_KEY = "auth";
+    private static final String CLAIMS_REGEX = ",";
+    private static final String EMPTY_REGEX = "";
+
     public Authentication getAuthentication(Jwt jwt) {
         Claims claims = jwt.makeClaims();
         Collection<? extends GrantedAuthority> authorities = makeAuthorities(claims);
@@ -21,11 +25,6 @@ public class JwtAuthentication {
 
         return new UsernamePasswordAuthenticationToken(principal, jwt.getJwt(), authorities);
     }
-
-    private static final String AUTHORITIES_KEY = "auth";
-    private static final String CLAIMS_REGEX = ",";
-
-    private static final String EMPTY_REGEX = "";
 
     private Collection<? extends GrantedAuthority> makeAuthorities(Claims claims) {
         final String[] keys = claims.get(AUTHORITIES_KEY)
