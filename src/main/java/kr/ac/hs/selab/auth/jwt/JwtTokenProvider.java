@@ -62,16 +62,8 @@ public class JwtTokenProvider implements InitializingBean {
             .compact();
     }
 
-    public static final String BEARER_TOKEN = "Bearer ";
-    private static final int BEARER_TOKEN_SUBSTRING_INDEX = 7;
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-
-    public String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TOKEN)) {
-            return bearerToken.substring(BEARER_TOKEN_SUBSTRING_INDEX);
-        }
-        return null;
+    public Jwt resolveToken(String authorization) {
+        return new Jwt(authorization, jwtProperties);
     }
 
     private String authoritiesToString(Authentication authentication) {
@@ -91,22 +83,12 @@ public class JwtTokenProvider implements InitializingBean {
 
     // TODO : Provider와 상관 없는 내용임으로 분리해야 한다.
     // 이건아님
-    public Authentication getAuthentication(String token) {
-        Claims claims = makeClaims(token);
+    public Authentication getAuthentication(Jwt jwt) {
+        Claims claims = jwt.makeClaims();
         Collection<? extends GrantedAuthority> authorities = makeAuthorities(claims);
         User principal = newPrincipal(claims, authorities);
 
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
-    }
-
-    // 이건아님
-    private Claims makeClaims(String token) {
-        return Jwts
-            .parserBuilder()
-            .setSigningKey(key)
-            .build()
-            .parseClaimsJws(token)
-            .getBody();
+        return new UsernamePasswordAuthenticationToken(principal, jwt.getJwt(), authorities);
     }
 
     // 이건아님
@@ -119,28 +101,5 @@ public class JwtTokenProvider implements InitializingBean {
     // 이건아님
     private User newPrincipal(Claims claims, Collection<? extends GrantedAuthority> authorities) {
         return new User(claims.getSubject(), EMPTY_REGEX, authorities);
-    }
-
-    // 이건아님
-    // Exception 잡아서 진행하기!!
-    public boolean validateToken(String token) {
-        try {
-            Jwts
-                .parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token);
-            return true;
-        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            log.info("잘못된 JWT 서명입니다.");
-        } catch (ExpiredJwtException e) {
-            log.info("만료된 JWT 토큰입니다.");
-        } catch (UnsupportedJwtException e) {
-            log.info("지원되지 않는 JWT 토큰입니다.");
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            log.info("JWT 토큰이 잘못되었습니다.");
-        }
-        return false;
     }
 }
