@@ -38,7 +38,7 @@ public class JwtFilter implements Filter {
             final String bearerToken = httpServletRequest.getHeader(AUTHORIZATION_HEADER);
 
             final Jwt jwt = tokenProvider.resolveToken(bearerToken);
-            Authentication authentication = tokenProvider.getAuthentication(jwt);
+            Authentication authentication = new JwtAuthentication().getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
