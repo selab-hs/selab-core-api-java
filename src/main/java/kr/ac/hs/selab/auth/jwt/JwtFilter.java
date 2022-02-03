@@ -16,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @RequiredArgsConstructor
 public class JwtFilter implements Filter {
 
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+
     @NotNull
     private final JwtTokenProvider tokenProvider;
 
@@ -30,16 +32,20 @@ public class JwtFilter implements Filter {
         throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        final String servletPath = httpServletRequest.getServletPath();
+        final String resourcePath = httpServletRequest.getServletPath();
 
-        if (!EXCLUDE_URL.contains(servletPath)) {
-            String jwt = tokenProvider.resolveToken(httpServletRequest);
-            if (tokenProvider.validateToken(jwt)) {
-                Authentication authentication = tokenProvider.getAuthentication(jwt);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
+        if (isIncludeURL(resourcePath)) {
+            final String bearerToken = httpServletRequest.getHeader(AUTHORIZATION_HEADER);
+
+            final Jwt jwt = tokenProvider.resolveToken(bearerToken);
+            Authentication authentication = new JwtAuthentication().getAuthentication(jwt);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    private boolean isIncludeURL(String resourcePath) {
+        return !EXCLUDE_URL.contains(resourcePath);
     }
 }
