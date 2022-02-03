@@ -12,6 +12,7 @@ import kr.ac.hs.selab.common.properties.JwtProperties;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+// TODO : JWT 분리작업 진행 필요
 @Slf4j
 public class Jwt {
 
