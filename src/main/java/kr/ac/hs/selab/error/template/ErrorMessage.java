@@ -45,6 +45,11 @@ public enum ErrorMessage {
     POST_NOT_EXISTS_ERROR("E-P-0001", "존재하지 않는 게시글입니다."),
 
     /**
+     * COMMENT ERROR RESPONSE MESSAGE
+     */
+    COMMENT_NOT_EXISTS_ERROR("E-C-0001", "존재하지 않는 댓글입니다."),
+
+    /**
      * TERMS ERROR RESPONSE MESSAGE
      **/
     TERMS_NOT_EXISTS_ERROR("E-T-0001", "존재하지 않는 약관 카테코리입니다."),

@@ -40,8 +40,12 @@ public class PostService {
     }
 
     public PostsResponse findPostsResponseByBoard(Board board) {
-        List<Post> posts = postRepository.findByBoard(board);
+        List<Post> posts = findPostByBoard(board);
         return PostConverter.toPostsResponse(posts);
+    }
+
+    public List<Post> findPostByBoard(Board board) {
+        return postRepository.findByBoard(board);
     }
 
     @Transactional
@@ -51,9 +55,8 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponse deleteById(Long id) {
-        Post post = findPostById(id).delete();
-        return PostConverter.toPostResponse(post);
+    public Post deleteById(Long id) {
+        return findPostById(id).delete();
     }
 
     @Transactional

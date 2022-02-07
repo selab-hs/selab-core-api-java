@@ -39,6 +39,14 @@ public enum ResponseMessage implements Serializable {
     POST_UPDATE_SUCCESS("R-P-0003", "게시글을 정상적으로 수정했습니다."),
     POST_DELETE_SUCCESS("R-P-0004", "게시글을 정상적으로 삭제 했습니다."),
 
+    /**
+     * COMMENT SUCCESS RESPONSE MESSAGE
+     */
+    COMMENT_CREATE_SUCCESS("R-C-0001", "댓글 생성을 완료했습니다."),
+    COMMENT_FIND_SUCCESS("R-C-0002", "댓글을 정상적으로 찾았습니다."),
+    COMMENT_UPDATE_SUCCESS("R-C-0003", "댓글을 정상적으로 수정했습니다."),
+    COMMENT_DELETE_SUCCESS("R-C-0004", "댓글을 정상적으로 삭제했습니다."),
+
     ;
 
     private final String code;

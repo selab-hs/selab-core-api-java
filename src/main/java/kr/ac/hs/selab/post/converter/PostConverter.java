@@ -3,6 +3,7 @@ package kr.ac.hs.selab.post.converter;
 import kr.ac.hs.selab.board.converter.BoardConverter;
 import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.dto.response.BoardResponse;
+import kr.ac.hs.selab.member.converter.MemberConverter;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 import kr.ac.hs.selab.post.domain.Post;
@@ -28,10 +29,11 @@ public class PostConverter {
     }
 
     public PostResponse toPostResponse(Post post) {
+        MemberCreateResponse memberCreateResponse = MemberConverter.toCreateMemberResponse(post.getMember());
         BoardResponse boardResponse = BoardConverter.toBoardResponse(post.getBoard());
 
         return PostResponse.builder()
-                .member(toMemberCreateResponse(post.getMember().getEmail()))
+                .member(memberCreateResponse)
                 .board(boardResponse)
                 .title(post.getTitle())
                 .content(post.getContent())
@@ -62,9 +64,5 @@ public class PostConverter {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .build();
-    }
-
-    private MemberCreateResponse toMemberCreateResponse(String email) {
-        return new MemberCreateResponse(email);
     }
 }
