@@ -38,7 +38,7 @@ public class Comment extends BaseEntity {
         this.member = member;
         this.post = post;
         this.content = content;
-        this.deleteFlag = Boolean.FALSE;
+        this.deleteFlag = false;
     }
 
     public Comment update(String content) {
@@ -47,7 +47,7 @@ public class Comment extends BaseEntity {
     }
 
     public Comment delete() {
-        this.deleteFlag = Boolean.TRUE;
+        this.deleteFlag = true;
         return this;
     }
 }
