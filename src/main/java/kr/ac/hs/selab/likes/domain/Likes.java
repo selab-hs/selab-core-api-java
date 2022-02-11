@@ -13,6 +13,18 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@Table(
+        name = "likes",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {
+                                "member_id",
+                                "likes_target_type",
+                                "likes_target_id"
+                        }
+                )
+        }
+)
 public class Likes extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

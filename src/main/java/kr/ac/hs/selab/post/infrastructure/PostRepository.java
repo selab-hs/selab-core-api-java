@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
+    boolean existsById(Long id);
+
     Optional<Post> findByIdAndDeleteFlag(Long id, boolean deleteFlag);
 
     List<Post> findByBoard(Board board);

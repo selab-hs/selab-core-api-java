@@ -60,4 +60,10 @@ public class CommentService {
     public void deleteByPost(Post post) {
         commentRepository.deleteByPost(post, Constants.DELETED);
     }
+
+    public void isDuplication(Long id) {
+        if (!commentRepository.existsById(id)) {
+            throw new NonExitsException(ErrorMessage.COMMENT_NOT_EXISTS_ERROR);
+        }
+    }
 }

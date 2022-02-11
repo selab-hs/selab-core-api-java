@@ -63,4 +63,10 @@ public class PostService {
     public void deleteByBoard(Board board) {
         postRepository.deleteByBoard(board, Constants.DELETED);
     }
+
+    public void isDuplication(Long id) {
+        if (!postRepository.existsById(id)) {
+            throw new NonExitsException(ErrorMessage.POST_NOT_EXISTS_ERROR);
+        }
+    }
 }
