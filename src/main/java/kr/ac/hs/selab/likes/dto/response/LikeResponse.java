@@ -1,13 +1,10 @@
 package kr.ac.hs.selab.likes.dto.response;
 
-import kr.ac.hs.selab.likes.domain.vo.TargetType;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Builder
+@RequiredArgsConstructor
 @Getter
 public class LikeResponse {
-    private final TargetType targetType;
-    private final Long id;
-    private final Long likeCount;
+    private final Long likeId;
 }

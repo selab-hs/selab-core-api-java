@@ -7,6 +7,7 @@ import kr.ac.hs.selab.likes.application.LikeService;
 import kr.ac.hs.selab.likes.domain.vo.TargetType;
 import kr.ac.hs.selab.likes.dto.LikeCountDto;
 import kr.ac.hs.selab.likes.dto.LikeCreateDto;
+import kr.ac.hs.selab.likes.dto.response.LikeCountResponse;
 import kr.ac.hs.selab.likes.dto.response.LikeResponse;
 import kr.ac.hs.selab.likes.facade.LikeFacade;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ public class LikeController {
     private final LikeFacade likeFacade;
 
     @PostMapping("{targetType}/{targetId}")
-    public ResponseTemplate<String> create(@PathVariable String targetType,
-                                           @PathVariable Long targetId) {
+    public ResponseTemplate<LikeResponse> create(@PathVariable String targetType,
+                                                 @PathVariable Long targetId) {
         String memberEmail = SecurityUtils.getCurrentUsername();
         LikeCreateDto dto = LikeCreateDto.builder()
                 .memberEmail(memberEmail)
@@ -29,22 +30,22 @@ public class LikeController {
                 .targetId(targetId)
                 .build();
 
-        likeFacade.createByLikeCreateDto(dto);
-        return ResponseTemplate.created(ResponseMessage.LIKE_CREATE_SUCCESS, "cool");
+        LikeResponse response = likeFacade.createByLikeCreateDto(dto);
+        return ResponseTemplate.created(ResponseMessage.LIKE_CREATE_SUCCESS, response);
     }
 
     @GetMapping("{targetType}/{targetId}")
-    public ResponseTemplate<LikeResponse> count(@PathVariable String targetType,
-                                                @PathVariable Long targetId) {
+    public ResponseTemplate<LikeCountResponse> count(@PathVariable String targetType,
+                                                     @PathVariable Long targetId) {
         LikeCountDto dto = new LikeCountDto(TargetType.of(targetType), targetId);
-        LikeResponse response = likeService.findLikeResponseByLikeCountDto(dto);
+        LikeCountResponse response = likeFacade.findLikeCountResponseByLikeCountDto(dto);
 
         return ResponseTemplate.created(ResponseMessage.LIKE_FIND_SUCCESS, response);
     }
 
     @DeleteMapping("{id}")
-    public ResponseTemplate<String> delete(@PathVariable Long id) {
-        likeService.deleteById(id);
-        return ResponseTemplate.ok(ResponseMessage.LIKE_DELETE_SUCCESS, "cool");
+    public ResponseTemplate<LikeResponse> delete(@PathVariable Long id) {
+        LikeResponse response = likeService.deleteById(id);
+        return ResponseTemplate.ok(ResponseMessage.LIKE_DELETE_SUCCESS, response);
     }
 }

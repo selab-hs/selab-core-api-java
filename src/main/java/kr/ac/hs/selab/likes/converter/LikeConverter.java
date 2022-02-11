@@ -1,8 +1,9 @@
 package kr.ac.hs.selab.likes.converter;
 
 import kr.ac.hs.selab.likes.domain.Likes;
+import kr.ac.hs.selab.likes.dto.LikeCountDto;
 import kr.ac.hs.selab.likes.dto.LikeCreateDto;
-import kr.ac.hs.selab.likes.dto.response.LikeResponse;
+import kr.ac.hs.selab.likes.dto.response.LikeCountResponse;
 import kr.ac.hs.selab.member.domain.Member;
 import lombok.experimental.UtilityClass;
 
@@ -18,12 +19,10 @@ public class LikeConverter {
                 .build();
     }
 
-    public LikeResponse toLikeResponse(List<Likes> likes) {
-        Likes firstLike = likes.get(0);
-
-        return LikeResponse.builder()
-                .targetType(firstLike.getTargetType())
-                .id(firstLike.getTargetId())
+    public LikeCountResponse toLikeResponse(LikeCountDto dto, List<Likes> likes) {
+        return LikeCountResponse.builder()
+                .targetType(dto.getTargetType())
+                .targetId(dto.getTargetId())
                 .likeCount((long) likes.size())
                 .build();
     }

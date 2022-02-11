@@ -3,7 +3,10 @@ package kr.ac.hs.selab.likes.facade;
 import kr.ac.hs.selab.comment.application.CommentService;
 import kr.ac.hs.selab.likes.application.LikeService;
 import kr.ac.hs.selab.likes.domain.vo.TargetType;
+import kr.ac.hs.selab.likes.dto.LikeCountDto;
 import kr.ac.hs.selab.likes.dto.LikeCreateDto;
+import kr.ac.hs.selab.likes.dto.response.LikeCountResponse;
+import kr.ac.hs.selab.likes.dto.response.LikeResponse;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.application.PostService;
@@ -21,14 +24,19 @@ public class LikeFacade {
     private final CommentService commentService;
 
     @Transactional
-    public void createByLikeCreateDto(LikeCreateDto dto) {
+    public LikeResponse createByLikeCreateDto(LikeCreateDto dto) {
         Member member = memberService.findByEmail(dto.getMemberEmail());
-        validateTarget(dto.getTargetType(), dto.getTargetId());
+        checkDuplicateTarget(dto.getTargetType(), dto.getTargetId());
 
-        likeService.createByLikeCreateDtoAndMember(dto, member);
+        return likeService.createByLikeCreateDtoAndMember(dto, member);
     }
 
-    private void validateTarget(TargetType targetType, Long targetId) {
+    public LikeCountResponse findLikeCountResponseByLikeCountDto(LikeCountDto dto) {
+        checkDuplicateTarget(dto.getTargetType(), dto.getTargetId());
+        return likeService.findLikeCountResponseByLikeCountDto(dto);
+    }
+
+    private void checkDuplicateTarget(TargetType targetType, Long targetId) {
         if (TargetType.POST.equals(targetType)) {
             postService.isDuplication(targetId);
         }
