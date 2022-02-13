@@ -13,6 +13,7 @@ import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,5 +60,13 @@ public class CommentService {
     @Transactional
     public void deleteByPost(Post post) {
         commentRepository.deleteByPost(post, Constants.DELETED);
+    }
+
+    @Async
+    @Transactional
+    public void deleteByPosts(List<Post> posts) {
+        System.out.println("댓글 삭제 시작");
+        posts.forEach(this::deleteByPost);
+        System.out.println("댓글 삭제 완료");
     }
 }

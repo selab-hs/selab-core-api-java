@@ -11,6 +11,7 @@ import kr.ac.hs.selab.common.utils.Constants;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +52,7 @@ public class BoardService {
 
     @Transactional
     public Board deleteById(Long id) {
+        System.out.println("게시판 삭제 시작");
         return findBoardById(id).delete();
     }
 }

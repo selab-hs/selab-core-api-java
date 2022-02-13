@@ -46,5 +46,5 @@ public interface BoardSdk {
             @ApiResponse(code = 201, message = "게시판 삭제 성공"),
             @ApiResponse(code = 400, message = "게시판 삭제 실패")
     })
-    ResponseTemplate<BoardResponse> delete(@Parameter(description = "게시판 id 값") Long id);
+    ResponseTemplate<BoardResponse> delete(@Parameter(description = "게시판 id 값") Long id) throws InterruptedException;
 }
