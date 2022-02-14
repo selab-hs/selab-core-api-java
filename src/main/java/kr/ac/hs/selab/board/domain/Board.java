@@ -14,16 +14,16 @@ import javax.persistence.*;
 public class Board extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_id")
+    @Column(name = "board_id", nullable = false)
     private Long id;
 
-    @Column(name = "board_title", unique = true)
+    @Column(name = "board_title", unique = true, nullable = false)
     private String title;
 
-    @Column(name = "board_description")
+    @Column(name = "board_description", nullable = false)
     private String description;
 
-    @Column(name = "board_delete_flag")
+    @Column(name = "board_delete_flag", nullable = false)
     private boolean deleteFlag;
 
     @Transient

@@ -4,8 +4,8 @@ import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.dto.BoardCreateDto;
 import kr.ac.hs.selab.board.dto.BoardUpdateDto;
 import kr.ac.hs.selab.board.dto.request.BoardRequest;
-import kr.ac.hs.selab.board.dto.response.BoardResponse;
-import kr.ac.hs.selab.board.dto.response.BoardsResponse;
+import kr.ac.hs.selab.board.dto.response.BoardFindAllResponse;
+import kr.ac.hs.selab.board.dto.response.BoardFindResponse;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -20,8 +20,8 @@ public class BoardConverter {
                 .build();
     }
 
-    public BoardResponse toBoardResponse(Board board) {
-        return BoardResponse.builder()
+    public BoardFindResponse toBoardResponse(Board board) {
+        return BoardFindResponse.builder()
                 .title(board.getTitle())
                 .description(board.getDescription())
                 .createdAt(board.getCreatedAt())
@@ -29,11 +29,11 @@ public class BoardConverter {
                 .build();
     }
 
-    public BoardsResponse toBoardsResponse(List<Board> boards) {
-        List<BoardResponse> boardResponses = boards.stream()
+    public BoardFindAllResponse toBoardsResponse(Long totalCount, List<Board> boards) {
+        List<BoardFindResponse> boardResponses = boards.stream()
                 .map(BoardConverter::toBoardResponse)
                 .collect(Collectors.toList());
-        return new BoardsResponse(boardResponses);
+        return new BoardFindAllResponse(totalCount, boardResponses);
     }
 
     public BoardUpdateDto toBoardUpdateDto(Long id, BoardRequest request) {

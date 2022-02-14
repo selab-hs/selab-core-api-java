@@ -5,22 +5,21 @@ import kr.ac.hs.selab.board.converter.BoardConverter;
 import kr.ac.hs.selab.board.dto.BoardCreateDto;
 import kr.ac.hs.selab.board.dto.BoardUpdateDto;
 import kr.ac.hs.selab.board.dto.request.BoardRequest;
+import kr.ac.hs.selab.board.dto.response.BoardFindAllResponse;
+import kr.ac.hs.selab.board.dto.response.BoardFindResponse;
 import kr.ac.hs.selab.board.dto.response.BoardResponse;
-import kr.ac.hs.selab.board.dto.response.BoardsResponse;
 import kr.ac.hs.selab.board.facade.BoardFacade;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "api/v1/admin/boards")
+@RequestMapping("api/v1/admin/boards")
 @RestController
 public class BoardController implements BoardSdk {
-
     private final BoardService boardService;
     private final BoardFacade boardFacade;
 
@@ -28,21 +27,21 @@ public class BoardController implements BoardSdk {
     @PostMapping
     public ResponseTemplate<BoardResponse> create(@Valid @RequestBody BoardRequest request) {
         BoardCreateDto dto = new BoardCreateDto(request.getTitle(), request.getDescription());
-        BoardResponse response = boardService.createByBoardCreateDto(dto);
+        BoardResponse response = boardService.create(dto);
         return ResponseTemplate.created(ResponseMessage.BOARD_CREATE_SUCCESS, response);
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseTemplate<BoardResponse> find(@PathVariable Long id) {
-        BoardResponse response = boardService.findBoardResponseById(id);
+    public ResponseTemplate<BoardFindResponse> find(@PathVariable Long id) {
+        BoardFindResponse response = boardService.findBoardResponseById(id);
         return ResponseTemplate.ok(ResponseMessage.BOARD_FIND_SUCCESS, response);
     }
 
     @Override
     @GetMapping
-    public ResponseTemplate<BoardsResponse> findAll() {
-        BoardsResponse response = boardService.findBoardsResponse();
+    public ResponseTemplate<BoardFindAllResponse> findAll() {
+        BoardFindAllResponse response = boardService.findBoardsResponse();
         return ResponseTemplate.ok(ResponseMessage.BOARD_FIND_SUCCESS, response);
     }
 
@@ -51,8 +50,8 @@ public class BoardController implements BoardSdk {
     public ResponseTemplate<BoardResponse> update(@PathVariable Long id,
                                                   @Valid @RequestBody BoardRequest request) {
         BoardUpdateDto dto = BoardConverter.toBoardUpdateDto(id, request);
-        BoardResponse response = boardService.updateByBoardUpdateDto(dto);
-        return ResponseTemplate.ok(ResponseMessage.BOARD_FIND_SUCCESS, response);
+        BoardResponse response = boardService.update(dto);
+        return ResponseTemplate.ok(ResponseMessage.BOARD_UPDATE_SUCCESS, response);
     }
 
     @Override
