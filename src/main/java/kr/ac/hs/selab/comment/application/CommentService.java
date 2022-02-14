@@ -66,4 +66,10 @@ public class CommentService {
     public void deleteByPosts(List<Post> posts) {
         posts.forEach(this::deleteByPost);
     }
+  
+    public void isDuplication(Long id) {
+        if (!commentRepository.existsById(id)) {
+            throw new NonExitsException(ErrorMessage.COMMENT_NOT_EXISTS_ERROR);
+        }
+    }
 }
