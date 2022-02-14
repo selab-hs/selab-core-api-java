@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.board.facade;
+package kr.ac.hs.selab.board.event;
 
 import kr.ac.hs.selab.board.domain.BoardEvent;
 import kr.ac.hs.selab.comment.application.CommentService;
@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 @Component
 @RequiredArgsConstructor
 public class BoardEventListener {
-
     private final CommentService commentService;
     private final PostService postService;
 

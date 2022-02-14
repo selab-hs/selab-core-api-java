@@ -52,7 +52,6 @@ public class BoardService {
 
     @Transactional
     public Board deleteById(Long id) {
-        System.out.println("게시판 삭제 시작");
         return findBoardById(id).delete();
     }
 }

@@ -60,11 +60,8 @@ public class PostService {
         return findPostById(id).delete();
     }
 
-    @Async
     @Transactional
     public void deleteByBoard(Board board) {
-        System.out.println("게시글 삭제 시작");
         postRepository.deleteByBoard(board, Constants.DELETED);
-        System.out.println("게시글 삭제 완료");
     }
 }

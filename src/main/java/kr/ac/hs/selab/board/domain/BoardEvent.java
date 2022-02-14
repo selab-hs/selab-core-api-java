@@ -4,5 +4,5 @@ import lombok.Value;
 
 @Value(staticConstructor = "of")
 public class BoardEvent {
-    private final Board board;
+    Board board;
 }

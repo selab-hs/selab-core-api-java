@@ -62,11 +62,8 @@ public class CommentService {
         commentRepository.deleteByPost(post, Constants.DELETED);
     }
 
-    @Async
     @Transactional
     public void deleteByPosts(List<Post> posts) {
-        System.out.println("댓글 삭제 시작");
         posts.forEach(this::deleteByPost);
-        System.out.println("댓글 삭제 완료");
     }
 }
