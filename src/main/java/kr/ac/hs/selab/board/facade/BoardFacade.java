@@ -1,7 +1,6 @@
 package kr.ac.hs.selab.board.facade;
 
 import kr.ac.hs.selab.board.application.BoardService;
-import kr.ac.hs.selab.board.converter.BoardConverter;
 import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.domain.BoardEvent;
 import kr.ac.hs.selab.board.dto.response.BoardResponse;
@@ -18,9 +17,9 @@ public class BoardFacade {
 
     @Transactional
     public BoardResponse deleteById(Long id) {
-        Board board = boardService.deleteById(id);
+        Board board = boardService.delete(id);
         publisher.publishEvent(BoardEvent.of(board));
 
-        return BoardConverter.toBoardResponse(board);
+        return new BoardResponse(board.getId());
     }
 }

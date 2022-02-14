@@ -10,4 +10,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByDeleteFlag(boolean deleteFlag);
 
     Optional<Board> findByIdAndDeleteFlag(Long id, boolean deleteFlag);
+
+    Long countByDeleteFlag(boolean deleteFlag);
 }

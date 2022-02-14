@@ -6,8 +6,9 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import kr.ac.hs.selab.board.dto.request.BoardRequest;
+import kr.ac.hs.selab.board.dto.response.BoardFindAllResponse;
+import kr.ac.hs.selab.board.dto.response.BoardFindResponse;
 import kr.ac.hs.selab.board.dto.response.BoardResponse;
-import kr.ac.hs.selab.board.dto.response.BoardsResponse;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 
 @Api(tags = "Board REST API", description = "게시판 api")
@@ -24,14 +25,14 @@ public interface BoardSdk {
             @ApiResponse(code = 201, message = "게시판 조회 성공"),
             @ApiResponse(code = 400, message = "게시판 조회 실패")
     })
-    ResponseTemplate<BoardsResponse> findAll();
+    ResponseTemplate<BoardFindAllResponse> findAll();
 
     @Operation(summary = "게시판 조회", description = "게시판 정보를 이용해서 게시판을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 201, message = "게시판 조회 성공"),
             @ApiResponse(code = 400, message = "게시판 조회 실패")
     })
-    ResponseTemplate<BoardResponse> find(@Parameter(description = "게시판 id 값") Long id);
+    ResponseTemplate<BoardFindResponse> find(@Parameter(description = "게시판 id 값") Long id);
 
     @Operation(summary = "게시판 수정", description = "새로운 게시판 정보를 이용해서 게시판을 수정한다.")
     @ApiResponses({
@@ -39,7 +40,7 @@ public interface BoardSdk {
             @ApiResponse(code = 400, message = "게시판 수정 실패")
     })
     ResponseTemplate<BoardResponse> update(@Parameter(description = "게시판 id 값") Long id,
-                                           @Parameter(description = "게시판 정보") BoardRequest request);
+                                               @Parameter(description = "게시판 정보") BoardRequest request);
 
     @Operation(summary = "게시판 삭제", description = "게시판을 지정하여 게시판을 삭제한다.")
     @ApiResponses({

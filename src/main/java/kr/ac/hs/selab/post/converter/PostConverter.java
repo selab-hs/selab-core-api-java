@@ -2,7 +2,7 @@ package kr.ac.hs.selab.post.converter;
 
 import kr.ac.hs.selab.board.converter.BoardConverter;
 import kr.ac.hs.selab.board.domain.Board;
-import kr.ac.hs.selab.board.dto.response.BoardResponse;
+import kr.ac.hs.selab.board.dto.response.BoardFindResponse;
 import kr.ac.hs.selab.member.converter.MemberConverter;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
@@ -30,7 +30,7 @@ public class PostConverter {
 
     public PostResponse toPostResponse(Post post) {
         MemberCreateResponse memberCreateResponse = MemberConverter.toCreateMemberResponse(post.getMember());
-        BoardResponse boardResponse = BoardConverter.toBoardResponse(post.getBoard());
+        BoardFindResponse boardResponse = BoardConverter.toBoardResponse(post.getBoard());
 
         return PostResponse.builder()
                 .member(memberCreateResponse)

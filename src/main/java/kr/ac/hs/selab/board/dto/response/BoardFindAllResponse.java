@@ -8,7 +8,10 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
-public class BoardsResponse {
+public class BoardFindAllResponse {
+    @Schema(description = "게시판 전체 개수")
+    private final Long totalCount;
+
     @Schema(description = "게시판 전체 리스트")
-    private final List<BoardResponse> boards;
+    private final List<BoardFindResponse> boards;
 }

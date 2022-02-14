@@ -1,7 +1,7 @@
 package kr.ac.hs.selab.post.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import kr.ac.hs.selab.board.dto.response.BoardResponse;
+import kr.ac.hs.selab.board.dto.response.BoardFindResponse;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class PostResponse {
     private final MemberCreateResponse member;
 
     @Schema(description = "게시판 정보")
-    private final BoardResponse board;
+    private final BoardFindResponse board;
 
     @Schema(description = "게시글 제목")
     private final String title;
