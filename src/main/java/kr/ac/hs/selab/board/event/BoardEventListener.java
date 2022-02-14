@@ -13,8 +13,8 @@ import javax.transaction.Transactional;
 @Component
 @RequiredArgsConstructor
 public class BoardEventListener {
-    private final CommentService commentService;
     private final PostService postService;
+    private final CommentService commentService;
 
     @Async
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
