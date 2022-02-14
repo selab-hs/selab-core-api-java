@@ -12,6 +12,7 @@ import kr.ac.hs.selab.post.dto.response.PostResponse;
 import kr.ac.hs.selab.post.dto.response.PostsResponse;
 import kr.ac.hs.selab.post.facade.PostFacade;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -58,9 +59,10 @@ public class PostController implements PostSdk {
         return ResponseTemplate.ok(ResponseMessage.POST_UPDATE_SUCCESS, response);
     }
 
+    @SneakyThrows
     @Override
     @PatchMapping("/posts/{PostId}")
-    public ResponseTemplate<PostResponse> delete(@PathVariable Long PostId) {
+    public ResponseTemplate<PostResponse> delete(@PathVariable Long PostId) throws InterruptedException {
         PostResponse response = postFacade.deleteById(PostId);
         return ResponseTemplate.ok(ResponseMessage.POST_DELETE_SUCCESS, response);
     }

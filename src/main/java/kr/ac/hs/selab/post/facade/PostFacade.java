@@ -36,7 +36,7 @@ public class PostFacade {
         return postService.findPostsResponseByBoard(board);
     }
 
-    public PostResponse deleteById(Long postId) {
+    public PostResponse deleteById(Long postId) throws InterruptedException {
         Post post = postService.deleteById(postId);
         commentService.deleteByPost(post);
         return PostConverter.toPostResponse(post);

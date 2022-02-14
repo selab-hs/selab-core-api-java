@@ -11,6 +11,7 @@ import kr.ac.hs.selab.board.facade.BoardFacade;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

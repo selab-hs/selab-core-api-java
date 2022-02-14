@@ -47,5 +47,5 @@ public interface PostSdk {
             @ApiResponse(code = 201, message = "게시글 삭제 성공"),
             @ApiResponse(code = 400, message = "게시글 삭제 실패")
     })
-    ResponseTemplate<PostResponse> delete(@Parameter(description = "게시글 id 값") Long postId);
+    ResponseTemplate<PostResponse> delete(@Parameter(description = "게시글 id 값") Long postId) throws InterruptedException;
 }

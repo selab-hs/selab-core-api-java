@@ -13,6 +13,7 @@ import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +62,11 @@ public class CommentService {
         commentRepository.deleteByPost(post, Constants.DELETED);
     }
 
+    @Transactional
+    public void deleteByPosts(List<Post> posts) {
+        posts.forEach(this::deleteByPost);
+    }
+  
     public void isDuplication(Long id) {
         if (!commentRepository.existsById(id)) {
             throw new NonExitsException(ErrorMessage.COMMENT_NOT_EXISTS_ERROR);

@@ -13,6 +13,7 @@ import kr.ac.hs.selab.post.dto.response.PostResponse;
 import kr.ac.hs.selab.post.dto.response.PostsResponse;
 import kr.ac.hs.selab.post.infrastructure.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
