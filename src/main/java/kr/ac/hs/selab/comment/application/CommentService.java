@@ -58,7 +58,8 @@ public class CommentService {
 
     @Transactional
     public void deleteByPost(Post post) {
-        commentRepository.deleteByPost(post, Constants.DELETED);
+        commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED)
+                .forEach(Comment::delete);
     }
 
     @Transactional

@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "api/v1/")
+@RequestMapping(value = "api/v1")
 @RestController
 public class CommentController implements CommentSdk {
     private final CommentService commentService;
     private final CommentFacade commentFacade;
 
     @Override
-    @PostMapping("posts/{postId}/comments")
+    @PostMapping("/posts/{postId}/comments")
     public ResponseTemplate<CommentResponse> create(@PathVariable Long postId,
                                                     @Valid @RequestBody CommentRequest request) {
         String memberEmail = SecurityUtils.getCurrentUsername();
@@ -35,7 +35,7 @@ public class CommentController implements CommentSdk {
     }
 
     @Override
-    @GetMapping("comments/{commentId}")
+    @GetMapping("/comments/{commentId}")
     public ResponseTemplate<CommentResponse> find(@PathVariable Long commentId) {
         CommentResponse response = commentService.findCommentResponseById(commentId);
         return ResponseTemplate.ok(ResponseMessage.COMMENT_FIND_SUCCESS, response);
