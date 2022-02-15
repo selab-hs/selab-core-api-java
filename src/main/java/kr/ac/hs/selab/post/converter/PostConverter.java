@@ -1,17 +1,13 @@
 package kr.ac.hs.selab.post.converter;
 
-import kr.ac.hs.selab.board.converter.BoardConverter;
 import kr.ac.hs.selab.board.domain.Board;
-import kr.ac.hs.selab.board.dto.response.BoardFindResponse;
-import kr.ac.hs.selab.member.converter.MemberConverter;
 import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
 import kr.ac.hs.selab.post.dto.request.PostRequest;
-import kr.ac.hs.selab.post.dto.response.PostResponse;
-import kr.ac.hs.selab.post.dto.response.PostsResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindByBoardResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -28,13 +24,11 @@ public class PostConverter {
                 .build();
     }
 
-    public PostResponse toPostResponse(Post post) {
-        MemberCreateResponse memberCreateResponse = MemberConverter.toCreateMemberResponse(post.getMember());
-        BoardFindResponse boardResponse = BoardConverter.toBoardResponse(post.getBoard());
-
-        return PostResponse.builder()
-                .member(memberCreateResponse)
-                .board(boardResponse)
+    public PostFindResponse toPostFindResponse(Post post) {
+        return PostFindResponse.builder()
+                .boardId(post.getBoard().getId())
+                .memberEmail(post.getMember().getEmail())
+                .postId(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .createdAt(post.getCreatedAt())
@@ -42,14 +36,31 @@ public class PostConverter {
                 .build();
     }
 
-    public PostsResponse toPostsResponse(List<Post> posts) {
-        List<PostResponse> postResponses = posts.stream()
-                .map(PostConverter::toPostResponse)
-                .collect(Collectors.toList());
-        return new PostsResponse(postResponses);
+    public PostFindByBoardResponse.PostInnerResponse toPostInnerResponse(Post post) {
+        return PostFindByBoardResponse.PostInnerResponse
+                .builder()
+                .memberEmail(post.getMember().getEmail())
+                .postId(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .createdAt(post.getCreatedAt())
+                .modifiedAt(post.getModifiedAt())
+                .build();
     }
 
-    public static PostCreateDto toPostCreateDto(PostRequest request, Long boardId, String memberEmail) {
+    public PostFindByBoardResponse toPostFindByBoardResponse(Long boardId, Long totalCount, List<Post> posts) {
+        List<PostFindByBoardResponse.PostInnerResponse> postInnerResponses = posts.stream()
+                .map(PostConverter::toPostInnerResponse)
+                .collect(Collectors.toList());
+
+        return PostFindByBoardResponse.builder()
+                .boardId(boardId)
+                .totalCount(totalCount)
+                .posts(postInnerResponses)
+                .build();
+    }
+
+    public PostCreateDto toPostCreateDto(PostRequest request, Long boardId, String memberEmail) {
         return PostCreateDto.builder()
                 .memberEmail(memberEmail)
                 .boardId(boardId)

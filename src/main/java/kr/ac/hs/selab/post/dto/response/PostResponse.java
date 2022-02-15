@@ -1,31 +1,12 @@
 package kr.ac.hs.selab.post.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import kr.ac.hs.selab.board.dto.response.BoardFindResponse;
-import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDateTime;
-
-@Builder
+@RequiredArgsConstructor
 @Getter
 public class PostResponse {
-    @Schema(description = "회원 정보")
-    private final MemberCreateResponse member;
-
-    @Schema(description = "게시판 정보")
-    private final BoardFindResponse board;
-
-    @Schema(description = "게시글 제목")
-    private final String title;
-
-    @Schema(description = "게시글 내용")
-    private final String content;
-
-    @Schema(description = "게시글 생성 시간")
-    private final LocalDateTime createdAt;
-
-    @Schema(description = "게시글 수정 시간")
-    private final LocalDateTime modifiedAt;
+    @Schema(description = "게시글 id")
+    private final Long postId;
 }

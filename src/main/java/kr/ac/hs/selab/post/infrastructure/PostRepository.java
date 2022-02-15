@@ -12,5 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Optional<Post> findByIdAndDeleteFlag(Long id, boolean deleteFlag);
 
-    List<Post> findByBoard(Board board);
+    List<Post> findByBoardAndDeleteFlag(Board board, boolean deleteFlag);
+
+    Long countByBoardAndDeleteFlag(Board board, boolean deleteFlag);
 }

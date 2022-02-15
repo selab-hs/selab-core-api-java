@@ -11,7 +11,7 @@ import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 import kr.ac.hs.selab.post.converter.PostConverter;
 import kr.ac.hs.selab.post.domain.Post;
-import kr.ac.hs.selab.post.dto.response.PostResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class CommentConverter {
 
     public CommentResponse toCommentResponse(Comment comment) {
         MemberCreateResponse memberCreateResponse = MemberConverter.toCreateMemberResponse(comment.getMember());
-        PostResponse postResponse = PostConverter.toPostResponse(comment.getPost());
+        PostFindResponse postResponse = PostConverter.toPostFindResponse(comment.getPost());
 
         return CommentResponse.builder()
                 .member(memberCreateResponse)

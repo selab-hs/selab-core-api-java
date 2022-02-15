@@ -9,8 +9,8 @@ import kr.ac.hs.selab.post.converter.PostConverter;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
-import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import kr.ac.hs.selab.post.dto.response.PostFindByBoardResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import kr.ac.hs.selab.post.dto.response.PostResponse;
 import kr.ac.hs.selab.post.infrastructure.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,12 +41,14 @@ public class PostService {
     }
 
     public PostFindByBoardResponse findPostsResponseByBoard(Board board) {
+        Long totalCount = postRepository.countByBoardAndDeleteFlag(board, Constants.NOT_DELETED);
         List<Post> posts = findPostsByBoard(board);
-        return PostConverter.toPostsResponse(posts);
+
+        return PostConverter.toPostFindByBoardResponse(board.getId(), totalCount, posts);
     }
 
     public List<Post> findPostsByBoard(Board board) {
-        return postRepository.findByBoard(board);
+        return postRepository.findByBoardAndDeleteFlag(board, Constants.NOT_DELETED);
     }
 
     @Transactional
@@ -62,7 +64,7 @@ public class PostService {
 
     @Transactional
     public void deleteByBoard(Board board) {
-        postRepository.findByBoard(board)
+        postRepository.findByBoardAndDeleteFlag(board, Constants.NOT_DELETED)
                 .forEach(Post::delete);
     }
 
