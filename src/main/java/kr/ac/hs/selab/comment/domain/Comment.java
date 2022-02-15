@@ -16,21 +16,21 @@ import javax.persistence.*;
 public class Comment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "comment_id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
-    @Column(name = "comment_content")
+    @Column(name = "comment_content", nullable = false)
     private String content;
 
-    @Column(name = "comment_delete_flag")
+    @Column(name = "comment_delete_flag", nullable = false)
     private boolean deleteFlag;
 
     @Builder
