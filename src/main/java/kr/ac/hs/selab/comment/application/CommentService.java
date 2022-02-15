@@ -4,8 +4,9 @@ import kr.ac.hs.selab.comment.converter.CommentConverter;
 import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.comment.dto.CommentCreateDto;
 import kr.ac.hs.selab.comment.dto.CommentUpdateDto;
+import kr.ac.hs.selab.comment.dto.response.CommentFindByPostResponse;
+import kr.ac.hs.selab.comment.dto.response.CommentFindResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentResponse;
-import kr.ac.hs.selab.comment.dto.response.CommentsResponse;
 import kr.ac.hs.selab.comment.infrastructure.CommentRepository;
 import kr.ac.hs.selab.common.utils.Constants;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
@@ -27,10 +28,10 @@ public class CommentService {
     @Transactional
     public CommentResponse create(CommentCreateDto dto, Member member, Post post) {
         Comment comment = commentRepository.save(CommentConverter.toComment(dto, member, post));
-        return CommentConverter.toCommentResponse(comment);
+        return new CommentResponse(comment.getId());
     }
 
-    public CommentResponse findCommentResponseById(Long id) {
+    public CommentFindResponse findCommentResponseById(Long id) {
         return CommentConverter.toCommentResponse(findCommentById(id));
     }
 
@@ -39,21 +40,23 @@ public class CommentService {
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.COMMENT_NOT_EXISTS_ERROR));
     }
 
-    public CommentsResponse findCommentsResponseByPost(Post post) {
+    public CommentFindByPostResponse findCommentsResponseByPost(Post post) {
+        Long totalCount = commentRepository.countByPostAndDeleteFlag(post, Constants.NOT_DELETED);
         List<Comment> comments = commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED);
-        return CommentConverter.toCommentsResponse(comments);
+
+        return CommentConverter.toCommentsResponse(post.getId(), totalCount, comments);
     }
 
     @Transactional
     public CommentResponse update(CommentUpdateDto dto) {
         Comment comment = findCommentById(dto.getId()).update(dto.getContent());
-        return CommentConverter.toCommentResponse(comment);
+        return new CommentResponse(comment.getId());
     }
 
     @Transactional
     public CommentResponse deleteById(Long id) {
         Comment comment = findCommentById(id).delete();
-        return CommentConverter.toCommentResponse(comment);
+        return new CommentResponse(comment.getId());
     }
 
     @Transactional

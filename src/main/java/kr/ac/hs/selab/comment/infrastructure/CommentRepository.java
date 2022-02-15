@@ -13,4 +13,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     Optional<Comment> findByIdAndDeleteFlag(Long id, boolean deleteFlag);
 
     List<Comment> findByPostAndDeleteFlag(Post post, boolean deleteFlag);
+
+    Long countByPostAndDeleteFlag(Post post, boolean deleteFlag);
 }

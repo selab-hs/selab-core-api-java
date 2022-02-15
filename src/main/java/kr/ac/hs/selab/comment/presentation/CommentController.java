@@ -5,8 +5,9 @@ import kr.ac.hs.selab.comment.converter.CommentConverter;
 import kr.ac.hs.selab.comment.dto.CommentCreateDto;
 import kr.ac.hs.selab.comment.dto.CommentUpdateDto;
 import kr.ac.hs.selab.comment.dto.request.CommentRequest;
+import kr.ac.hs.selab.comment.dto.response.CommentFindByPostResponse;
+import kr.ac.hs.selab.comment.dto.response.CommentFindResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentResponse;
-import kr.ac.hs.selab.comment.dto.response.CommentsResponse;
 import kr.ac.hs.selab.comment.facade.CommentFacade;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
@@ -36,15 +37,15 @@ public class CommentController implements CommentSdk {
 
     @Override
     @GetMapping("/comments/{commentId}")
-    public ResponseTemplate<CommentResponse> find(@PathVariable Long commentId) {
-        CommentResponse response = commentService.findCommentResponseById(commentId);
+    public ResponseTemplate<CommentFindResponse> find(@PathVariable Long commentId) {
+        CommentFindResponse response = commentService.findCommentResponseById(commentId);
         return ResponseTemplate.ok(ResponseMessage.COMMENT_FIND_SUCCESS, response);
     }
 
     @Override
     @GetMapping("/posts/{postId}/comments")
-    public ResponseTemplate<CommentsResponse> findByPost(@PathVariable Long postId) {
-        CommentsResponse response = commentFacade.findCommentsResponseByPostId(postId);
+    public ResponseTemplate<CommentFindByPostResponse> findByPost(@PathVariable Long postId) {
+        CommentFindByPostResponse response = commentFacade.findCommentsResponseByPostId(postId);
         return ResponseTemplate.ok(ResponseMessage.COMMENT_FIND_SUCCESS, response);
     }
 
