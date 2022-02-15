@@ -30,7 +30,7 @@ public class CommentController implements CommentSdk {
         String memberEmail = SecurityUtils.getCurrentUsername();
         CommentCreateDto dto = CommentConverter.toCommentCreateDto(request, postId, memberEmail);
 
-        CommentResponse response = commentFacade.createByCommentCreateDto(dto);
+        CommentResponse response = commentFacade.create(dto);
         return ResponseTemplate.created(ResponseMessage.COMMENT_CREATE_SUCCESS, response);
     }
 
@@ -54,7 +54,7 @@ public class CommentController implements CommentSdk {
                                                     @Valid @RequestBody CommentRequest request) {
         CommentUpdateDto dto = CommentConverter.toCommentUpdateDto(commentId, request);
 
-        CommentResponse response = commentService.updateByCommentUpdateDto(dto);
+        CommentResponse response = commentService.update(dto);
         return ResponseTemplate.ok(ResponseMessage.COMMENT_UPDATE_SUCCESS, response);
     }
 

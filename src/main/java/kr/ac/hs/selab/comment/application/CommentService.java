@@ -13,7 +13,6 @@ import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +25,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public CommentResponse createByCommentCreateDto(CommentCreateDto dto, Member member, Post post) {
+    public CommentResponse create(CommentCreateDto dto, Member member, Post post) {
         Comment comment = commentRepository.save(CommentConverter.toComment(dto, member, post));
         return CommentConverter.toCommentResponse(comment);
     }
@@ -41,12 +40,12 @@ public class CommentService {
     }
 
     public CommentsResponse findCommentsResponseByPost(Post post) {
-        List<Comment> comments = commentRepository.findByPost(post);
+        List<Comment> comments = commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED);
         return CommentConverter.toCommentsResponse(comments);
     }
 
     @Transactional
-    public CommentResponse updateByCommentUpdateDto(CommentUpdateDto dto) {
+    public CommentResponse update(CommentUpdateDto dto) {
         Comment comment = findCommentById(dto.getId()).update(dto.getContent());
         return CommentConverter.toCommentResponse(comment);
     }
@@ -66,7 +65,7 @@ public class CommentService {
     public void deleteByPosts(List<Post> posts) {
         posts.forEach(this::deleteByPost);
     }
-  
+
     public void isDuplication(Long id) {
         if (!commentRepository.existsById(id)) {
             throw new NonExitsException(ErrorMessage.COMMENT_NOT_EXISTS_ERROR);

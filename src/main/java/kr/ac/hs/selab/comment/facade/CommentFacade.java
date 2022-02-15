@@ -20,11 +20,11 @@ public class CommentFacade {
     private final CommentService commentService;
 
     @Transactional
-    public CommentResponse createByCommentCreateDto(CommentCreateDto commentDto) {
+    public CommentResponse create(CommentCreateDto commentDto) {
         Member member = memberService.findByEmail(commentDto.getMemberEmail());
         Post post = postService.findPostById(commentDto.getPostId());
 
-        return commentService.createByCommentCreateDto(commentDto, member, post);
+        return commentService.create(commentDto, member, post);
     }
 
     public CommentsResponse findCommentsResponseByPostId(Long postId) {
