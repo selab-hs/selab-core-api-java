@@ -16,24 +16,24 @@ import javax.persistence.*;
 public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
+    @Column(name = "post_id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
-    @Column(name = "post_title")
+    @Column(name = "post_title", nullable = false)
     private String title;
 
-    @Column(name = "post_content")
+    @Column(name = "post_content", nullable = false)
     private String content;
 
-    @Column(name = "post_delete_flag")
+    @Column(name = "post_delete_flag", nullable = false)
     private boolean deleteFlag;
 
     @Builder
