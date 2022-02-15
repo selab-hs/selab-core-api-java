@@ -9,6 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,14 +23,16 @@ public class JwtFilter implements Filter {
     private final JwtTokenProvider tokenProvider;
 
     private final static List<String> EXCLUDE_URL = List.of(
-        "/api/v1/members/sign",
-        "/api/v1/auth/login"
+            "/api/v1/members/sign",
+            "/api/v1/auth/login",
+            "/swagger",
+            "/swagger-ui/index.html"
     );
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-        FilterChain filterChain)
-        throws IOException, ServletException {
+                         FilterChain filterChain)
+            throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
         final String resourcePath = httpServletRequest.getServletPath();
