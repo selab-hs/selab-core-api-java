@@ -1,6 +1,7 @@
 package kr.ac.hs.selab.common.config;
 
 import javax.validation.constraints.NotNull;
+
 import kr.ac.hs.selab.auth.jwt.JwtAccessDeniedHandler;
 import kr.ac.hs.selab.auth.jwt.JwtAuthenticationEntryPoint;
 import kr.ac.hs.selab.auth.jwt.JwtSecurityConfig;
@@ -33,37 +34,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-            .csrf().disable();
+                .csrf().disable();
 
         httpSecurity
-            .cors()
-            .configurationSource(corsConfigurationSource());
+                .cors()
+                .configurationSource(corsConfigurationSource());
 
         httpSecurity
-            .exceptionHandling()
-            .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
-            .accessDeniedHandler(new JwtAccessDeniedHandler())
+                .exceptionHandling()
+                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+                .accessDeniedHandler(new JwtAccessDeniedHandler())
 
-            .and()
-            .headers()
-            .frameOptions()
-            .sameOrigin()
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
 
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-            .and()
-            .authorizeRequests()
-            .antMatchers(swaggerConfig.whiteListInSwagger()).permitAll()
-            .antMatchers("/api/v1/auth/login").permitAll()
-            .antMatchers("/api/v1/members/sign").permitAll()
-            .antMatchers("/api/**/admin/**").hasAnyAuthority("ROLE_ADMIN")
-            .antMatchers("/api/**").hasAnyAuthority("ROLE_USER")
-            .anyRequest().authenticated()
+                .and()
+                .authorizeRequests()
+                .antMatchers(swaggerConfig.whiteListInSwagger()).permitAll()
+                .antMatchers("/swagger").permitAll()
+                .antMatchers("/swagger-ui/index.html").permitAll()
+                .antMatchers("/api/v1/auth/login").permitAll()
+                .antMatchers("/api/v1/members/sign").permitAll()
+                .antMatchers("/api/**/admin/**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/api/**").hasAnyAuthority("ROLE_USER")
+                .anyRequest().authenticated()
 
-            .and()
-            .apply(new JwtSecurityConfig(tokenProvider));
+                .and()
+                .apply(new JwtSecurityConfig(tokenProvider));
     }
 
     @Bean
