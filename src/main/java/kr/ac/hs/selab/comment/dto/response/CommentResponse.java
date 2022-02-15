@@ -2,7 +2,7 @@ package kr.ac.hs.selab.comment.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
-import kr.ac.hs.selab.post.dto.response.PostResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,7 +15,7 @@ public class CommentResponse {
     private final MemberCreateResponse member;
 
     @Schema(description = "게시글 정보")
-    private final PostResponse post;
+    private final PostFindResponse post;
 
     @Schema(description = "댓글 내용")
     private final String content;

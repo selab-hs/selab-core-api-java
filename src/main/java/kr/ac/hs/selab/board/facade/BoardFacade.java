@@ -2,7 +2,7 @@ package kr.ac.hs.selab.board.facade;
 
 import kr.ac.hs.selab.board.application.BoardService;
 import kr.ac.hs.selab.board.domain.Board;
-import kr.ac.hs.selab.board.domain.BoardEvent;
+import kr.ac.hs.selab.board.domain.event.BoardEvent;
 import kr.ac.hs.selab.board.dto.response.BoardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;

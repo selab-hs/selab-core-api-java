@@ -8,44 +8,44 @@ import kr.ac.hs.selab.post.converter.PostConverter;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
 import kr.ac.hs.selab.post.dto.request.PostRequest;
+import kr.ac.hs.selab.post.dto.response.PostFindByBoardResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import kr.ac.hs.selab.post.dto.response.PostResponse;
-import kr.ac.hs.selab.post.dto.response.PostsResponse;
 import kr.ac.hs.selab.post.facade.PostFacade;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RequestMapping(value = "api/v1")
+@RequestMapping("api/v1")
 @RestController
 public class PostController implements PostSdk {
     private final PostService postService;
     private final PostFacade postFacade;
 
     @Override
-    @PostMapping(value = "boards/{boardId}/posts")
+    @PostMapping("/boards/{boardId}/posts")
     public ResponseTemplate<PostResponse> create(@PathVariable Long boardId,
                                                  @Valid @RequestBody PostRequest request) {
         String memberEmail = SecurityUtils.getCurrentUsername();
         PostCreateDto dto = PostConverter.toPostCreateDto(request, boardId, memberEmail);
 
-        PostResponse response = postFacade.createByPostCreateDto(dto);
+        PostResponse response = postFacade.create(dto);
         return ResponseTemplate.created(ResponseMessage.POST_CREATE_SUCCESS, response);
     }
 
     @Override
     @GetMapping("/posts/{postId}")
-    public ResponseTemplate<PostResponse> find(@PathVariable Long postId) {
-        PostResponse response = postService.findPostResponseById(postId);
+    public ResponseTemplate<PostFindResponse> find(@PathVariable Long postId) {
+        PostFindResponse response = postService.findPostResponseById(postId);
         return ResponseTemplate.ok(ResponseMessage.POST_FIND_SUCCESS, response);
     }
 
     @Override
-    @GetMapping(value = "/boards/{boardId}/posts")
-    public ResponseTemplate<PostsResponse> findByBoard(@PathVariable Long boardId) {
-        PostsResponse response = postFacade.findPostsResponseByBoardId(boardId);
+    @GetMapping("/boards/{boardId}/posts")
+    public ResponseTemplate<PostFindByBoardResponse> findByBoard(@PathVariable Long boardId) {
+        PostFindByBoardResponse response = postFacade.findPostsResponseByBoardId(boardId);
         return ResponseTemplate.ok(ResponseMessage.POST_FIND_SUCCESS, response);
     }
 
@@ -55,15 +55,14 @@ public class PostController implements PostSdk {
                                                  @Valid @RequestBody PostRequest request) {
         PostUpdateDto dto = PostConverter.toPostUpdateDto(postId, request);
 
-        PostResponse response = postService.updateByPostUpdateDto(dto);
+        PostResponse response = postService.update(dto);
         return ResponseTemplate.ok(ResponseMessage.POST_UPDATE_SUCCESS, response);
     }
 
-    @SneakyThrows
     @Override
     @PatchMapping("/posts/{PostId}")
-    public ResponseTemplate<PostResponse> delete(@PathVariable Long PostId) throws InterruptedException {
-        PostResponse response = postFacade.deleteById(PostId);
+    public ResponseTemplate<PostResponse> delete(@PathVariable Long PostId) {
+        PostResponse response = postFacade.delete(PostId);
         return ResponseTemplate.ok(ResponseMessage.POST_DELETE_SUCCESS, response);
     }
 }
