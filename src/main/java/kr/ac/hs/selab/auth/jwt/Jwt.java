@@ -7,7 +7,9 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
 import java.security.Key;
+
 import kr.ac.hs.selab.common.properties.JwtProperties;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -30,17 +32,19 @@ public class Jwt {
     }
 
     public void validate(String jwt) {
-        if (!jwt.startsWith(BEARER_TOKEN)) {
-            throw new IllegalArgumentException("잘못된 JWT이다.");
+        if (jwt == null || !jwt.startsWith(BEARER_TOKEN)) {
+            log.info("잘못된 JWT Token");
+            return;
+            // throw new IllegalArgumentException("잘못된 JWT이다.");
         }
         final String token = jwt.substring(BEARER_TOKEN_SUBSTRING_INDEX);
 
         try {
             Jwts
-                .parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token);
+                    .parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("잘못된 JWT 서명입니다.");
         } catch (ExpiredJwtException e) {
@@ -59,10 +63,10 @@ public class Jwt {
 
     public Claims makeClaims() {
         return Jwts
-            .parserBuilder()
-            .setSigningKey(key)
-            .build()
-            .parseClaimsJws(jwt)
-            .getBody();
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(jwt)
+                .getBody();
     }
 }
