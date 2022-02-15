@@ -22,7 +22,7 @@ public class BoardEventListener {
     public void removeBoard(BoardEvent boardEvent) {
         var board = boardEvent.getBoard();
         commentService.deleteByPosts(
-                postService.findPostByBoard(board)
+                postService.findPostsByBoard(board)
         );
         postService.deleteByBoard(board);
     }
