@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ErrorTemplate> handleBusinessException(
         final BusinessException e) {
         log.error("Exception -> {}", e.getCause());
-        ErrorMessage message = e.getErrorMessage();
+        var message = e.getErrorMessage();
         return ResponseEntity
             .status(e.getStatus())
             .body(new ErrorTemplate(message));

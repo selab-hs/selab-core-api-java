@@ -17,7 +17,7 @@ public class ResponseWrapper implements ResponseBodyAdvice<Object> {
     public boolean supports(final MethodParameter returnType,
         final Class<? extends HttpMessageConverter<?>> converterType) {
 
-        final Class<?> instance = GenericTypeResolver.resolveReturnType(
+        final var instance = GenericTypeResolver.resolveReturnType(
             returnType.getMethod(),
             ResponseTemplate.class
         );
@@ -31,7 +31,7 @@ public class ResponseWrapper implements ResponseBodyAdvice<Object> {
         final Class<? extends HttpMessageConverter<?>> selectedConverterType,
         final ServerHttpRequest request,
         final ServerHttpResponse response) {
-        final HttpStatus status = ((ResponseTemplate<?>) body).getStatus();
+        final var status = ((ResponseTemplate<?>) body).getStatus();
 
         response.setStatusCode(status);
 

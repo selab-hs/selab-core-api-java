@@ -13,7 +13,7 @@ public class SecurityUtils {
 
     // TODO : 메서드 역할 분리 작업 진행 필요
     public String getCurrentUsername() {
-        Authentication authentication = getAuthentication();
+        var authentication = getAuthentication();
 
         if (authentication.getPrincipal() instanceof UserDetails) {
             return getUserDetails(authentication).getUsername();
@@ -23,7 +23,7 @@ public class SecurityUtils {
     }
 
     private Authentication getAuthentication() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
         isNullAuthentication(authentication);
         return authentication;
     }
@@ -35,7 +35,7 @@ public class SecurityUtils {
     }
 
     private UserDetails getUserDetails(final Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        var userDetails = (UserDetails) authentication.getPrincipal();
         isNullUserDetails(userDetails);
         return userDetails;
     }

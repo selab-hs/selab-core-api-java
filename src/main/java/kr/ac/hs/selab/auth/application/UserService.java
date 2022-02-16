@@ -21,7 +21,7 @@ public class UserService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(final String email) {
         return memberRepository.findByEmail(email)
-            .map(AuthConverter::toUser)
-            .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
+                .map(AuthConverter::toUser)
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
     }
 }

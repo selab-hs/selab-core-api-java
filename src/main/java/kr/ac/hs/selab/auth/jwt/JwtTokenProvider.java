@@ -47,9 +47,9 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     public String createToken(final Authentication authentication) {
-        String authorities = authoritiesToString(authentication);
-        long now = currentTime();
-        Date validity = expireTime(now);
+        var authorities = authoritiesToString(authentication);
+        var now = currentTime();
+        var validity = expireTime(now);
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
@@ -65,7 +65,7 @@ public class JwtTokenProvider implements InitializingBean {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     public String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        var bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TOKEN)) {
             return bearerToken.substring(BEARER_TOKEN_SUBSTRING_INDEX);
         }
@@ -83,16 +83,16 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     private Date expireTime(long now) {
-        final long time = jwtProperties.getTokenValidityInSeconds() * TOKEN_VALIDITY_TIME;
+        final var time = jwtProperties.getTokenValidityInSeconds() * TOKEN_VALIDITY_TIME;
         return new Date(now + time);
     }
 
     // TODO : Provider와 상관 없는 내용임으로 분리해야 한다.
     // 이건아님
     public Authentication getAuthentication(String token) {
-        Claims claims = makeClaims(token);
-        Collection<? extends GrantedAuthority> authorities = makeAuthorities(claims);
-        User principal = newPrincipal(claims, authorities);
+        var claims = makeClaims(token);
+        var authorities = makeAuthorities(claims);
+        var principal = newPrincipal(claims, authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
