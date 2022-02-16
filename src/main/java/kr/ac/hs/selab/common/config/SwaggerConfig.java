@@ -29,7 +29,8 @@ public class SwaggerConfig {
 
     private SecurityContext securityContext() {
         return SecurityContext.builder()
-                .securityReferences(swaggerProperties.defaultAuth()).build();
+                .securityReferences(swaggerProperties.defaultAuth())
+                .build();
     }
 
     @Bean

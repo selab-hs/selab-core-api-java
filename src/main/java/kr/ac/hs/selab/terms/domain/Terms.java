@@ -1,23 +1,12 @@
 package kr.ac.hs.selab.terms.domain;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import kr.ac.hs.selab.common.domain.BaseEntity;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.terms.domain.vo.Category;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
