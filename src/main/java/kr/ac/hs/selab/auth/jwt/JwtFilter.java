@@ -1,19 +1,17 @@
 package kr.ac.hs.selab.auth.jwt;
 
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
-
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
+import java.io.IOException;
+import java.util.List;
+
+@Slf4j
 @RequiredArgsConstructor
 public class JwtFilter implements Filter {
 
@@ -38,8 +36,11 @@ public class JwtFilter implements Filter {
             "/swagger-resources/configuration/security",
             "/swagger-resources",
             "/v2/api-docs",
-            "/swagger-ui/index.html"
+            "/swagger-ui/index.html",
+            "/favicon.ico"
     );
+
+    private final static String HEALTH = "/health";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
@@ -47,18 +48,17 @@ public class JwtFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        final String servletPath = httpServletRequest.getServletPath();
+        final String path = httpServletRequest.getServletPath();
 
-        // 필터가 제기능을 수행하지 못함
-        if (!EXCLUDE_URL.contains(servletPath) && !SWAGGER_EXCLUDE_URL.contains(servletPath)) {
-            System.out.println(servletPath);
+        log.info("[INFO] servlet request path {}", path);
+
+        if (!EXCLUDE_URL.contains(path) && !SWAGGER_EXCLUDE_URL.contains(path) && !HEALTH.equals(path)) {
             String jwt = tokenProvider.resolveToken(httpServletRequest);
             if (tokenProvider.validateToken(jwt)) {
                 Authentication authentication = tokenProvider.getAuthentication(jwt);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

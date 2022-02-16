@@ -1,7 +1,5 @@
 package kr.ac.hs.selab.common.config;
 
-import javax.validation.constraints.NotNull;
-
 import kr.ac.hs.selab.auth.jwt.JwtAccessDeniedHandler;
 import kr.ac.hs.selab.auth.jwt.JwtAuthenticationEntryPoint;
 import kr.ac.hs.selab.auth.jwt.JwtSecurityConfig;
@@ -17,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import javax.validation.constraints.NotNull;
 
 @Configuration
 @EnableWebSecurity
@@ -57,6 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(swaggerConfig.whiteListInSwagger()).permitAll()
+                .antMatchers("/health").permitAll()
+                .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/api/v1/auth/login").permitAll()
                 .antMatchers("/api/v1/members/sign").permitAll()
                 .antMatchers("/api/**/admin/**").hasAnyAuthority("ROLE_ADMIN")
