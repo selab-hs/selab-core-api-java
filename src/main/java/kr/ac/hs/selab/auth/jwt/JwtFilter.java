@@ -22,8 +22,22 @@ public class JwtFilter implements Filter {
 
     private final static List<String> EXCLUDE_URL = List.of(
             "/api/v1/members/sign",
-            "/api/v1/auth/login",
+            "/api/v1/auth/login"
+    );
+
+    // TODO 중복된 코드임
+    private final static List<String> SWAGGER_EXCLUDE_URL = List.of(
             "/swagger",
+            "/swagger-ui/springfox.css",
+            "/swagger-ui/swagger-ui-bundle.js",
+            "/swagger-ui/springfox.js",
+            "/swagger-ui/swagger-ui-standalone-preset.js",
+            "/swagger-ui/swagger-ui.css",
+            "/swagger-resources/configuration/ui",
+            "/swagger-ui/favicon-32x32.png",
+            "/swagger-resources/configuration/security",
+            "/swagger-resources",
+            "/v2/api-docs",
             "/swagger-ui/index.html"
     );
 
@@ -35,7 +49,9 @@ public class JwtFilter implements Filter {
 
         final String servletPath = httpServletRequest.getServletPath();
 
-        if (!EXCLUDE_URL.contains(servletPath)) {
+        // 필터가 제기능을 수행하지 못함
+        if (!EXCLUDE_URL.contains(servletPath) && !SWAGGER_EXCLUDE_URL.contains(servletPath)) {
+            System.out.println(servletPath);
             String jwt = tokenProvider.resolveToken(httpServletRequest);
             if (tokenProvider.validateToken(jwt)) {
                 Authentication authentication = tokenProvider.getAuthentication(jwt);
