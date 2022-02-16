@@ -11,7 +11,7 @@ import kr.ac.hs.selab.comment.dto.response.CommentResponse;
 import kr.ac.hs.selab.comment.facade.CommentFacade;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
-import kr.ac.hs.selab.common.utils.SecurityUtils;
+import kr.ac.hs.selab.auth.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

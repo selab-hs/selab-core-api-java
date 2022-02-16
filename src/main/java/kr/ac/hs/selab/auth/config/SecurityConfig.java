@@ -1,9 +1,11 @@
-package kr.ac.hs.selab.common.config;
+package kr.ac.hs.selab.auth.config;
 
 import kr.ac.hs.selab.auth.jwt.JwtAccessDeniedHandler;
 import kr.ac.hs.selab.auth.jwt.JwtAuthenticationEntryPoint;
 import kr.ac.hs.selab.auth.jwt.JwtSecurityConfig;
 import kr.ac.hs.selab.auth.jwt.JwtTokenProvider;
+import kr.ac.hs.selab.common.config.CorsConfig;
+import kr.ac.hs.selab.common.config.SwaggerConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

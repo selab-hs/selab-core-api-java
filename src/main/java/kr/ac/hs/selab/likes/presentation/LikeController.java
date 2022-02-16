@@ -2,7 +2,7 @@ package kr.ac.hs.selab.likes.presentation;
 
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
-import kr.ac.hs.selab.common.utils.SecurityUtils;
+import kr.ac.hs.selab.auth.utils.SecurityUtils;
 import kr.ac.hs.selab.likes.application.LikeService;
 import kr.ac.hs.selab.likes.domain.vo.TargetType;
 import kr.ac.hs.selab.likes.dto.LikeCountDto;

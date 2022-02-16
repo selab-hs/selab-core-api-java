@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.common.utils;
+package kr.ac.hs.selab.auth.utils;
 
 import java.util.Objects;
 import kr.ac.hs.selab.error.template.ErrorMessage;
