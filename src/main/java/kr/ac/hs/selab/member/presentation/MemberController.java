@@ -26,8 +26,8 @@ public class MemberController implements MemberSdk {
     @PostMapping(value = "/sign", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseTemplate<MemberCreateResponse> insert(
         @Valid @RequestBody MemberCreateRequest request) {
-        final MemberCreateBundle bundle = MemberConverter.toCreateMemberBundle(request);
-        final MemberCreateResponse response = memberService.create(bundle);
+        final var bundle = MemberConverter.toCreateMemberBundle(request);
+        final var response = memberService.create(bundle);
         return ResponseTemplate.created(ResponseMessage.MEMBER_INSERT_SUCCESS, response);
     }
 }

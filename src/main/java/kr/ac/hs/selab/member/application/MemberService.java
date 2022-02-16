@@ -23,9 +23,9 @@ public class MemberService {
     @Transactional
     public MemberCreateResponse create(MemberCreateBundle bundle) {
         isDuplication(bundle);
-        Member instance = MemberConverter.toMember(bundle, passwordEncoder);
+        var instance = MemberConverter.toMember(bundle, passwordEncoder);
         instance.termsOfSign();
-        Member member = memberRepository.save(instance);
+        var member = memberRepository.save(instance);
         return MemberConverter.toCreateMemberResponse(member);
     }
 

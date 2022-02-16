@@ -29,18 +29,18 @@ public class AuthController implements AuthSdk {
     @PostMapping("/auth/login")
     public ResponseTemplate<AuthLoginResponse> login(
         @Valid @RequestBody AuthLoginRequest request) {
-        final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+        final var authenticationToken = new UsernamePasswordAuthenticationToken(
             request.getEmail(),
             request.getPassword()
         );
 
-        final Authentication authentication = authenticationManagerBuilder.getObject()
+        final var authentication = authenticationManagerBuilder.getObject()
             .authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final String token = tokenProvider.createToken(authentication);
+        final var token = tokenProvider.createToken(authentication);
 
-        final AuthLoginResponse response = AuthConverter.toAuthLoginResponse(
+        final var response = AuthConverter.toAuthLoginResponse(
             authentication, token);
 
         return ResponseTemplate.ok(ResponseMessage.AUTH_LOGIN_SUCCESS, response);

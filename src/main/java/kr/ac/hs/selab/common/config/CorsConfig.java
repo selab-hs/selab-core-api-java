@@ -19,7 +19,7 @@ public class CorsConfig {
 
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration corsConfig = makeCorsConfiguration();
+        var corsConfig = makeCorsConfiguration();
         return makeUrlBasedCorsConfigurationSource(corsConfig);
     }
 
