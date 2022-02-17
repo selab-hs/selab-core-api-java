@@ -10,12 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -28,7 +27,7 @@ public class AuthController implements AuthSdk {
     @Override
     @PostMapping("/auth/login")
     public ResponseTemplate<AuthLoginResponse> login(
-        @Valid @RequestBody AuthLoginRequest request) {
+        @Validated @RequestBody AuthLoginRequest request) {
         final var authenticationToken = new UsernamePasswordAuthenticationToken(
             request.getEmail(),
             request.getPassword()

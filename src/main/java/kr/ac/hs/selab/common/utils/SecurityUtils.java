@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.auth.utils;
+package kr.ac.hs.selab.common.utils;
 
 import java.util.Objects;
 import kr.ac.hs.selab.error.template.ErrorMessage;
@@ -18,7 +18,6 @@ public class SecurityUtils {
         if (authentication.getPrincipal() instanceof UserDetails) {
             return getUserDetails(authentication).getUsername();
         }
-
         return getAuthenticationPrincipal(authentication);
     }
 

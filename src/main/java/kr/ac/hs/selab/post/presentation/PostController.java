@@ -2,7 +2,7 @@ package kr.ac.hs.selab.post.presentation;
 
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
-import kr.ac.hs.selab.auth.utils.SecurityUtils;
+import kr.ac.hs.selab.common.utils.SecurityUtils;
 import kr.ac.hs.selab.post.application.PostService;
 import kr.ac.hs.selab.post.converter.PostConverter;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
