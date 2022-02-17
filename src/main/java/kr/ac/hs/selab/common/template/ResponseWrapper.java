@@ -22,12 +22,12 @@ public class ResponseWrapper implements ResponseBodyAdvice<Object> {
             return false;
         }
 
-        final var instance = GenericTypeResolver.resolveReturnType(
+        final var genericType = GenericTypeResolver.resolveReturnType(
                 returnType.getMethod(),
                 ResponseTemplate.class
         );
 
-        return instance.equals(ResponseTemplate.class);
+        return genericType.equals(ResponseTemplate.class);
     }
 
     @Override
