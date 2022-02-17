@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.auth.config;
+package kr.ac.hs.selab.common.config;
 
 import kr.ac.hs.selab.auth.jwt.JwtAccessDeniedHandler;
 import kr.ac.hs.selab.auth.jwt.JwtAuthenticationEntryPoint;

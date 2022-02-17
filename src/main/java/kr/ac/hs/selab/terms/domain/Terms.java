@@ -25,12 +25,8 @@ public class Terms extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private Terms(Category category, Member member) {
+    public Terms(Category category, Member member) {
         this.category = category;
         this.member = member;
-    }
-
-    public static Terms of(Category category, Member member) {
-        return new Terms(category, member);
     }
 }

@@ -15,19 +15,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     protected ResponseEntity<ErrorTemplate> handleBusinessException(
-        final BusinessException e) {
-        log.error("Exception -> {}", e.getCause());
+            final BusinessException e) {
         var message = e.getErrorMessage();
-        return ResponseEntity
-            .status(e.getStatus())
-            .body(new ErrorTemplate(message));
+        log.error("[ERROR] Exception -> {}", message.getDetail());
+        return ErrorTemplate.of(e.getStatus(), message);
     }
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorTemplate> handleException(final Exception e) {
-        log.error("Exception -> {}", e.getCause());
-        return ResponseEntity
-            .status(HttpStatus.BAD_REQUEST)
-            .body(new ErrorTemplate(ErrorMessage.CONFLICT_ERROR));
+        log.error("[ERROR] Exception -> {}", e.getCause());
+        return ErrorTemplate.badRequest();
     }
 }
