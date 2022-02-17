@@ -20,7 +20,7 @@ public class CommentLikeController implements CommentLikeSdk {
     private final CommentLikeFacade commentLikeFacade;
 
     @Override
-    @PostMapping("{commentId}/likes")
+    @PostMapping("/{commentId}/likes")
     public ResponseTemplate<CommentLikeResponse> create(@PathVariable Long commentId) {
         String memberEmail = SecurityUtils.getCurrentUsername();
         CommentLikeDto dto = new CommentLikeDto(memberEmail, commentId);
@@ -42,6 +42,6 @@ public class CommentLikeController implements CommentLikeSdk {
     @DeleteMapping("/likes/{id}")
     public ResponseTemplate<CommentLikeResponse> delete(@PathVariable Long id) {
         CommentLikeResponse response = commentLikeService.delete(id);
-        return ResponseTemplate.created(ResponseMessage.COMMENT_LIKE_DELETE_SUCCESS, response);
+        return ResponseTemplate.ok(ResponseMessage.COMMENT_LIKE_DELETE_SUCCESS, response);
     }
 }

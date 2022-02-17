@@ -48,11 +48,18 @@ public enum ResponseMessage implements Serializable {
     COMMENT_DELETE_SUCCESS("R-C-0004", "댓글을 정상적으로 삭제했습니다."),
 
     /**
+     * POST LIKE SUCCESS RESPONSE MESSAGE
+     */
+    POST_LIKE_CREATE_SUCCESS("R-P-0001", "게시글 좋아요 성공했습니다."),
+    POST_LIKE_FIND_SUCCESS("R-P-0002", "게시글 좋아요 찾았습니다."),
+    POST_LIKE_DELETE_SUCCESS("R-P-0003", "게시글 좋아요 해제했습니다."),
+
+    /**
      * COMMENT LIKE SUCCESS RESPONSE MESSAGE
      */
     COMMENT_LIKE_CREATE_SUCCESS("R-L-0001", "댓글 좋아요 성공했습니다."),
-    COMMENT_LIKE_FIND_SUCCESS("R-L-0001", "댓글 좋아요 찾았습니다."),
-    COMMENT_LIKE_DELETE_SUCCESS("R-L-0001", "댓글 좋아요 해제했습니다."),
+    COMMENT_LIKE_FIND_SUCCESS("R-L-0002", "댓글 좋아요 찾았습니다."),
+    COMMENT_LIKE_DELETE_SUCCESS("R-L-0003", "댓글 좋아요 해제했습니다."),
 
     ;
 

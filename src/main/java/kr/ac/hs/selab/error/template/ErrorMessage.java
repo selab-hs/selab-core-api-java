@@ -54,12 +54,6 @@ public enum ErrorMessage {
      **/
     TERMS_NOT_EXISTS_ERROR("E-T-0001", "존재하지 않는 약관 카테코리입니다."),
 
-    /**
-     * COMMENT LIKE ERROR RESPONSE MESSAGE
-     */
-    COMMENT_LIKE_EXISTS_ERROR("E-C-0001", "해당 회원은 댓글에 이미 좋아요를 했습니다."),
-    COMMENT_LIKE_NON_EXISTS_ERROR("E-C-0002", "해당 회원은 댓글에 좋아요를 한 적이 없습니다."),
-
     ;
 
     private final String code;
