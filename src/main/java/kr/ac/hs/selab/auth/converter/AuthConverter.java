@@ -9,15 +9,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class AuthConverter {
 
     public static AuthLoginResponse toAuthLoginResponse(Authentication authentication,
-        String token) {
+                                                        String token) {
         return new AuthLoginResponse(authentication.getName(), token);
     }
 
     public static UserDetails toUser(Member member) {
         return User.builder()
-            .username(member.getEmail())
-            .password(member.getPasswordValue())
-            .authorities(member.getAuthority())
-            .build();
+                .username(member.getEmail())
+                .password(member.getPasswordValue())
+                .authorities(member.getAuthority())
+                .build();
     }
 }

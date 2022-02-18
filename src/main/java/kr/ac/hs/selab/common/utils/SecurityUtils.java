@@ -18,7 +18,6 @@ public class SecurityUtils {
         if (authentication.getPrincipal() instanceof UserDetails) {
             return getUserDetails(authentication).getUsername();
         }
-
         return getAuthenticationPrincipal(authentication);
     }
 

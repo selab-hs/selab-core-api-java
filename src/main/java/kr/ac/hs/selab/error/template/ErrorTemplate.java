@@ -1,10 +1,14 @@
 package kr.ac.hs.selab.error.template;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @Getter
 public class ErrorTemplate implements Serializable {
@@ -20,5 +24,15 @@ public class ErrorTemplate implements Serializable {
         this.message = message.name();
         this.code = message.getCode();
         this.serverDateTime = LocalDateTime.now();
+    }
+
+    public static ResponseEntity<ErrorTemplate> of(HttpStatus status, ErrorMessage message) {
+        return ResponseEntity
+                .status(status)
+                .body(new ErrorTemplate(message));
+    }
+
+    public static ResponseEntity<ErrorTemplate> badRequest() {
+        return of(HttpStatus.BAD_REQUEST, ErrorMessage.CONFLICT_ERROR);
     }
 }

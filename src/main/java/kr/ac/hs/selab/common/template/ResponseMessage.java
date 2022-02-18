@@ -9,11 +9,6 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 public enum ResponseMessage implements Serializable {
     /**
-     * Health CHECK
-     */
-    HEALTH_GOOD("R-H-0001", "서버 상태가 양호합니다."),
-
-    /**
      * MEMBER SUCCESS RESPONSE MESSAGE
      **/
     MEMBER_INSERT_SUCCESS("R-M-0001", "회원 가입을 완료했습니다."),
