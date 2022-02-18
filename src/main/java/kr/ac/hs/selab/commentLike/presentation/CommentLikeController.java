@@ -41,7 +41,7 @@ public class CommentLikeController implements CommentLikeSdk {
     @Override
     @DeleteMapping("/likes/{id}")
     public ResponseTemplate<CommentLikeResponse> delete(@PathVariable Long id) {
-        CommentLikeResponse response = commentLikeService.delete(id);
+        CommentLikeResponse response = commentLikeService.deleteById(id);
         return ResponseTemplate.ok(ResponseMessage.COMMENT_LIKE_DELETE_SUCCESS, response);
     }
 }

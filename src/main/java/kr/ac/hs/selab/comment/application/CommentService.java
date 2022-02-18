@@ -54,9 +54,8 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentResponse deleteById(Long id) {
-        Comment comment = findCommentById(id).delete();
-        return new CommentResponse(comment.getId());
+    public CommentResponse deleteByComment(Comment comment) {
+        return new CommentResponse(comment.delete().getId());
     }
 
     @Transactional

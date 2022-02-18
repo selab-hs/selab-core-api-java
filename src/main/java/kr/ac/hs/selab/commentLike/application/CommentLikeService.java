@@ -6,8 +6,6 @@ import kr.ac.hs.selab.commentLike.domain.CommentLike;
 import kr.ac.hs.selab.commentLike.dto.response.CommentLikeFindResponse;
 import kr.ac.hs.selab.commentLike.dto.response.CommentLikeResponse;
 import kr.ac.hs.selab.commentLike.infrastructure.CommentLikeRepository;
-import kr.ac.hs.selab.error.exception.common.NonExitsException;
-import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,9 +33,13 @@ public class CommentLikeService {
     }
 
     @Transactional
-    public CommentLikeResponse delete(Long id) {
+    public CommentLikeResponse deleteById(Long id) {
         commentLikeRepository.deleteById(id);
-
         return new CommentLikeResponse(id);
+    }
+
+    @Transactional
+    public void deleteByComment(Comment comment) {
+        commentLikeRepository.deleteAll(commentLikeRepository.findByComment(comment));
     }
 }
