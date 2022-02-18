@@ -1,0 +1,4 @@
+[submodule "src/main/resources/config/selab-blog-api-secret-key"]
+	path = src/main/resources/config/selab-blog-api-secret-key
+	url = https://github.com/selab-hs/selab-blog-api-secret-key.git
+    branch = develop
