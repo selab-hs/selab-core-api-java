@@ -24,26 +24,24 @@ public class CommentConverter {
                 .build();
     }
 
-    public CommentFindByPostResponse.CommentInnerResponse toCommentInnerResponse(Comment comment) {
-        return CommentFindByPostResponse.CommentInnerResponse
-                .builder()
-                .memberEmail(comment.getMember().getEmail())
-                .commentId(comment.getId())
-                .content(comment.getContent())
-                .createdAt(comment.getCreatedAt())
-                .modifiedAt(comment.getModifiedAt())
-                .build();
-    }
-
     public CommentFindByPostResponse toCommentsResponse(Long postId, Long totalCount, List<Comment> comments) {
-        List<CommentFindByPostResponse.CommentInnerResponse> commentInnerResponses = comments.stream()
-                .map(CommentConverter::toCommentInnerResponse)
-                .collect(Collectors.toList());
-
         return CommentFindByPostResponse.builder()
                 .postId(postId)
                 .totalCount(totalCount)
-                .comments(commentInnerResponses)
+                .comments(
+                        comments.stream()
+                                .map(
+                                        comment -> CommentFindByPostResponse.CommentInnerResponse
+                                                .builder()
+                                                .memberEmail(comment.getMember().getEmail())
+                                                .commentId(comment.getId())
+                                                .content(comment.getContent())
+                                                .createdAt(comment.getCreatedAt())
+                                                .modifiedAt(comment.getModifiedAt())
+                                                .build()
+                                )
+                                .collect(Collectors.toList())
+                )
                 .build();
     }
 

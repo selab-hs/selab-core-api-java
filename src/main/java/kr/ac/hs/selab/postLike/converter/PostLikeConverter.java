@@ -9,19 +9,17 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class PostLikeConverter {
-    private PostLikeFindResponse.PostLikeInnerResponse toPostLikeInnerResponse(PostLike like) {
-        return new PostLikeFindResponse.PostLikeInnerResponse(like.getId(), like.getMember().getEmail());
-    }
-
     public PostLikeFindResponse toPostLikeFindResponse(Long postId, Long totalCount, List<PostLike> likes) {
-        List<PostLikeFindResponse.PostLikeInnerResponse> postLikeInnerResponses = likes.stream()
-                .map(PostLikeConverter::toPostLikeInnerResponse)
-                .collect(Collectors.toList());
-
         return PostLikeFindResponse.builder()
                 .postId(postId)
                 .totalCount(totalCount)
-                .postLikes(postLikeInnerResponses)
+                .postLikes(
+                        likes.stream()
+                                .map(
+                                        like -> new PostLikeFindResponse.PostLikeInnerResponse(like.getId(), like.getMember().getEmail())
+                                )
+                                .collect(Collectors.toList())
+                )
                 .build();
     }
 }
