@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 
+import jdk.jshell.Snippet;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -32,11 +33,15 @@ public class ResponseTemplate<T> implements Serializable {
         this.status = status;
     }
 
-    public static <T> ResponseTemplate<T> created(final ResponseMessage message, final T data) {
-        return new ResponseTemplate<>(message, data, HttpStatus.CREATED);
+    public static <T> ResponseTemplate<T> of(final ResponseMessage message, final T data, final HttpStatus status) {
+        return new ResponseTemplate<>(message, data, status);
     }
 
     public static <T> ResponseTemplate<T> ok(final ResponseMessage message, final T data) {
-        return new ResponseTemplate<>(message, data, HttpStatus.OK);
+        return of(message, data, HttpStatus.OK);
+    }
+
+    public static <T> ResponseTemplate<T> created(final ResponseMessage message, final T data) {
+        return of(message, data, HttpStatus.CREATED);
     }
 }

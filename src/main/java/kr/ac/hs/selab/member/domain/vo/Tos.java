@@ -1,13 +1,14 @@
 package kr.ac.hs.selab.member.domain.vo;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.terms.domain.Terms;
 import kr.ac.hs.selab.terms.domain.vo.Category;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
 
 @Embeddable
 public class Tos {
@@ -17,8 +18,10 @@ public class Tos {
 
     public void addSign(Member member) {
         Category.sign()
-            .forEach(category ->
-                terms.add(Terms.of(category, member))
-            );
+                .forEach(category ->
+                        terms.add(
+                                new Terms(category, member)
+                        )
+                );
     }
 }
