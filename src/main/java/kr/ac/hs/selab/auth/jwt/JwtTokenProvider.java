@@ -3,13 +3,6 @@ package kr.ac.hs.selab.auth.jwt;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-
-import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.stream.Collectors;
-
 import kr.ac.hs.selab.common.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +13,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import java.security.Key;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.stream.Collectors;
 
+// TODO : 조금씩 뿌시자!
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -58,18 +55,6 @@ public class JwtTokenProvider implements InitializingBean {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
-    }
-
-    public static final String BEARER_TOKEN = "Bearer ";
-    private static final int BEARER_TOKEN_SUBSTRING_INDEX = 7;
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-
-    public String resolveToken(HttpServletRequest request) {
-        var bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TOKEN)) {
-            return bearerToken.substring(BEARER_TOKEN_SUBSTRING_INDEX);
-        }
-        return null;
     }
 
     private String authoritiesToString(Authentication authentication) {
