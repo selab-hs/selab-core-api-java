@@ -1,4 +1,4 @@
-name: SE.LAB API SERVER
+name: SE.LAB BLOG API SERVER
 
 on:
   push:
@@ -6,25 +6,20 @@ on:
 
 jobs:
   build:
-
+    # 실행 환경 지정
     runs-on: ubuntu-latest
 
+    # Task의 sequence를 명시한다.
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-        distribution: 'adopt'
-        
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
-    - name: Build with Gradle
-      run: ./gradlew build
-      
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{secrets.DOCKERHUB_USERNAME}}
-        password: ${{secrets.DOCKERHUB_TOKEN}}      
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
