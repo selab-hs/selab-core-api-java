@@ -38,4 +38,9 @@ public class PostLikeService {
 
         return new PostLikeResponse(id);
     }
+
+    @Transactional
+    public void deleteByPost(Post post) {
+        postLikeRepository.deleteAll(postLikeRepository.findByPost(post));
+    }
 }

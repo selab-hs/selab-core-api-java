@@ -42,4 +42,9 @@ public class CommentLikeService {
     public void deleteByComment(Comment comment) {
         commentLikeRepository.deleteAll(commentLikeRepository.findByComment(comment));
     }
+
+    @Transactional
+    public void deleteByComments(List<Comment> comments) {
+        comments.forEach(this::deleteByComment);
+    }
 }
