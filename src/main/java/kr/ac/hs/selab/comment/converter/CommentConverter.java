@@ -6,8 +6,6 @@ import kr.ac.hs.selab.comment.dto.CommentUpdateDto;
 import kr.ac.hs.selab.comment.dto.request.CommentRequest;
 import kr.ac.hs.selab.comment.dto.response.CommentFindByPostResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentFindResponse;
-import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.post.domain.Post;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -15,14 +13,6 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class CommentConverter {
-    public Comment toComment(CommentCreateDto dto, Member member, Post post) {
-        return Comment.builder()
-                .member(member)
-                .post(post)
-                .content(dto.getContent())
-                .build();
-    }
-
     public CommentFindResponse toCommentResponse(Comment comment) {
         return CommentFindResponse.builder()
                 .memberEmail(comment.getMember().getEmail())
