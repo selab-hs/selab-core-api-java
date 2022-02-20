@@ -3,6 +3,8 @@ package kr.ac.hs.selab.commentLike.facade;
 import kr.ac.hs.selab.comment.application.CommentService;
 import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.commentLike.application.CommentLikeService;
+import kr.ac.hs.selab.commentLike.converter.CommentLikeConverter;
+import kr.ac.hs.selab.commentLike.domain.CommentLike;
 import kr.ac.hs.selab.commentLike.dto.CommentLikeDto;
 import kr.ac.hs.selab.commentLike.dto.CommentLikeFIndDto;
 import kr.ac.hs.selab.commentLike.dto.response.CommentLikeFindResponse;
@@ -12,6 +14,8 @@ import kr.ac.hs.selab.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -26,11 +30,16 @@ public class CommentLikeFacade {
         Member member = memberService.findByEmail(dto.getMemberEmail());
         Comment comment = commentService.findCommentById(dto.getCommentId());
 
-        return commentLikeService.create(member, comment);
+        CommentLike like = commentLikeService.create(member, comment);
+        return new CommentLikeResponse(like.getId());
     }
 
     public CommentLikeFindResponse find(CommentLikeFIndDto dto) {
         Comment comment = commentService.findCommentById(dto.getCommentId());
-        return commentLikeService.find(comment);
+
+        Long totalCount = commentLikeService.count(comment);
+        List<CommentLike> likes = commentLikeService.find(comment);
+
+        return CommentLikeConverter.toCommentLikeFindResponse(comment.getId(), totalCount, likes);
     }
 }

@@ -1,9 +1,7 @@
 package kr.ac.hs.selab.commentLike.application;
 
 import kr.ac.hs.selab.comment.domain.Comment;
-import kr.ac.hs.selab.commentLike.converter.CommentLikeConverter;
 import kr.ac.hs.selab.commentLike.domain.CommentLike;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeFindResponse;
 import kr.ac.hs.selab.commentLike.dto.response.CommentLikeResponse;
 import kr.ac.hs.selab.commentLike.infrastructure.CommentLikeRepository;
 import kr.ac.hs.selab.member.domain.Member;
@@ -20,16 +18,16 @@ public class CommentLikeService {
     private final CommentLikeRepository commentLikeRepository;
 
     @Transactional
-    public CommentLikeResponse create(Member member, Comment comment) {
-        CommentLike like = commentLikeRepository.save(new CommentLike(member, comment));
-        return new CommentLikeResponse(like.getId());
+    public CommentLike create(Member member, Comment comment) {
+        return commentLikeRepository.save(new CommentLike(member, comment));
     }
 
-    public CommentLikeFindResponse find(Comment comment) {
-        Long totalCount = commentLikeRepository.countByComment(comment);
-        List<CommentLike> likes = commentLikeRepository.findByComment(comment);
+    public Long count(Comment comment) {
+        return commentLikeRepository.countByComment(comment);
+    }
 
-        return CommentLikeConverter.toCommentLikeFindResponse(comment.getId(), totalCount, likes);
+    public List<CommentLike> find(Comment comment) {
+        return commentLikeRepository.findByComment(comment);
     }
 
     @Transactional
