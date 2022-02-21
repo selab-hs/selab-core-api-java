@@ -6,10 +6,8 @@ on:
 
 jobs:
   build:
-    # 실행 환경 지정
     runs-on: ubuntu-latest
 
-    # Task의 sequence를 명시한다.
     steps:
       - uses: actions/checkout@v2
 
@@ -23,9 +21,16 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build
-      - name: Docker build
-        run: |
-          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }} 
-          docker build -t selab-blog-api . 
-          docker tag selab-blog-api selabhs/selab-api:${GITHUB_SHA::7} 
-          docker push selabhs/selab-blog-api:${GITHUB_SHA::7}
+        
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    
+      - name: Docker image build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: selabhs/selab-api:latest
