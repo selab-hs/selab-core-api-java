@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.board.eventListener;
 
+import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.domain.event.BoardEvent;
 import kr.ac.hs.selab.comment.application.CommentService;
 import kr.ac.hs.selab.comment.domain.Comment;
@@ -27,7 +28,7 @@ public class BoardEventListener {
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     @TransactionalEventListener
     public void deleteByBoard(BoardEvent boardEvent) {
-        var board = boardEvent.getBoard();
+        Board board = boardEvent.getBoard();
         List<Post> posts = postService.findPostsByBoard(board);
 
         posts.forEach(post -> {

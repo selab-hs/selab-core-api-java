@@ -1,5 +1,6 @@
 package kr.ac.hs.selab.comment.eventListener;
 
+import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.comment.domain.event.CommentEvent;
 import kr.ac.hs.selab.commentLike.application.CommentLikeService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class CommentEventListener {
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     @TransactionalEventListener
     public void deleteByComment(CommentEvent commentEvent) {
-        var comment = commentEvent.getComment();
+        Comment comment = commentEvent.getComment();
         commentLikeService.deleteByComment(comment);
     }
 }

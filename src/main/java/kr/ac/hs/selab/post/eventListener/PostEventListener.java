@@ -2,6 +2,7 @@ package kr.ac.hs.selab.post.eventListener;
 
 import kr.ac.hs.selab.comment.application.CommentService;
 import kr.ac.hs.selab.commentLike.application.CommentLikeService;
+import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.domain.event.PostEvent;
 import kr.ac.hs.selab.postLike.application.PostLikeService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class PostEventListener {
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     @TransactionalEventListener
     public void deleteByPost(PostEvent postEvent) {
-        var post = postEvent.getPost();
+        Post post = postEvent.getPost();
         postLikeService.deleteByPost(post);
         commentLikeService.deleteByComments(
                 commentService.findCommentsByPost(post)
