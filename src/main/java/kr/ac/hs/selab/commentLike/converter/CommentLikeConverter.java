@@ -15,9 +15,13 @@ public class CommentLikeConverter {
                 .totalCount(totalCount)
                 .commentLikes(
                         likes.stream()
-                                .map(like -> new CommentLikeFindResponse.CommentLikeInnerResponse(like.getId(), like.getMember().getEmail()))
+                                .map(CommentLikeConverter::toCommentLikeInnerResponse)
                                 .collect(Collectors.toList())
                 )
                 .build();
+    }
+
+    private CommentLikeFindResponse.CommentLikeInnerResponse toCommentLikeInnerResponse(CommentLike like) {
+        return new CommentLikeFindResponse.CommentLikeInnerResponse(like.getId(), like.getMember().getEmail());
     }
 }

@@ -15,11 +15,13 @@ public class PostLikeConverter {
                 .totalCount(totalCount)
                 .postLikes(
                         likes.stream()
-                                .map(
-                                        like -> new PostLikeFindResponse.PostLikeInnerResponse(like.getId(), like.getMember().getEmail())
-                                )
+                                .map(PostLikeConverter::toPostLikeInnerResponse)
                                 .collect(Collectors.toList())
                 )
                 .build();
+    }
+
+    private PostLikeFindResponse.PostLikeInnerResponse toPostLikeInnerResponse(PostLike like) {
+        return new PostLikeFindResponse.PostLikeInnerResponse(like.getId(), like.getMember().getEmail());
     }
 }

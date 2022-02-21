@@ -30,18 +30,20 @@ public class CommentConverter {
                 .totalCount(totalCount)
                 .comments(
                         comments.stream()
-                                .map(
-                                        comment -> CommentFindByPostResponse.CommentInnerResponse
-                                                .builder()
-                                                .memberEmail(comment.getMember().getEmail())
-                                                .commentId(comment.getId())
-                                                .content(comment.getContent())
-                                                .createdAt(comment.getCreatedAt())
-                                                .modifiedAt(comment.getModifiedAt())
-                                                .build()
-                                )
+                                .map(CommentConverter::toCommentInnerResponse)
                                 .collect(Collectors.toList())
                 )
+                .build();
+    }
+
+    private CommentFindByPostResponse.CommentInnerResponse toCommentInnerResponse(Comment comment) {
+        return CommentFindByPostResponse.CommentInnerResponse
+                .builder()
+                .memberEmail(comment.getMember().getEmail())
+                .commentId(comment.getId())
+                .content(comment.getContent())
+                .createdAt(comment.getCreatedAt())
+                .modifiedAt(comment.getModifiedAt())
                 .build();
     }
 

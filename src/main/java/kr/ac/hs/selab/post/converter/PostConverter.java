@@ -42,19 +42,21 @@ public class PostConverter {
                 .totalCount(totalCount)
                 .posts(
                         posts.stream()
-                                .map(
-                                        post -> PostFindByBoardResponse.PostInnerResponse
-                                                .builder()
-                                                .memberEmail(post.getMember().getEmail())
-                                                .postId(post.getId())
-                                                .title(post.getTitle())
-                                                .content(post.getContent())
-                                                .createdAt(post.getCreatedAt())
-                                                .modifiedAt(post.getModifiedAt())
-                                                .build()
-                                )
+                                .map(PostConverter::toPostInnerResponse)
                                 .collect(Collectors.toList())
                 )
+                .build();
+    }
+
+    private PostFindByBoardResponse.PostInnerResponse toPostInnerResponse(Post post) {
+        return PostFindByBoardResponse.PostInnerResponse
+                .builder()
+                .memberEmail(post.getMember().getEmail())
+                .postId(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .createdAt(post.getCreatedAt())
+                .modifiedAt(post.getModifiedAt())
                 .build();
     }
 
