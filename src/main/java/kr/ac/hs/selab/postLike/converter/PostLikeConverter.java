@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class PostLikeConverter {
-    public PostLikeFindResponse toPostLikeFindResponse(Long postId, Long totalCount, List<PostLike> likes) {
+    public PostLikeFindResponse toPostLikeFindResponse(Long postId, List<PostLike> likes) {
         return PostLikeFindResponse.builder()
                 .postId(postId)
-                .totalCount(totalCount)
+                .totalCount((long) likes.size())
                 .postLikes(
                         likes.stream()
                                 .map(PostLikeConverter::toPostLikeInnerResponse)

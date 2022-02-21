@@ -37,10 +37,9 @@ public class CommentFacade {
 
     public CommentFindByPostResponse findCommentsResponseByPostId(Long postId) {
         Post post = postService.findPostById(postId);
-        Long totalCount = commentService.count(post);
         List<Comment> comments = commentService.findCommentsByPost(post);
 
-        return CommentConverter.toCommentsResponse(post.getId(), totalCount, comments);
+        return CommentConverter.toCommentsResponse(post.getId(), comments);
     }
 
     @Transactional

@@ -36,10 +36,8 @@ public class PostLikeFacade {
 
     public PostLikeFindResponse find(PostLikeFIndDto dto) {
         Post post = postService.findPostById(dto.getPostId());
-
-        Long totalCount = postLikeService.count(post);
         List<PostLike> likes = postLikeService.find(post);
 
-        return PostLikeConverter.toPostLikeFindResponse(post.getId(), totalCount, likes);
+        return PostLikeConverter.toPostLikeFindResponse(post.getId(), likes);
     }
 }

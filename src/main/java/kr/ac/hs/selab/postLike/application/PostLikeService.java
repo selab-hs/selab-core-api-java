@@ -22,10 +22,6 @@ public class PostLikeService {
         return postLikeRepository.save(new PostLike(member, post));
     }
 
-    public Long count(Post post) {
-        return postLikeRepository.countByPost(post);
-    }
-
     public List<PostLike> find(Post post) {
         return postLikeRepository.findByPost(post);
     }
@@ -33,7 +29,6 @@ public class PostLikeService {
     @Transactional
     public PostLikeResponse delete(Long id) {
         postLikeRepository.deleteById(id);
-
         return new PostLikeResponse(id);
     }
 

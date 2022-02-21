@@ -24,10 +24,10 @@ public class CommentConverter {
                 .build();
     }
 
-    public CommentFindByPostResponse toCommentsResponse(Long postId, Long totalCount, List<Comment> comments) {
+    public CommentFindByPostResponse toCommentsResponse(Long postId, List<Comment> comments) {
         return CommentFindByPostResponse.builder()
                 .postId(postId)
-                .totalCount(totalCount)
+                .totalCount((long) comments.size())
                 .comments(
                         comments.stream()
                                 .map(CommentConverter::toCommentInnerResponse)

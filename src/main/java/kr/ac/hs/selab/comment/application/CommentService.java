@@ -38,10 +38,6 @@ public class CommentService {
         return CommentConverter.toCommentResponse(findCommentById(id));
     }
 
-    public Long count(Post post) {
-        return commentRepository.countByPostAndDeleteFlag(post, Constants.NOT_DELETED);
-    }
-
     public Comment findCommentById(Long id) {
         return commentRepository.findByIdAndDeleteFlag(id, Constants.NOT_DELETED)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.COMMENT_NOT_EXISTS_ERROR));

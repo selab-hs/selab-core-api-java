@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class CommentLikeConverter {
-    public CommentLikeFindResponse toCommentLikeFindResponse(Long commentId, Long totalCount, List<CommentLike> likes) {
+    public CommentLikeFindResponse toCommentLikeFindResponse(Long commentId, List<CommentLike> likes) {
         return CommentLikeFindResponse.builder()
                 .commentId(commentId)
-                .totalCount(totalCount)
+                .totalCount((long) likes.size())
                 .commentLikes(
                         likes.stream()
                                 .map(CommentLikeConverter::toCommentLikeInnerResponse)

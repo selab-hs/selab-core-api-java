@@ -22,10 +22,6 @@ public class CommentLikeService {
         return commentLikeRepository.save(new CommentLike(member, comment));
     }
 
-    public Long count(Comment comment) {
-        return commentLikeRepository.countByComment(comment);
-    }
-
     public List<CommentLike> find(Comment comment) {
         return commentLikeRepository.findByComment(comment);
     }

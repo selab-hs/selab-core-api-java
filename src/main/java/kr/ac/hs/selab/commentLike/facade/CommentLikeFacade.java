@@ -36,10 +36,8 @@ public class CommentLikeFacade {
 
     public CommentLikeFindResponse find(CommentLikeFIndDto dto) {
         Comment comment = commentService.findCommentById(dto.getCommentId());
-
-        Long totalCount = commentLikeService.count(comment);
         List<CommentLike> likes = commentLikeService.find(comment);
 
-        return CommentLikeConverter.toCommentLikeFindResponse(comment.getId(), totalCount, likes);
+        return CommentLikeConverter.toCommentLikeFindResponse(comment.getId(), likes);
     }
 }
