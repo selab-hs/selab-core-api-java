@@ -54,11 +54,6 @@ public enum ErrorMessage {
      **/
     TERMS_NOT_EXISTS_ERROR("E-T-0001", "존재하지 않는 약관 카테코리입니다."),
 
-    /**
-     * LIKES ERROR RESPONSE MESSAGE
-     */
-    LIKES_TARGET_NOT_EXISTS_ERROR("E-L-0001", "존재하지 않은 좋아요 타겟 타입입니다.")
-
     ;
 
     private final String code;

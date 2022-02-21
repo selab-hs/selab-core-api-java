@@ -2,9 +2,7 @@ package kr.ac.hs.selab.comment.application;
 
 import kr.ac.hs.selab.comment.converter.CommentConverter;
 import kr.ac.hs.selab.comment.domain.Comment;
-import kr.ac.hs.selab.comment.dto.CommentCreateDto;
 import kr.ac.hs.selab.comment.dto.CommentUpdateDto;
-import kr.ac.hs.selab.comment.dto.response.CommentFindByPostResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentFindResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentResponse;
 import kr.ac.hs.selab.comment.infrastructure.CommentRepository;
@@ -26,9 +24,14 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public CommentResponse create(CommentCreateDto dto, Member member, Post post) {
-        Comment comment = commentRepository.save(CommentConverter.toComment(dto, member, post));
-        return new CommentResponse(comment.getId());
+    public Comment create(Member member, Post post, String commentContent) {
+        Comment comment = Comment.builder()
+                .member(member)
+                .post(post)
+                .content(commentContent)
+                .build();
+
+        return commentRepository.save(comment);
     }
 
     public CommentFindResponse findCommentResponseById(Long id) {
@@ -40,11 +43,8 @@ public class CommentService {
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.COMMENT_NOT_EXISTS_ERROR));
     }
 
-    public CommentFindByPostResponse findCommentsResponseByPost(Post post) {
-        Long totalCount = commentRepository.countByPostAndDeleteFlag(post, Constants.NOT_DELETED);
-        List<Comment> comments = commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED);
-
-        return CommentConverter.toCommentsResponse(post.getId(), totalCount, comments);
+    public List<Comment> findCommentsByPost(Post post) {
+        return commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED);
     }
 
     @Transactional
@@ -54,9 +54,8 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentResponse deleteById(Long id) {
-        Comment comment = findCommentById(id).delete();
-        return new CommentResponse(comment.getId());
+    public Comment deleteByComment(Long id) {
+        return findCommentById(id).delete();
     }
 
     @Transactional
@@ -68,11 +67,5 @@ public class CommentService {
     @Transactional
     public void deleteByPosts(List<Post> posts) {
         posts.forEach(this::deleteByPost);
-    }
-
-    public void isDuplication(Long id) {
-        if (!commentRepository.existsById(id)) {
-            throw new NonExitsException(ErrorMessage.COMMENT_NOT_EXISTS_ERROR);
-        }
     }
 }

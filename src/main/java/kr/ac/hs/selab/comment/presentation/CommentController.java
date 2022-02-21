@@ -62,7 +62,7 @@ public class CommentController implements CommentSdk {
     @Override
     @PatchMapping("/comments/{commentId}")
     public ResponseTemplate<CommentResponse> delete(@PathVariable Long commentId) {
-        CommentResponse response = commentService.deleteById(commentId);
+        CommentResponse response = commentFacade.delete(commentId);
         return ResponseTemplate.ok(ResponseMessage.COMMENT_DELETE_SUCCESS, response);
     }
 }

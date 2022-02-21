@@ -8,11 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    boolean existsById(Long id);
-
     Optional<Comment> findByIdAndDeleteFlag(Long id, boolean deleteFlag);
 
     List<Comment> findByPostAndDeleteFlag(Post post, boolean deleteFlag);
-
-    Long countByPostAndDeleteFlag(Post post, boolean deleteFlag);
 }

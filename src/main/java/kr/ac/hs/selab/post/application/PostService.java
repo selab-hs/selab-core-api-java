@@ -9,7 +9,6 @@ import kr.ac.hs.selab.post.converter.PostConverter;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
-import kr.ac.hs.selab.post.dto.response.PostFindByBoardResponse;
 import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import kr.ac.hs.selab.post.dto.response.PostResponse;
 import kr.ac.hs.selab.post.infrastructure.PostRepository;
@@ -26,9 +25,12 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public PostResponse create(PostCreateDto dto, Member member, Board board) {
-        Post post = postRepository.save(PostConverter.toPost(dto, member, board));
-        return new PostResponse(post.getId());
+    public Post create(PostCreateDto dto, Member member, Board board) {
+        return postRepository.save(PostConverter.toPost(dto, member, board));
+    }
+
+    public Long count(Board board) {
+        return postRepository.countByBoardAndDeleteFlag(board, Constants.NOT_DELETED);
     }
 
     public PostFindResponse findPostResponseById(Long id) {
@@ -38,13 +40,6 @@ public class PostService {
     public Post findPostById(Long id) {
         return postRepository.findByIdAndDeleteFlag(id, Constants.NOT_DELETED)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.POST_NOT_EXISTS_ERROR));
-    }
-
-    public PostFindByBoardResponse findPostsResponseByBoard(Board board) {
-        Long totalCount = postRepository.countByBoardAndDeleteFlag(board, Constants.NOT_DELETED);
-        List<Post> posts = findPostsByBoard(board);
-
-        return PostConverter.toPostFindByBoardResponse(board.getId(), totalCount, posts);
     }
 
     public List<Post> findPostsByBoard(Board board) {
@@ -66,11 +61,5 @@ public class PostService {
     public void deleteByBoard(Board board) {
         postRepository.findByBoardAndDeleteFlag(board, Constants.NOT_DELETED)
                 .forEach(Post::delete);
-    }
-
-    public void isDuplication(Long id) {
-        if (!postRepository.existsById(id)) {
-            throw new NonExitsException(ErrorMessage.POST_NOT_EXISTS_ERROR);
-        }
     }
 }

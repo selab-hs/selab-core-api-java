@@ -36,7 +36,19 @@ public class PostConverter {
                 .build();
     }
 
-    public PostFindByBoardResponse.PostInnerResponse toPostInnerResponse(Post post) {
+    public PostFindByBoardResponse toPostFindByBoardResponse(Long boardId, Long totalCount, List<Post> posts) {
+        return PostFindByBoardResponse.builder()
+                .boardId(boardId)
+                .totalCount(totalCount)
+                .posts(
+                        posts.stream()
+                                .map(PostConverter::toPostInnerResponse)
+                                .collect(Collectors.toList())
+                )
+                .build();
+    }
+
+    private PostFindByBoardResponse.PostInnerResponse toPostInnerResponse(Post post) {
         return PostFindByBoardResponse.PostInnerResponse
                 .builder()
                 .memberEmail(post.getMember().getEmail())
@@ -45,18 +57,6 @@ public class PostConverter {
                 .content(post.getContent())
                 .createdAt(post.getCreatedAt())
                 .modifiedAt(post.getModifiedAt())
-                .build();
-    }
-
-    public PostFindByBoardResponse toPostFindByBoardResponse(Long boardId, Long totalCount, List<Post> posts) {
-        List<PostFindByBoardResponse.PostInnerResponse> postInnerResponses = posts.stream()
-                .map(PostConverter::toPostInnerResponse)
-                .collect(Collectors.toList());
-
-        return PostFindByBoardResponse.builder()
-                .boardId(boardId)
-                .totalCount(totalCount)
-                .posts(postInnerResponses)
                 .build();
     }
 

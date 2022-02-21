@@ -5,6 +5,7 @@ import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.application.PostService;
+import kr.ac.hs.selab.post.converter.PostConverter;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.domain.event.PostEvent;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
@@ -14,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -29,12 +32,16 @@ public class PostFacade {
         Member member = memberService.findByEmail(postDto.getMemberEmail());
         Board board = boardService.findBoardById(postDto.getBoardId());
 
-        return postService.create(postDto, member, board);
+        Post post = postService.create(postDto, member, board);
+        return new PostResponse(post.getId());
     }
 
     public PostFindByBoardResponse findPostsResponseByBoardId(Long boardId) {
         Board board = boardService.findBoardById(boardId);
-        return postService.findPostsResponseByBoard(board);
+        Long totalCount = postService.count(board);
+        List<Post> posts = postService.findPostsByBoard(board);
+
+        return PostConverter.toPostFindByBoardResponse(board.getId(), totalCount, posts);
     }
 
     @Transactional

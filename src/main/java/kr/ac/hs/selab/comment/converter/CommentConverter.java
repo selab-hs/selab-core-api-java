@@ -6,8 +6,6 @@ import kr.ac.hs.selab.comment.dto.CommentUpdateDto;
 import kr.ac.hs.selab.comment.dto.request.CommentRequest;
 import kr.ac.hs.selab.comment.dto.response.CommentFindByPostResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentFindResponse;
-import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.post.domain.Post;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
@@ -15,14 +13,6 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class CommentConverter {
-    public Comment toComment(CommentCreateDto dto, Member member, Post post) {
-        return Comment.builder()
-                .member(member)
-                .post(post)
-                .content(dto.getContent())
-                .build();
-    }
-
     public CommentFindResponse toCommentResponse(Comment comment) {
         return CommentFindResponse.builder()
                 .memberEmail(comment.getMember().getEmail())
@@ -34,7 +24,19 @@ public class CommentConverter {
                 .build();
     }
 
-    public CommentFindByPostResponse.CommentInnerResponse toCommentInnerResponse(Comment comment) {
+    public CommentFindByPostResponse toCommentsResponse(Long postId, List<Comment> comments) {
+        return CommentFindByPostResponse.builder()
+                .postId(postId)
+                .totalCount((long) comments.size())
+                .comments(
+                        comments.stream()
+                                .map(CommentConverter::toCommentInnerResponse)
+                                .collect(Collectors.toList())
+                )
+                .build();
+    }
+
+    private CommentFindByPostResponse.CommentInnerResponse toCommentInnerResponse(Comment comment) {
         return CommentFindByPostResponse.CommentInnerResponse
                 .builder()
                 .memberEmail(comment.getMember().getEmail())
@@ -42,18 +44,6 @@ public class CommentConverter {
                 .content(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .modifiedAt(comment.getModifiedAt())
-                .build();
-    }
-
-    public CommentFindByPostResponse toCommentsResponse(Long postId, Long totalCount, List<Comment> comments) {
-        List<CommentFindByPostResponse.CommentInnerResponse> commentInnerResponses = comments.stream()
-                .map(CommentConverter::toCommentInnerResponse)
-                .collect(Collectors.toList());
-
-        return CommentFindByPostResponse.builder()
-                .postId(postId)
-                .totalCount(totalCount)
-                .comments(commentInnerResponses)
                 .build();
     }
 
