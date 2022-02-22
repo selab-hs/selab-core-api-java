@@ -6,9 +6,11 @@ import kr.ac.hs.selab.common.utils.SecurityUtils;
 import kr.ac.hs.selab.post.application.PostService;
 import kr.ac.hs.selab.post.converter.PostConverter;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
+import kr.ac.hs.selab.post.dto.PostFindByBoardAndPageDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
+import kr.ac.hs.selab.post.dto.request.PostFindByBoardAndPageRequest;
 import kr.ac.hs.selab.post.dto.request.PostRequest;
-import kr.ac.hs.selab.post.dto.response.PostFindByBoardResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindByBoardAndPageResponse;
 import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import kr.ac.hs.selab.post.dto.response.PostResponse;
 import kr.ac.hs.selab.post.facade.PostFacade;
@@ -44,8 +46,10 @@ public class PostController implements PostSdk {
 
     @Override
     @GetMapping("/boards/{boardId}/posts")
-    public ResponseTemplate<PostFindByBoardResponse> findByBoard(@PathVariable Long boardId) {
-        PostFindByBoardResponse response = postFacade.findPostsResponseByBoardId(boardId);
+    public ResponseTemplate<PostFindByBoardAndPageResponse> findByBoardAndPage(@PathVariable Long boardId,
+                                                                               @Valid @RequestBody PostFindByBoardAndPageRequest request) {
+        PostFindByBoardAndPageDto dto = PostConverter.toPostFindByBoardAndPageDto(boardId, request);
+        PostFindByBoardAndPageResponse response = postFacade.findPostsResponseByBoardId(dto);
         return ResponseTemplate.ok(ResponseMessage.POST_FIND_SUCCESS, response);
     }
 

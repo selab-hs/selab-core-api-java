@@ -10,12 +10,18 @@ import java.util.List;
 
 @Builder
 @Getter
-public class PostFindByBoardResponse {
+public class PostFindByBoardAndPageResponse {
     @Schema(description = "게시판 id")
     private final Long boardId;
 
     @Schema(description = "게시글 전체 개수")
     private final Long totalCount;
+
+    @Schema(description = "게시글 페이지")
+    private final int page;
+
+    @Schema(description = "한 페이지에 가져올 게시글 수")
+    private final int size;
 
     @Schema(description = "게시글 전체 리스트")
     private final List<PostInnerResponse> posts;
