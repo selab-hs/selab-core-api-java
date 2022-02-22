@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class PostFindByBoardAndPageDto {
     private final Long boardId;
-    private final int page;
-    private final int size;
+    private final int pageNumber;
+    private final int pageSize;
+    private final String sortProperty;
 }

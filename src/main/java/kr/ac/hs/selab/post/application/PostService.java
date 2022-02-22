@@ -14,7 +14,7 @@ import kr.ac.hs.selab.post.dto.response.PostResponse;
 import kr.ac.hs.selab.post.infrastructure.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,8 +48,8 @@ public class PostService {
         return postRepository.findByBoardAndDeleteFlag(board, Constants.NOT_DELETED);
     }
 
-    public Page<Post> findPostsByBoardAndPage(Board board, int page, int size) {
-        return postRepository.findByBoardAndDeleteFlag(board, Constants.NOT_DELETED, PageRequest.of(page, size));
+    public Page<Post> findPostsByBoardAndPage(Board board, Pageable pageable) {
+        return postRepository.findByBoardAndDeleteFlag(board, Constants.NOT_DELETED, pageable);
     }
 
     @Transactional

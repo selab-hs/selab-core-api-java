@@ -18,10 +18,13 @@ public class PostFindByBoardAndPageResponse {
     private final Long totalCount;
 
     @Schema(description = "게시글 페이지")
-    private final int page;
+    private final int pageNumber;
 
     @Schema(description = "한 페이지에 가져올 게시글 수")
-    private final int size;
+    private final int pageSize;
+
+    @Schema(description = "게시글 정렬 기준")
+    private final String sortProperty;
 
     @Schema(description = "게시글 전체 리스트")
     private final List<PostInnerResponse> posts;

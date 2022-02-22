@@ -42,8 +42,9 @@ public class PostConverter {
         return PostFindByBoardAndPageResponse.builder()
                 .boardId(dto.getBoardId())
                 .totalCount(totalCount)
-                .page(dto.getPage())
-                .size(dto.getSize())
+                .pageNumber(dto.getPageNumber())
+                .pageSize(dto.getPageSize())
+                .sortProperty(dto.getSortProperty())
                 .posts(
                         posts.stream()
                                 .map(PostConverter::toPostInnerResponse)
@@ -76,8 +77,9 @@ public class PostConverter {
     public PostFindByBoardAndPageDto toPostFindByBoardAndPageDto(Long boardId, PostFindByBoardAndPageRequest request) {
         return PostFindByBoardAndPageDto.builder()
                 .boardId(boardId)
-                .page(request.getPage())
-                .size(request.getSize())
+                .pageNumber(request.getPageNumber())
+                .pageSize(request.getPageSize())
+                .sortProperty(request.getSortProperty())
                 .build();
     }
 

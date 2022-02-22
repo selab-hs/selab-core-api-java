@@ -4,12 +4,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 public class PostFindByBoardAndPageRequest {
     @Schema(description = "게시글 페이지")
-    private int page;
+    private int pageNumber;
 
     @Schema(description = "게시글 제목")
     @Range(min = 1, max = 100, message = "페이지 사이즈는 1부터 100까지 가능합니다.")
-    private int size;
+    private int pageSize;
+
+    @Schema(description = "게시글 정렬 기준")
+    @NotBlank
+    private String sortProperty;
 }
