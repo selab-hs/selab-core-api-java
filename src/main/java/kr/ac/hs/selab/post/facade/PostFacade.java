@@ -9,14 +9,14 @@ import kr.ac.hs.selab.post.converter.PostConverter;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.domain.event.PostEvent;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
-import kr.ac.hs.selab.post.dto.response.PostFindByBoardResponse;
+import kr.ac.hs.selab.post.dto.PostFindByBoardAndPageDto;
+import kr.ac.hs.selab.post.dto.response.PostFindByBoardAndPageResponse;
 import kr.ac.hs.selab.post.dto.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -36,12 +36,12 @@ public class PostFacade {
         return new PostResponse(post.getId());
     }
 
-    public PostFindByBoardResponse findPostsResponseByBoardId(Long boardId) {
-        Board board = boardService.findBoardById(boardId);
+    public PostFindByBoardAndPageResponse findPostsResponseByBoardId(PostFindByBoardAndPageDto dto) {
+        Board board = boardService.findBoardById(dto.getBoardId());
         Long totalCount = postService.count(board);
-        List<Post> posts = postService.findPostsByBoard(board);
+        Page<Post> posts = postService.findPostsByBoardAndPage(board, dto.getPageable());
 
-        return PostConverter.toPostFindByBoardResponse(board.getId(), totalCount, posts);
+        return PostConverter.toPostFindByBoardResponse(dto, totalCount, posts);
     }
 
     @Transactional

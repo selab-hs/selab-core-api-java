@@ -4,13 +4,14 @@ import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
+import kr.ac.hs.selab.post.dto.PostFindByBoardAndPageDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
 import kr.ac.hs.selab.post.dto.request.PostRequest;
-import kr.ac.hs.selab.post.dto.response.PostFindByBoardResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindByBoardAndPageResponse;
 import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import lombok.experimental.UtilityClass;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -36,10 +37,13 @@ public class PostConverter {
                 .build();
     }
 
-    public PostFindByBoardResponse toPostFindByBoardResponse(Long boardId, Long totalCount, List<Post> posts) {
-        return PostFindByBoardResponse.builder()
-                .boardId(boardId)
+    public PostFindByBoardAndPageResponse toPostFindByBoardResponse(PostFindByBoardAndPageDto dto, Long totalCount, Page<Post> posts) {
+        return PostFindByBoardAndPageResponse.builder()
+                .boardId(dto.getBoardId())
                 .totalCount(totalCount)
+                .pageNumber(dto.getPageable().getPageNumber())
+                .pageSize(dto.getPageable().getPageSize())
+                .sort(dto.getPageable().getSort().toString())
                 .posts(
                         posts.stream()
                                 .map(PostConverter::toPostInnerResponse)
@@ -48,8 +52,8 @@ public class PostConverter {
                 .build();
     }
 
-    private PostFindByBoardResponse.PostInnerResponse toPostInnerResponse(Post post) {
-        return PostFindByBoardResponse.PostInnerResponse
+    private PostFindByBoardAndPageResponse.PostInnerResponse toPostInnerResponse(Post post) {
+        return PostFindByBoardAndPageResponse.PostInnerResponse
                 .builder()
                 .memberEmail(post.getMember().getEmail())
                 .postId(post.getId())
