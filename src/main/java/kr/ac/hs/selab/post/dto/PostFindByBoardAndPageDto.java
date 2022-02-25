@@ -1,13 +1,12 @@
 package kr.ac.hs.selab.post.dto;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 
-@Builder
+@RequiredArgsConstructor
 @Getter
 public class PostFindByBoardAndPageDto {
     private final Long boardId;
-    private final int pageNumber;
-    private final int pageSize;
-    private final String sortProperty;
+    private final Pageable pageable;
 }

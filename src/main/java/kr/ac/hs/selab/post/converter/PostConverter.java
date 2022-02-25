@@ -6,7 +6,6 @@ import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
 import kr.ac.hs.selab.post.dto.PostFindByBoardAndPageDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
-import kr.ac.hs.selab.post.dto.request.PostFindByBoardAndPageRequest;
 import kr.ac.hs.selab.post.dto.request.PostRequest;
 import kr.ac.hs.selab.post.dto.response.PostFindByBoardAndPageResponse;
 import kr.ac.hs.selab.post.dto.response.PostFindResponse;
@@ -42,9 +41,9 @@ public class PostConverter {
         return PostFindByBoardAndPageResponse.builder()
                 .boardId(dto.getBoardId())
                 .totalCount(totalCount)
-                .pageNumber(dto.getPageNumber())
-                .pageSize(dto.getPageSize())
-                .sortProperty(dto.getSortProperty())
+                .pageNumber(dto.getPageable().getPageNumber())
+                .pageSize(dto.getPageable().getPageSize())
+                .sort(dto.getPageable().getSort().toString())
                 .posts(
                         posts.stream()
                                 .map(PostConverter::toPostInnerResponse)
@@ -71,15 +70,6 @@ public class PostConverter {
                 .boardId(boardId)
                 .title(request.getTitle())
                 .content(request.getContent())
-                .build();
-    }
-
-    public PostFindByBoardAndPageDto toPostFindByBoardAndPageDto(Long boardId, PostFindByBoardAndPageRequest request) {
-        return PostFindByBoardAndPageDto.builder()
-                .boardId(boardId)
-                .pageNumber(request.getPageNumber())
-                .pageSize(request.getPageSize())
-                .sortProperty(request.getSortProperty())
                 .build();
     }
 

@@ -15,9 +15,6 @@ import kr.ac.hs.selab.post.dto.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,14 +39,7 @@ public class PostFacade {
     public PostFindByBoardAndPageResponse findPostsResponseByBoardId(PostFindByBoardAndPageDto dto) {
         Board board = boardService.findBoardById(dto.getBoardId());
         Long totalCount = postService.count(board);
-
-        Pageable pageable = PageRequest.of(
-                dto.getPageNumber(),
-                dto.getPageSize(),
-                Sort.Direction.DESC,
-                dto.getSortProperty()
-        );
-        Page<Post> posts = postService.findPostsByBoardAndPage(board, pageable);
+        Page<Post> posts = postService.findPostsByBoardAndPage(board, dto.getPageable());
 
         return PostConverter.toPostFindByBoardResponse(dto, totalCount, posts);
     }

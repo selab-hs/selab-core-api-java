@@ -3,7 +3,6 @@ package kr.ac.hs.selab.post.dto.response;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,7 +23,7 @@ public class PostFindByBoardAndPageResponse {
     private final int pageSize;
 
     @Schema(description = "게시글 정렬 기준")
-    private final String sortProperty;
+    private final String sort;
 
     @Schema(description = "게시글 전체 리스트")
     private final List<PostInnerResponse> posts;
