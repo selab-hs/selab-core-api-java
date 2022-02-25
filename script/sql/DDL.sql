@@ -1,3 +1,4 @@
+# 회원 테이블 정의
 create table member
 (
     member_id         bigint auto_increment
@@ -19,6 +20,8 @@ create table member
         unique (member_nickname)
 );
 
+
+# 회원 가입 시 약관 테이블 정의
 create table terms
 (
     terms_id       bigint auto_increment
@@ -31,6 +34,8 @@ create table terms
         foreign key (member_id) references member (member_id)
 );
 
+
+# 게시판 테이블 정의
 create table board
 (
     board_id          bigint auto_increment
@@ -44,6 +49,8 @@ create table board
         unique (board_title)
 );
 
+
+# 게시글 테이블 정의
 create table post
 (
     post_id          bigint auto_increment
@@ -61,22 +68,8 @@ create table post
         foreign key (member_id) references member (member_id)
 );
 
-create table post_like
-(
-    post_like_id bigint auto_increment
-        primary key,
-    created_at   datetime null,
-    modified_at  datetime null,
-    member_id    bigint   not null,
-    post_id      bigint   not null,
-    constraint UK6b8s3f8oiog3im43ddg35bxnn
-        unique (member_id, post_id),
-    constraint FKj7iy0k7n3d0vkh8o7ibjna884
-        foreign key (post_id) references post (post_id),
-    constraint FKqjxwr6kkv6pw2e4pwy4yktxyk
-        foreign key (member_id) references member (member_id)
-);
 
+# 댓글 테아블 정의
 create table comment
 (
     comment_id          bigint auto_increment
@@ -93,6 +86,26 @@ create table comment
         foreign key (post_id) references post (post_id)
 );
 
+
+# 게시글 좋아요 테이블 정의
+create table post_like
+(
+    post_like_id bigint auto_increment
+        primary key,
+    created_at   datetime null,
+    modified_at  datetime null,
+    member_id    bigint   not null,
+    post_id      bigint   not null,
+    constraint UK6b8s3f8oiog3im43ddg35bxnn
+        unique (member_id, post_id),
+    constraint FKj7iy0k7n3d0vkh8o7ibjna884
+        foreign key (post_id) references post (post_id),
+    constraint FKqjxwr6kkv6pw2e4pwy4yktxyk
+        foreign key (member_id) references member (member_id)
+);
+
+
+# 댓글 좋아요 테이블 정의
 create table comment_like
 (
     comment_like_id bigint auto_increment
