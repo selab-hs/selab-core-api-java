@@ -2,14 +2,12 @@ package kr.ac.hs.selab.common.template;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.validation.constraints.NotNull;
-
-import jdk.jshell.Snippet;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Getter
 public class ResponseTemplate<T> implements Serializable {
