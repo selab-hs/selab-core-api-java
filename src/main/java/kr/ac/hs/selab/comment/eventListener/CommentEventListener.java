@@ -19,7 +19,7 @@ public class CommentEventListener {
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     @TransactionalEventListener
     public void deleteByComment(CommentEvent commentEvent) {
-        Comment comment = commentEvent.getComment();
+        var comment = commentEvent.getComment();
         commentLikeService.deleteByComment(comment);
     }
 }

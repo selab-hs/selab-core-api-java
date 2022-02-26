@@ -12,6 +12,8 @@ import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +27,17 @@ public class CommentService {
 
     @Transactional
     public Comment create(Member member, Post post, String commentContent) {
-        Comment comment = Comment.builder()
+        var comment = Comment.builder()
                 .member(member)
                 .post(post)
                 .content(commentContent)
                 .build();
 
         return commentRepository.save(comment);
+    }
+
+    public Long count(Post post) {
+        return commentRepository.countByPostAndDeleteFlag(post, Constants.NOT_DELETED);
     }
 
     public CommentFindResponse findCommentResponseById(Long id) {
@@ -47,9 +53,13 @@ public class CommentService {
         return commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED);
     }
 
+    public Page<Comment> findCommentsByPost(Post post, Pageable pageable) {
+        return commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED, pageable);
+    }
+
     @Transactional
     public CommentResponse update(CommentUpdateDto dto) {
-        Comment comment = findCommentById(dto.getId()).update(dto.getContent());
+        var comment = findCommentById(dto.getId()).update(dto.getContent());
         return new CommentResponse(comment.getId());
     }
 
