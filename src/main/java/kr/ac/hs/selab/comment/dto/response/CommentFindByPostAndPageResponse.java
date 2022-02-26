@@ -9,12 +9,21 @@ import java.util.List;
 
 @Builder
 @Getter
-public class CommentFindByPostResponse {
+public class CommentFindByPostAndPageResponse {
     @Schema(description = "게시글 id")
     private final Long postId;
 
     @Schema(description = "댓글 전체 개수")
     private final Long totalCount;
+
+    @Schema(description = "댓글 페이지")
+    private final int pageNumber;
+
+    @Schema(description = "한 페이지에 가져올 댓글 수")
+    private final int pageSize;
+
+    @Schema(description = "댓글 정렬 기준")
+    private final String sort;
 
     @Schema(description = "댓글 전체 리스트")
     private final List<CommentInnerResponse> comments;

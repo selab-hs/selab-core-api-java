@@ -2,13 +2,14 @@ package kr.ac.hs.selab.comment.converter;
 
 import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.comment.dto.CommentCreateDto;
+import kr.ac.hs.selab.comment.dto.CommentFindByPostAndPageDto;
 import kr.ac.hs.selab.comment.dto.CommentUpdateDto;
 import kr.ac.hs.selab.comment.dto.request.CommentRequest;
-import kr.ac.hs.selab.comment.dto.response.CommentFindByPostResponse;
+import kr.ac.hs.selab.comment.dto.response.CommentFindByPostAndPageResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentFindResponse;
 import lombok.experimental.UtilityClass;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -24,10 +25,13 @@ public class CommentConverter {
                 .build();
     }
 
-    public CommentFindByPostResponse toCommentsResponse(Long postId, List<Comment> comments) {
-        return CommentFindByPostResponse.builder()
-                .postId(postId)
-                .totalCount((long) comments.size())
+    public CommentFindByPostAndPageResponse toCommentsResponse(CommentFindByPostAndPageDto dto, Long totalCount, Page<Comment> comments) {
+        return CommentFindByPostAndPageResponse.builder()
+                .postId(dto.getPostId())
+                .totalCount(totalCount)
+                .pageNumber(dto.getPageable().getPageNumber())
+                .pageSize(dto.getPageable().getPageSize())
+                .sort(dto.getPageable().getSort().toString())
                 .comments(
                         comments.stream()
                                 .map(CommentConverter::toCommentInnerResponse)
@@ -36,8 +40,8 @@ public class CommentConverter {
                 .build();
     }
 
-    private CommentFindByPostResponse.CommentInnerResponse toCommentInnerResponse(Comment comment) {
-        return CommentFindByPostResponse.CommentInnerResponse
+    private CommentFindByPostAndPageResponse.CommentInnerResponse toCommentInnerResponse(Comment comment) {
+        return CommentFindByPostAndPageResponse.CommentInnerResponse
                 .builder()
                 .memberEmail(comment.getMember().getEmail())
                 .commentId(comment.getId())

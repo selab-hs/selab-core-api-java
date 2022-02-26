@@ -6,10 +6,11 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import kr.ac.hs.selab.comment.dto.request.CommentRequest;
-import kr.ac.hs.selab.comment.dto.response.CommentFindByPostResponse;
+import kr.ac.hs.selab.comment.dto.response.CommentFindByPostAndPageResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentFindResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentResponse;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
+import org.springframework.data.domain.Pageable;
 
 @Api(tags = "Comment REST API", description = "댓글 api")
 public interface CommentSdk {
@@ -33,7 +34,8 @@ public interface CommentSdk {
             @ApiResponse(code = 201, message = "댓글 조회 성공"),
             @ApiResponse(code = 400, message = "댓글 조회 실패")
     })
-    ResponseTemplate<CommentFindByPostResponse> findByPost(Long postId);
+    ResponseTemplate<CommentFindByPostAndPageResponse> findByPostAndPage(Long postId,
+                                                                         Pageable pageable);
 
     @Operation(summary = "댓글 수정", description = "새로운 댓글 정보를 이용해서 댓글을 수정한다.")
     @ApiResponses({
