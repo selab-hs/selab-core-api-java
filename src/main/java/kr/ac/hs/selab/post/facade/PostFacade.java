@@ -30,14 +30,14 @@ public class PostFacade {
     @Transactional
     public PostResponse create(PostCreateDto postDto) {
         Member member = memberService.findByEmail(postDto.getMemberEmail());
-        Board board = boardService.findBoardById(postDto.getBoardId());
+        Board board = boardService.findById(postDto.getBoardId());
 
         Post post = postService.create(postDto, member, board);
         return new PostResponse(post.getId());
     }
 
     public PostFindByBoardResponse findPostsResponseByBoardId(Long boardId) {
-        Board board = boardService.findBoardById(boardId);
+        Board board = boardService.findById(boardId);
         Long totalCount = postService.count(board);
         List<Post> posts = postService.findPostsByBoard(board);
 

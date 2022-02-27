@@ -4,9 +4,6 @@ import kr.ac.hs.selab.board.converter.BoardConverter;
 import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.dto.BoardCreateDto;
 import kr.ac.hs.selab.board.dto.BoardUpdateDto;
-import kr.ac.hs.selab.board.dto.response.BoardFindAllResponse;
-import kr.ac.hs.selab.board.dto.response.BoardFindResponse;
-import kr.ac.hs.selab.board.dto.response.BoardResponse;
 import kr.ac.hs.selab.board.infrastructure.BoardRepository;
 import kr.ac.hs.selab.common.utils.Constants;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
@@ -24,35 +21,26 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public BoardResponse create(BoardCreateDto dto) {
-        Board board = boardRepository.save(BoardConverter.toBoard(dto));
-        return new BoardResponse(board.getId());
+    public Board create(BoardCreateDto dto) {
+        return boardRepository.save(BoardConverter.toBoard(dto));
     }
 
-    public BoardFindResponse findBoardResponseById(Long id) {
-        Board board = findBoardById(id);
-        return BoardConverter.toBoardResponse(board);
-    }
-
-    public Board findBoardById(Long id) {
+    public Board findById(Long id) {
         return boardRepository.findByIdAndDeleteFlag(id, Constants.NOT_DELETED)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.BOARD_NOT_EXISTS_ERROR));
     }
 
-    public BoardFindAllResponse findBoardsResponse() {
-        Long totalCount = boardRepository.countByDeleteFlag(Constants.NOT_DELETED);
-        List<Board> boards = boardRepository.findByDeleteFlag(Constants.NOT_DELETED);
-        return BoardConverter.toBoardsResponse(totalCount, boards);
+    public List<Board> findAll() {
+        return boardRepository.findByDeleteFlag(Constants.NOT_DELETED);
     }
 
     @Transactional
-    public BoardResponse update(BoardUpdateDto dto) {
-        Board board = findBoardById(dto.getId()).update(dto.getTitle(), dto.getDescription());
-        return new BoardResponse(board.getId());
+    public Board update(BoardUpdateDto dto) {
+        return findById(dto.getId()).update(dto.getTitle(), dto.getDescription());
     }
 
     @Transactional
     public Board delete(Long id) {
-        return findBoardById(id).delete();
+        return findById(id).delete();
     }
 }

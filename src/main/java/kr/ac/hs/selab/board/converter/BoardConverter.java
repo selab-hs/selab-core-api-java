@@ -29,11 +29,11 @@ public class BoardConverter {
                 .build();
     }
 
-    public BoardFindAllResponse toBoardsResponse(Long totalCount, List<Board> boards) {
+    public BoardFindAllResponse toBoardsResponse(List<Board> boards) {
         List<BoardFindResponse> boardResponses = boards.stream()
                 .map(BoardConverter::toBoardResponse)
                 .collect(Collectors.toList());
-        return new BoardFindAllResponse(totalCount, boardResponses);
+        return new BoardFindAllResponse((long) boards.size(), boardResponses);
     }
 
     public BoardUpdateDto toBoardUpdateDto(Long id, BoardRequest request) {

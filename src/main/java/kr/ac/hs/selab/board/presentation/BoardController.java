@@ -27,21 +27,21 @@ public class BoardController implements BoardSdk {
     @PostMapping
     public ResponseTemplate<BoardResponse> create(@Valid @RequestBody BoardRequest request) {
         BoardCreateDto dto = new BoardCreateDto(request.getTitle(), request.getDescription());
-        BoardResponse response = boardService.create(dto);
+        BoardResponse response = boardFacade.create(dto);
         return ResponseTemplate.created(ResponseMessage.BOARD_CREATE_SUCCESS, response);
     }
 
     @Override
     @GetMapping("/{id}")
     public ResponseTemplate<BoardFindResponse> find(@PathVariable Long id) {
-        BoardFindResponse response = boardService.findBoardResponseById(id);
+        BoardFindResponse response = boardFacade.findBoardResponseById(id);
         return ResponseTemplate.ok(ResponseMessage.BOARD_FIND_SUCCESS, response);
     }
 
     @Override
     @GetMapping
     public ResponseTemplate<BoardFindAllResponse> findAll() {
-        BoardFindAllResponse response = boardService.findBoardsResponse();
+        BoardFindAllResponse response = boardFacade.findBoardFindAllResponse();
         return ResponseTemplate.ok(ResponseMessage.BOARD_FIND_SUCCESS, response);
     }
 
@@ -50,14 +50,14 @@ public class BoardController implements BoardSdk {
     public ResponseTemplate<BoardResponse> update(@PathVariable Long id,
                                                   @Valid @RequestBody BoardRequest request) {
         BoardUpdateDto dto = BoardConverter.toBoardUpdateDto(id, request);
-        BoardResponse response = boardService.update(dto);
+        BoardResponse response = boardFacade.update(dto);
         return ResponseTemplate.ok(ResponseMessage.BOARD_UPDATE_SUCCESS, response);
     }
 
     @Override
     @PatchMapping("/{id}")
     public ResponseTemplate<BoardResponse> delete(@PathVariable Long id) {
-        BoardResponse response = boardFacade.deleteById(id);
+        BoardResponse response = boardFacade.delete(id);
         return ResponseTemplate.ok(ResponseMessage.BOARD_DELETE_SUCCESS, response);
     }
 }
