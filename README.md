@@ -18,4 +18,3 @@
 
 ### 📎 Commit Rule
 
-
