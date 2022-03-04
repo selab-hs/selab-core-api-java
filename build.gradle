@@ -2,6 +2,12 @@ plugins {
     id 'org.springframework.boot' version '2.5.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
 group = 'kr.ac.hs'
@@ -41,4 +47,18 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    jacoco {
+        destinationFile = layout.buildDirectory.file('jacoco/jacocoTest.exec').get().asFile
+        classDumpDir = layout.buildDirectory.dir('jacoco/classpathdumps').get().asFile
+    }
+    finalizedBy 'jacocoTestReport'
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 }
