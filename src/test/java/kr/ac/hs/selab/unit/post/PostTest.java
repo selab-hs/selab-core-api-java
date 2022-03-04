@@ -1,13 +1,14 @@
-package kr.ac.hs.selab.post.domain;
+package kr.ac.hs.selab.unit.post;
 
 import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.domain.vo.Password;
+import kr.ac.hs.selab.post.domain.Post;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 class PostTest {
     private Post post;
