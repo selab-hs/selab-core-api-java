@@ -20,7 +20,7 @@ public class BoardConverter {
                 .build();
     }
 
-    public BoardFindResponse toBoardResponse(Board board) {
+    public BoardFindResponse toBoardFindResponse(Board board) {
         return BoardFindResponse.builder()
                 .title(board.getTitle())
                 .description(board.getDescription())
@@ -29,9 +29,9 @@ public class BoardConverter {
                 .build();
     }
 
-    public BoardFindAllResponse toBoardsResponse(List<Board> boards) {
+    public BoardFindAllResponse toBoardFindAllResponse(List<Board> boards) {
         List<BoardFindResponse> boardResponses = boards.stream()
-                .map(BoardConverter::toBoardResponse)
+                .map(BoardConverter::toBoardFindResponse)
                 .collect(Collectors.toList());
         return new BoardFindAllResponse((long) boards.size(), boardResponses);
     }

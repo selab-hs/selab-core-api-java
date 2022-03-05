@@ -31,12 +31,12 @@ public class BoardFacade {
     @Transactional
     public BoardFindResponse findBoardResponseById(Long id) {
         var board = boardService.findById(id);
-        return BoardConverter.toBoardResponse(board);
+        return BoardConverter.toBoardFindResponse(board);
     }
 
     public BoardFindAllResponse findBoardFindAllResponse() {
         List<Board> boards = boardService.findAll();
-        return BoardConverter.toBoardsResponse(boards);
+        return BoardConverter.toBoardFindAllResponse(boards);
     }
 
     @Transactional
