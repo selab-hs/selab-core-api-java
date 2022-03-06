@@ -12,11 +12,12 @@ import org.springframework.http.ResponseEntity;
 
 @Getter
 public class ErrorTemplate implements Serializable {
+    @Schema(description = "응답 코드")
+    private final String code;
 
     @Schema(description = "응답 메세지")
     private final String message;
-    @Schema(description = "응답 코드")
-    private final String code;
+
     @Schema(description = "서버시간")
     private final LocalDateTime serverDateTime;
 
@@ -26,10 +27,22 @@ public class ErrorTemplate implements Serializable {
         this.serverDateTime = LocalDateTime.now();
     }
 
+    public ErrorTemplate(@NotNull final ErrorMessage message, @NotNull final String reason) {
+        this.message = message.name();
+        this.code = reason;
+        this.serverDateTime = LocalDateTime.now();
+    }
+
     public static ResponseEntity<ErrorTemplate> of(HttpStatus status, ErrorMessage message) {
         return ResponseEntity
                 .status(status)
                 .body(new ErrorTemplate(message));
+    }
+
+    public static ResponseEntity<ErrorTemplate> of(HttpStatus status, ErrorMessage message, String reason) {
+        return ResponseEntity
+                .status(status)
+                .body(new ErrorTemplate(message, reason));
     }
 
     public static ResponseEntity<ErrorTemplate> badRequest() {

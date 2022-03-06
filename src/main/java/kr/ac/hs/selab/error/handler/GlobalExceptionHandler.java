@@ -6,6 +6,7 @@ import kr.ac.hs.selab.error.template.ErrorTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,6 +20,16 @@ public class GlobalExceptionHandler {
         var message = e.getErrorMessage();
         log.error("[ERROR] Exception -> {}", message.getDetail());
         return ErrorTemplate.of(e.getStatus(), message);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    protected ResponseEntity<ErrorTemplate> handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
+        log.error("[ERROR] MethodArgumentNotValidException -> {}", e.getBindingResult());
+        return ErrorTemplate.of(
+                HttpStatus.BAD_REQUEST,
+                ErrorMessage.METHOD_ARGUMENT_NOT_VALID_ERROR,
+                e.getBindingResult().toString()
+        );
     }
 
     @ExceptionHandler(Exception.class)

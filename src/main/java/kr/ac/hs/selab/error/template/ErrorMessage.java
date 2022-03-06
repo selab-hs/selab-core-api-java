@@ -10,6 +10,7 @@ public enum ErrorMessage {
      * CONFLICT ERROR RESPONSE MESSAGE
      **/
     CONFLICT_ERROR("E-C-0001", "예기치 못한 에러가 발생했습니다."),
+    METHOD_ARGUMENT_NOT_VALID_ERROR("E-C-0002", "유효성 검사에서 문제가 발생했습니다."),
 
     /**
      * MEMBER ERROR RESPONSE MESSAGE
