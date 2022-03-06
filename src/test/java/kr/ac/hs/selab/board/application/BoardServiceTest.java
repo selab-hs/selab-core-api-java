@@ -1,6 +1,7 @@
 package kr.ac.hs.selab.board.application;
 
-import kr.ac.hs.selab.board.converter.BoardConverter;
+import com.navercorp.fixturemonkey.FixtureMonkey;
+import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
 import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.dto.BoardCreateDto;
 import kr.ac.hs.selab.board.dto.BoardUpdateDto;
@@ -12,10 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -31,100 +29,98 @@ public class BoardServiceTest {
     @InjectMocks
     private BoardService boardService;
 
-    private static final Long ID = 1L;
-    private static final BoardCreateDto CREATE_DTO = new BoardCreateDto("자유게시판", "자유게시판입니다.");
+    private static final FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
+            .defaultGenerator(FieldReflectionArbitraryGenerator.INSTANCE)
+            .nullInject(0)
+            .build();
 
     @Test
     public void 게시판_생성_성공() {
         // given
-        var board = BoardConverter.toBoard(CREATE_DTO);
+        var expected = fixtureMonkey.giveMeOne(Board.class);
+        var boardCreateDto = new BoardCreateDto(expected.getTitle(), expected.getDescription());
 
         // mocking
         Mockito.when(boardRepository.save(any()))
-                .thenReturn(board);
+                .thenReturn(expected);
 
         // when
-        var actual = boardService.create(CREATE_DTO);
+        var actual = boardService.create(boardCreateDto);
 
         // then
-        assertEquals(board, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
     public void 아이디로_게시판_찾기_성공() {
         // given
-        var board = BoardConverter.toBoard(CREATE_DTO);
-        ReflectionTestUtils.setField(board, "id", ID);
+        var expected = fixtureMonkey.giveMeOne(Board.class);
+        var boardCreateDto = new BoardCreateDto(expected.getTitle(), expected.getDescription());
 
         // mocking
         Mockito.when(boardRepository.save(any()))
-                .thenReturn(board);
+                .thenReturn(expected);
         Mockito.when(boardRepository.findByIdAndDeleteFlag(anyLong(), anyBoolean()))
-                .thenReturn(Optional.of(board));
+                .thenReturn(Optional.of(expected));
 
         // when
-        var findBoard = boardService.create(CREATE_DTO);
-        var actual = boardService.findById(findBoard.getId());
+        var createdBoard = boardService.create(boardCreateDto);
+        var actual = boardService.findById(createdBoard.getId());
 
         // then
-        assertEquals(board, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
     public void 존재하지_않은_게시판을_찾을_경우_아이디로_게시판_찾기_실패() {
         // given
-        var board = BoardConverter.toBoard(CREATE_DTO);
-        ReflectionTestUtils.setField(board, "id", ID);
+        var id = fixtureMonkey.giveMeOne(Long.class);
 
         // mocking
-        Mockito.when(boardRepository.save(any()))
-                .thenReturn(board);
         Mockito.when(boardRepository.findByIdAndDeleteFlag(anyLong(), anyBoolean()))
                 .thenThrow(NonExitsException.class);
 
         // when, then
-        var createBoard = boardService.create(CREATE_DTO);
-        assertThrows(NonExitsException.class, () -> boardService.findById(createBoard.getId()));
+        assertThrows(NonExitsException.class, () -> boardService.findById(id));
     }
 
     @Test
     public void 전체_게시판_찾기_성공() {
         // given
-        List<BoardCreateDto> createDtos = new ArrayList<>();
-        IntStream.range(0, 10)
-                .forEach(dto -> createDtos.add(new BoardCreateDto(dto + "번 게시판", dto + "번 게시판설명입니다.")));
-
-        List<Board> boards = createDtos.stream()
-                .map(BoardConverter::toBoard)
+        var expected = fixtureMonkey.giveMe(Board.class, 10);
+        var boardCreateDtos = expected.stream()
+                .map(board -> new BoardCreateDto(board.getTitle(), board.getDescription()))
                 .collect(Collectors.toList());
 
         // mocking
         Mockito.when(boardRepository.save(any()))
-                .thenReturn(boards.get(0));
+                .thenReturn(expected.get(0));
         Mockito.when(boardRepository.findByDeleteFlag(anyBoolean()))
-                .thenReturn(boards);
+                .thenReturn(expected);
 
         // when
         IntStream.range(0, 10)
-                .forEach(i -> boardService.create(createDtos.get(i)));
-        List<Board> actual = boardService.findAll();
+                .forEach(i -> boardService.create(boardCreateDtos.get(i)));
+        var actual = boardService.findAll();
 
         // when
         IntStream.range(0, 10)
-                .forEach(i -> assertEquals(boards.get(i), actual.get(i)));
+                .forEach(i -> assertEquals(expected.get(i), actual.get(i)));
     }
 
     @Test
     public void 게시판_수정하기_성공() {
         // given
-        var updateDto = BoardUpdateDto.builder()
-                .id(ID)
-                .title("장터게시판")
-                .description("장터게시판입니다.")
-                .build();
+        var board = fixtureMonkey.giveMeOne(Board.class);
+        var boardCreateDto = new BoardCreateDto(board.getTitle(), board.getDescription());
 
-        var board = BoardConverter.toBoard(CREATE_DTO);
-        ReflectionTestUtils.setField(board, "id", ID);
+        var expectedTitle = fixtureMonkey.giveMeOne(String.class);
+        var expectedDescription = fixtureMonkey.giveMeOne(String.class);
+        var boardUpdateDto = BoardUpdateDto.builder()
+                .id(board.getId())
+                .title(expectedTitle)
+                .description(expectedDescription)
+                .build();
 
         // mocking
         Mockito.when(boardRepository.save(any()))
@@ -133,29 +129,29 @@ public class BoardServiceTest {
                 .thenReturn(Optional.of(board));
 
         // when
-        boardService.create(CREATE_DTO);
-        var actual = boardService.update(updateDto);
+        boardService.create(boardCreateDto);
+        var actual = boardService.update(boardUpdateDto);
 
         // then
-        assertEquals("장터게시판", actual.getTitle());
-        assertEquals("장터게시판입니다.", actual.getDescription());
+        assertEquals(expectedTitle, actual.getTitle());
+        assertEquals(expectedDescription, actual.getDescription());
     }
 
     @Test
     public void 게시판_삭제하기_성공() {
         // given
-        var board = BoardConverter.toBoard(CREATE_DTO);
-        ReflectionTestUtils.setField(board, "id", ID);
+        var expected = fixtureMonkey.giveMeOne(Board.class);
+        var boardCreateDto = new BoardCreateDto(expected.getTitle(), expected.getDescription());
 
         // mocking
         Mockito.when(boardRepository.save(any()))
-                .thenReturn(board);
+                .thenReturn(expected);
         Mockito.when(boardRepository.findByIdAndDeleteFlag(anyLong(), anyBoolean()))
-                .thenReturn(Optional.of(board));
+                .thenReturn(Optional.of(expected));
 
         // when
-        boardService.create(CREATE_DTO);
-        var actual = boardService.delete(ID);
+        var createdBoard = boardService.create(boardCreateDto);
+        var actual = boardService.delete(createdBoard.getId());
 
         // then
         assertTrue(actual.isDeleteFlag());

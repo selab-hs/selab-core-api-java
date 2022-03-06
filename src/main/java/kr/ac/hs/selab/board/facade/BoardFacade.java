@@ -35,7 +35,7 @@ public class BoardFacade {
     }
 
     public BoardFindAllResponse findBoardFindAllResponse() {
-        List<Board> boards = boardService.findAll();
+        var boards = boardService.findAll();
         return BoardConverter.toBoardFindAllResponse(boards);
     }
 
