@@ -140,7 +140,9 @@ public class BoardServiceTest {
     @Test
     public void 게시판_삭제하기_성공() {
         // given
-        var expected = fixtureMonkey.giveMeOne(Board.class);
+        var expected = fixtureMonkey.giveMeBuilder(Board.class)
+                .set("deleteFlag", false)
+                .sample();
         var boardCreateDto = new BoardCreateDto(expected.getTitle(), expected.getDescription());
 
         // mocking
