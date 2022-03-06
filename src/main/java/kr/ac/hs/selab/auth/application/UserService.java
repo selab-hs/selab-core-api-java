@@ -16,7 +16,6 @@ public class UserService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
-    // TODO : ERROR를 Spring Message로 바꾸기!
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(final String email) {
