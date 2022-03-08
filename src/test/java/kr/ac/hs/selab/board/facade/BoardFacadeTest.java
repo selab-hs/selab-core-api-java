@@ -161,8 +161,6 @@ public class BoardFacadeTest {
                 .thenReturn(board);
         Mockito.when(boardService.delete(anyLong()))
                 .thenReturn(board);
-        Mockito.doNothing().when(publisher)
-                .publishEvent(BoardEvent.of(board));
 
         // when
         var boardResponse = boardFacade.create(boardCreateDto);
