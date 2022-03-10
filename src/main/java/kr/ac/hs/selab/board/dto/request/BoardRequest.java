@@ -1,11 +1,15 @@
 package kr.ac.hs.selab.board.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class BoardRequest {
     @Schema(description = "게시판 제목")
