@@ -1,8 +1,6 @@
 package kr.ac.hs.selab.postLike.domain;
 
 import kr.ac.hs.selab.common.domain.BaseEntity;
-import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.post.domain.Post;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,16 +24,14 @@ public class PostLike extends BaseEntity {
     @Column(name = "post_like_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    @Column(name = "member_id", nullable = false)
+    private Long memberId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
-    private Post post;
+    @Column(name = "post_id", nullable = false)
+    private Long postId;
 
-    public PostLike(Member member, Post post) {
-        this.member = member;
-        this.post = post;
+    public PostLike(Long memberId, Long postId) {
+        this.memberId = memberId;
+        this.postId = postId;
     }
 }

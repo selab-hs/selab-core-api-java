@@ -8,7 +8,7 @@ import kr.ac.hs.selab.postLike.application.PostLikeService;
 import kr.ac.hs.selab.postLike.converter.PostLikeConverter;
 import kr.ac.hs.selab.postLike.domain.PostLike;
 import kr.ac.hs.selab.postLike.dto.PostLikeDto;
-import kr.ac.hs.selab.postLike.dto.PostLikeFIndDto;
+import kr.ac.hs.selab.postLike.dto.PostLikeFindDto;
 import kr.ac.hs.selab.postLike.dto.response.PostLikeFindResponse;
 import kr.ac.hs.selab.postLike.dto.response.PostLikeResponse;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +30,13 @@ public class PostLikeFacade {
         Member member = memberService.findByEmail(dto.getMemberEmail());
         Post post = postService.findPostById(dto.getPostId());
 
-        PostLike like = postLikeService.create(member, post);
+        PostLike like = postLikeService.create(member.getId(), post.getId());
         return new PostLikeResponse(like.getId());
     }
 
-    public PostLikeFindResponse find(PostLikeFIndDto dto) {
+    public PostLikeFindResponse find(PostLikeFindDto dto) {
         Post post = postService.findPostById(dto.getPostId());
-        List<PostLike> likes = postLikeService.find(post);
+        List<PostLike> likes = postLikeService.find(post.getId());
 
         return PostLikeConverter.toPostLikeFindResponse(post.getId(), likes);
     }

@@ -5,6 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class PostLikeFIndDto {
+public class PostLikeFindDto {
     private final Long postId;
 }

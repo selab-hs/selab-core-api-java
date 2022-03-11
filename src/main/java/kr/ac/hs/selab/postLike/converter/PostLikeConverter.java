@@ -22,6 +22,6 @@ public class PostLikeConverter {
     }
 
     private PostLikeFindResponse.PostLikeInnerResponse toPostLikeInnerResponse(PostLike like) {
-        return new PostLikeFindResponse.PostLikeInnerResponse(like.getId(), like.getMember().getEmail());
+        return new PostLikeFindResponse.PostLikeInnerResponse(like.getId(), like.getMemberId());
     }
 }

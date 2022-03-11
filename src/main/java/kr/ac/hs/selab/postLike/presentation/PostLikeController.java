@@ -5,7 +5,7 @@ import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.utils.SecurityUtils;
 import kr.ac.hs.selab.postLike.application.PostLikeService;
 import kr.ac.hs.selab.postLike.dto.PostLikeDto;
-import kr.ac.hs.selab.postLike.dto.PostLikeFIndDto;
+import kr.ac.hs.selab.postLike.dto.PostLikeFindDto;
 import kr.ac.hs.selab.postLike.dto.response.PostLikeFindResponse;
 import kr.ac.hs.selab.postLike.dto.response.PostLikeResponse;
 import kr.ac.hs.selab.postLike.facade.PostLikeFacade;
@@ -32,7 +32,7 @@ public class PostLikeController implements PostLikeSdk {
     @Override
     @GetMapping("/{postId}/likes")
     public ResponseTemplate<PostLikeFindResponse> find(@PathVariable Long postId) {
-        PostLikeFIndDto dto = new PostLikeFIndDto(postId);
+        PostLikeFindDto dto = new PostLikeFindDto(postId);
         PostLikeFindResponse response = postLikeFacade.find(dto);
 
         return ResponseTemplate.ok(ResponseMessage.POST_LIKE_FIND_SUCCESS, response);

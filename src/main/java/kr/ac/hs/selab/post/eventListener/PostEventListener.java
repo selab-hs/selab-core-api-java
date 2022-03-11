@@ -24,7 +24,7 @@ public class PostEventListener {
     @TransactionalEventListener
     public void deleteByPost(PostEvent postEvent) {
         Post post = postEvent.getPost();
-        postLikeService.deleteByPost(post);
+        postLikeService.deleteByPostId(post.getId());
         commentLikeService.deleteByComments(
                 commentService.findCommentsByPost(post)
         );

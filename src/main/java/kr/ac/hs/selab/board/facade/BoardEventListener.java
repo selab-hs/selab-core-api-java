@@ -36,7 +36,7 @@ public class BoardEventListener {
         });
         commentService.deleteByPosts(posts);
 
-        posts.forEach(postLikeService::deleteByPost);
+        posts.forEach(post -> postLikeService.deleteByPostId(post.getId()));
         postService.deleteByBoardId(board.getId());
     }
 }
