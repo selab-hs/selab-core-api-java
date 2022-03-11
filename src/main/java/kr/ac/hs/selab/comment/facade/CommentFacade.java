@@ -42,7 +42,7 @@ public class CommentFacade {
     @Transactional
     public CommentResponse delete(Long id) {
         var comment = commentService.deleteByComment(id);
-        commentLikeService.deleteByComment(comment);
+        commentLikeService.deleteByCommentId(comment.getId());
 
         return new CommentResponse(comment.delete().getId());
     }

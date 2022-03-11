@@ -4,7 +4,6 @@ import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.commentLike.domain.CommentLike;
 import kr.ac.hs.selab.commentLike.dto.response.CommentLikeResponse;
 import kr.ac.hs.selab.commentLike.infrastructure.CommentLikeRepository;
-import kr.ac.hs.selab.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +17,12 @@ public class CommentLikeService {
     private final CommentLikeRepository commentLikeRepository;
 
     @Transactional
-    public CommentLike create(Member member, Comment comment) {
-        return commentLikeRepository.save(new CommentLike(member, comment));
+    public CommentLike create(Long memberId, Long commentId) {
+        return commentLikeRepository.save(new CommentLike(memberId, commentId));
     }
 
-    public List<CommentLike> find(Comment comment) {
-        return commentLikeRepository.findByComment(comment);
+    public List<CommentLike> find(Long commentId) {
+        return commentLikeRepository.findByCommentId(commentId);
     }
 
     @Transactional
@@ -33,12 +32,12 @@ public class CommentLikeService {
     }
 
     @Transactional
-    public void deleteByComment(Comment comment) {
-        commentLikeRepository.deleteAll(commentLikeRepository.findByComment(comment));
+    public void deleteByCommentId(Long commentId) {
+        commentLikeRepository.deleteAll(commentLikeRepository.findByCommentId(commentId));
     }
 
     @Transactional
     public void deleteByComments(List<Comment> comments) {
-        comments.forEach(this::deleteByComment);
+        comments.forEach(comment -> deleteByCommentId(comment.getId()));
     }
 }

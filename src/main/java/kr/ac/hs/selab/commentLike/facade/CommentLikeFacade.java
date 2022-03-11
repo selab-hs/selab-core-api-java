@@ -30,13 +30,13 @@ public class CommentLikeFacade {
         Member member = memberService.findByEmail(dto.getMemberEmail());
         Comment comment = commentService.findCommentById(dto.getCommentId());
 
-        CommentLike like = commentLikeService.create(member, comment);
+        CommentLike like = commentLikeService.create(member.getId(), comment.getId());
         return new CommentLikeResponse(like.getId());
     }
 
     public CommentLikeFindResponse find(CommentLikeFIndDto dto) {
         Comment comment = commentService.findCommentById(dto.getCommentId());
-        List<CommentLike> likes = commentLikeService.find(comment);
+        List<CommentLike> likes = commentLikeService.find(comment.getId());
 
         return CommentLikeConverter.toCommentLikeFindResponse(comment.getId(), likes);
     }
