@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class BoardTest {
+public class BoardTest {
     private Board board;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         board = Board.builder()
                 .title("자유게시판")
                 .description("자유롭게 작성할 수 있는 게시판입니다.")
@@ -18,7 +18,7 @@ class BoardTest {
     }
 
     @Test
-    void 수정_성공() {
+    public void 게시판_수정하기() {
         // when
         board.update("장터게시판", "물건을 사고 팔 수 있는 게시판입니다.");
 
@@ -28,7 +28,7 @@ class BoardTest {
     }
 
     @Test
-    void 삭제_성공() {
+    public void 게시판_소프트_삭제하기() {
         // when
         board.delete();
 

@@ -29,7 +29,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -42,7 +41,11 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
     runtimeOnly 'mysql:mysql-connector-java'
+
+    testImplementation 'org.mockito:mockito-core:4.3.1'
+    testImplementation 'com.navercorp.fixturemonkey:fixture-monkey-starter:0.3.1'
 }
 
 test {
