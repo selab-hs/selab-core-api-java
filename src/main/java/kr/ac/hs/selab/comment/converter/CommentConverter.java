@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class CommentConverter {
-    public CommentFindResponse toCommentResponse(Comment comment) {
+    public CommentFindResponse toCommentFindResponse(Comment comment) {
         return CommentFindResponse.builder()
                 .memberId(comment.getMemberId())
                 .postId(comment.getPostId())
@@ -25,7 +25,7 @@ public class CommentConverter {
                 .build();
     }
 
-    public CommentFindByPostIdAndPageResponse toCommentsResponse(CommentFindByPostIdAndPageDto dto, Long totalCount, Page<Comment> comments) {
+    public CommentFindByPostIdAndPageResponse toCommentsFindByPostIdAndPageResponse(CommentFindByPostIdAndPageDto dto, Long totalCount, Page<Comment> comments) {
         return CommentFindByPostIdAndPageResponse.builder()
                 .postId(dto.getPostId())
                 .totalCount(totalCount)

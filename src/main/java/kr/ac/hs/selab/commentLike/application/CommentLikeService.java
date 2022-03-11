@@ -2,7 +2,6 @@ package kr.ac.hs.selab.commentLike.application;
 
 import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.commentLike.domain.CommentLike;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeResponse;
 import kr.ac.hs.selab.commentLike.infrastructure.CommentLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,9 +25,8 @@ public class CommentLikeService {
     }
 
     @Transactional
-    public CommentLikeResponse deleteById(Long id) {
+    public void deleteById(Long id) {
         commentLikeRepository.deleteById(id);
-        return new CommentLikeResponse(id);
     }
 
     @Transactional

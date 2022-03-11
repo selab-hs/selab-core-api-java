@@ -23,7 +23,7 @@ public class PostEventListener {
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     @TransactionalEventListener
     public void deleteByPost(PostEvent postEvent) {
-        Post post = postEvent.getPost();
+        var post = postEvent.getPost();
         postLikeService.deleteByPostId(post.getId());
         commentLikeService.deleteByComments(
                 commentService.findCommentsByPostId(post.getId())

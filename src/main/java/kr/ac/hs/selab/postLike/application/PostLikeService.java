@@ -1,7 +1,6 @@
 package kr.ac.hs.selab.postLike.application;
 
 import kr.ac.hs.selab.postLike.domain.PostLike;
-import kr.ac.hs.selab.postLike.dto.response.PostLikeResponse;
 import kr.ac.hs.selab.postLike.infrastructure.PostLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,9 +24,8 @@ public class PostLikeService {
     }
 
     @Transactional
-    public PostLikeResponse delete(Long id) {
+    public void delete(Long id) {
         postLikeRepository.deleteById(id);
-        return new PostLikeResponse(id);
     }
 
     @Transactional

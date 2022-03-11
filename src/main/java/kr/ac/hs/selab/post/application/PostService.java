@@ -7,8 +7,6 @@ import kr.ac.hs.selab.post.converter.PostConverter;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
-import kr.ac.hs.selab.post.dto.response.PostFindResponse;
-import kr.ac.hs.selab.post.dto.response.PostResponse;
 import kr.ac.hs.selab.post.infrastructure.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,10 +31,6 @@ public class PostService {
         return postRepository.countByBoardIdAndDeleteFlag(boardId, Constants.NOT_DELETED);
     }
 
-    public PostFindResponse findPostResponseById(Long id) {
-        return PostConverter.toPostFindResponse(findPostById(id));
-    }
-
     public Post findPostById(Long id) {
         return postRepository.findByIdAndDeleteFlag(id, Constants.NOT_DELETED)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.POST_NOT_EXISTS_ERROR));
@@ -51,13 +45,12 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponse update(PostUpdateDto dto) {
-        Post post = findPostById(dto.getId()).update(dto.getTitle(), dto.getContent());
-        return new PostResponse(post.getId());
+    public Post update(PostUpdateDto dto) {
+        return findPostById(dto.getId()).update(dto.getTitle(), dto.getContent());
     }
 
     @Transactional
-    public Post delete(Long id) {
+    public Post deleteById(Long id)  {
         return findPostById(id).delete();
     }
 
