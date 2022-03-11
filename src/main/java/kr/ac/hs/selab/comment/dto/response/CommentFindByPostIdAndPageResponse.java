@@ -9,7 +9,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class CommentFindByPostAndPageResponse {
+public class CommentFindByPostIdAndPageResponse {
     @Schema(description = "게시글 id")
     private final Long postId;
 
@@ -31,8 +31,8 @@ public class CommentFindByPostAndPageResponse {
     @Builder
     @Getter
     public static class CommentInnerResponse {
-        @Schema(description = "작성자 이메일")
-        private final String memberEmail;
+        @Schema(description = "작성자 id")
+        private final Long memberId;
 
         @Schema(description = "댓글 id")
         private final Long commentId;

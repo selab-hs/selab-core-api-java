@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.post.eventListener;
+package kr.ac.hs.selab.post.facade;
 
 import kr.ac.hs.selab.comment.application.CommentService;
 import kr.ac.hs.selab.commentLike.application.CommentLikeService;
@@ -26,8 +26,8 @@ public class PostEventListener {
         Post post = postEvent.getPost();
         postLikeService.deleteByPostId(post.getId());
         commentLikeService.deleteByComments(
-                commentService.findCommentsByPost(post)
+                commentService.findCommentsByPostId(post.getId())
         );
-        commentService.deleteByPost(post);
+        commentService.deleteByPost(post.getId());
     }
 }

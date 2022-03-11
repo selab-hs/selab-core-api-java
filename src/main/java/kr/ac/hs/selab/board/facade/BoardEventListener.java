@@ -31,7 +31,7 @@ public class BoardEventListener {
         List<Post> posts = postService.findPostsByBoardId(board.getId());
 
         posts.forEach(post -> {
-            List<Comment> comments = commentService.findCommentsByPost(post);
+            List<Comment> comments = commentService.findCommentsByPostId(post.getId());
             commentLikeService.deleteByComments(comments);
         });
         commentService.deleteByPosts(posts);

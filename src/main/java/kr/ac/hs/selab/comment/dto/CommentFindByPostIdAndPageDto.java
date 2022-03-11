@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 @RequiredArgsConstructor
 @Getter
-public class CommentFindByPostAndPageDto {
+public class CommentFindByPostIdAndPageDto {
     private final Long postId;
     private final Pageable pageable;
 }

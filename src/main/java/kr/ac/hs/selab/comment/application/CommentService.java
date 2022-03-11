@@ -9,7 +9,6 @@ import kr.ac.hs.selab.comment.infrastructure.CommentRepository;
 import kr.ac.hs.selab.common.utils.Constants;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
-import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,18 +25,18 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public Comment create(Member member, Post post, String commentContent) {
+    public Comment create(Long memberId, Long postId, String commentContent) {
         var comment = Comment.builder()
-                .member(member)
-                .post(post)
+                .memberId(memberId)
+                .postId(postId)
                 .content(commentContent)
                 .build();
 
         return commentRepository.save(comment);
     }
 
-    public Long count(Post post) {
-        return commentRepository.countByPostAndDeleteFlag(post, Constants.NOT_DELETED);
+    public Long count(Long postId) {
+        return commentRepository.countByPostIdAndDeleteFlag(postId, Constants.NOT_DELETED);
     }
 
     public CommentFindResponse findCommentResponseById(Long id) {
@@ -49,12 +48,12 @@ public class CommentService {
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.COMMENT_NOT_EXISTS_ERROR));
     }
 
-    public List<Comment> findCommentsByPost(Post post) {
-        return commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED);
+    public List<Comment> findCommentsByPostId(Long postId) {
+        return commentRepository.findByPostIdAndDeleteFlag(postId, Constants.NOT_DELETED);
     }
 
-    public Page<Comment> findCommentsByPost(Post post, Pageable pageable) {
-        return commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED, pageable);
+    public Page<Comment> findCommentsByPostId(Long postId, Pageable pageable) {
+        return commentRepository.findByPostIdAndDeleteFlag(postId, Constants.NOT_DELETED, pageable);
     }
 
     @Transactional
@@ -69,13 +68,13 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteByPost(Post post) {
-        commentRepository.findByPostAndDeleteFlag(post, Constants.NOT_DELETED)
+    public void deleteByPost(Long postId) {
+        commentRepository.findByPostIdAndDeleteFlag(postId, Constants.NOT_DELETED)
                 .forEach(Comment::delete);
     }
 
     @Transactional
     public void deleteByPosts(List<Post> posts) {
-        posts.forEach(this::deleteByPost);
+        posts.forEach(post -> deleteByPost(post.getId()));
     }
 }
