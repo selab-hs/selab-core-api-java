@@ -10,7 +10,7 @@ import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.domain.event.PostEvent;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
 import kr.ac.hs.selab.post.dto.PostFindByBoardAndPageDto;
-import kr.ac.hs.selab.post.dto.response.PostFindByBoardAndPageResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindByBoardIdAndPageResponse;
 import kr.ac.hs.selab.post.dto.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -32,14 +32,14 @@ public class PostFacade {
         Member member = memberService.findByEmail(postDto.getMemberEmail());
         Board board = boardService.findById(postDto.getBoardId());
 
-        Post post = postService.create(postDto, member, board);
+        Post post = postService.create(postDto, member.getId(), board.getId());
         return new PostResponse(post.getId());
     }
 
-    public PostFindByBoardAndPageResponse findPostsResponseByBoardId(PostFindByBoardAndPageDto dto) {
+    public PostFindByBoardIdAndPageResponse findPostsResponseByBoardId(PostFindByBoardAndPageDto dto) {
         Board board = boardService.findById(dto.getBoardId());
-        Long totalCount = postService.count(board);
-        Page<Post> posts = postService.findPostsByBoardAndPage(board, dto.getPageable());
+        Long totalCount = postService.count(board.getId());
+        Page<Post> posts = postService.findPostsByBoardIdAndPage(board.getId(), dto.getPageable());
 
         return PostConverter.toPostFindByBoardResponse(dto, totalCount, posts);
     }

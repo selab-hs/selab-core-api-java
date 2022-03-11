@@ -28,7 +28,7 @@ public class BoardEventListener {
     @TransactionalEventListener
     public void deleteByBoard(BoardEvent boardEvent) {
         var board = boardEvent.getBoard();
-        List<Post> posts = postService.findPostsByBoard(board);
+        List<Post> posts = postService.findPostsByBoardId(board.getId());
 
         posts.forEach(post -> {
             List<Comment> comments = commentService.findCommentsByPost(post);
@@ -37,6 +37,6 @@ public class BoardEventListener {
         commentService.deleteByPosts(posts);
 
         posts.forEach(postLikeService::deleteByPost);
-        postService.deleteByBoard(board);
+        postService.deleteByBoardId(board.getId());
     }
 }

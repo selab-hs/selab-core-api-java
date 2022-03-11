@@ -1,6 +1,5 @@
 package kr.ac.hs.selab.post.infrastructure;
 
-import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.post.domain.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,9 +13,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Optional<Post> findByIdAndDeleteFlag(Long id, boolean deleteFlag);
 
-    List<Post> findByBoardAndDeleteFlag(Board board, boolean deleteFlag);
+    List<Post> findByBoardIdAndDeleteFlag(Long boardId, boolean deleteFlag);
 
-    Page<Post> findByBoardAndDeleteFlag(Board board, boolean deleteFlag, Pageable pageable);
+    Page<Post> findByBoardIdAndDeleteFlag(Long boardId, boolean deleteFlag, Pageable pageable);
 
-    Long countByBoardAndDeleteFlag(Board board, boolean deleteFlag);
+    Long countByBoardIdAndDeleteFlag(Long boardId, boolean deleteFlag);
 }
