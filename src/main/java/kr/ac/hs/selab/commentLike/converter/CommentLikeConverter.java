@@ -22,6 +22,6 @@ public class CommentLikeConverter {
     }
 
     private CommentLikeFindResponse.CommentLikeInnerResponse toCommentLikeInnerResponse(CommentLike like) {
-        return new CommentLikeFindResponse.CommentLikeInnerResponse(like.getId(), like.getMember().getEmail());
+        return new CommentLikeFindResponse.CommentLikeInnerResponse(like.getId(), like.getMemberId());
     }
 }

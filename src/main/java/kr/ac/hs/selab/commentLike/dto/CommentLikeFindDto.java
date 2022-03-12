@@ -5,6 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class CommentLikeFIndDto {
+public class CommentLikeFindDto {
     private final Long commentId;
 }

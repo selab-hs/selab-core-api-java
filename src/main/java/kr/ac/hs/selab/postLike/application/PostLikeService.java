@@ -1,9 +1,6 @@
 package kr.ac.hs.selab.postLike.application;
 
-import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.postLike.domain.PostLike;
-import kr.ac.hs.selab.postLike.dto.response.PostLikeResponse;
 import kr.ac.hs.selab.postLike.infrastructure.PostLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,22 +15,21 @@ public class PostLikeService {
     private final PostLikeRepository postLikeRepository;
 
     @Transactional
-    public PostLike create(Member member, Post post) {
-        return postLikeRepository.save(new PostLike(member, post));
+    public PostLike create(Long memberId, Long postId) {
+        return postLikeRepository.save(new PostLike(memberId, postId));
     }
 
-    public List<PostLike> find(Post post) {
-        return postLikeRepository.findByPost(post);
+    public List<PostLike> find(Long postId) {
+        return postLikeRepository.findByPostId(postId);
     }
 
     @Transactional
-    public PostLikeResponse delete(Long id) {
+    public void delete(Long id) {
         postLikeRepository.deleteById(id);
-        return new PostLikeResponse(id);
     }
 
     @Transactional
-    public void deleteByPost(Post post) {
-        postLikeRepository.deleteAll(postLikeRepository.findByPost(post));
+    public void deleteByPostId(Long postId) {
+        postLikeRepository.deleteAll(postLikeRepository.findByPostId(postId));
     }
 }

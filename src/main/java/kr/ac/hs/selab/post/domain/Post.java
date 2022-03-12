@@ -1,8 +1,6 @@
 package kr.ac.hs.selab.post.domain;
 
-import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.common.domain.BaseEntity;
-import kr.ac.hs.selab.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,13 +17,11 @@ public class Post extends BaseEntity {
     @Column(name = "post_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    @Column(name = "member_id", nullable = false)
+    private Long memberId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id", nullable = false)
-    private Board board;
+    @Column(name = "board_id", nullable = false)
+    private Long boardId;
 
     @Column(name = "post_title", nullable = false)
     private String title;
@@ -37,9 +33,9 @@ public class Post extends BaseEntity {
     private boolean deleteFlag;
 
     @Builder
-    private Post(Member member, Board board, String title, String content) {
-        this.member = member;
-        this.board = board;
+    private Post(Long memberId, Long boardId, String title, String content) {
+        this.memberId = memberId;
+        this.boardId = boardId;
         this.title = title;
         this.content = content;
         this.deleteFlag = false;

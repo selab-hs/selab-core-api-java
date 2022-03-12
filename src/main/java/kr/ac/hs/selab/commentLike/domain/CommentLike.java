@@ -1,8 +1,6 @@
 package kr.ac.hs.selab.commentLike.domain;
 
-import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.common.domain.BaseEntity;
-import kr.ac.hs.selab.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,16 +24,14 @@ public class CommentLike extends BaseEntity {
     @Column(name = "comment_like_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    @Column(name = "member_id", nullable = false)
+    private Long memberId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id", nullable = false)
-    private Comment comment;
+    @Column(name = "comment_id", nullable = false)
+    private Long commentId;
 
-    public CommentLike(Member member, Comment comment) {
-        this.member = member;
-        this.comment = comment;
+    public CommentLike(Long memberId, Long commentId) {
+        this.memberId = memberId;
+        this.commentId = commentId;
     }
 }

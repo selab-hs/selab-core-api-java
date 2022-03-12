@@ -25,7 +25,7 @@ public class PostLikeFindResponse {
         @Schema(description = "게시글 좋아요 id")
         private final Long id;
 
-        @Schema(description = "게시글 좋아요한 정보")
-        private final String memberEmail;
+        @Schema(description = "게시글 좋아요한 유저 id")
+        private final Long memberId;
     }
 }

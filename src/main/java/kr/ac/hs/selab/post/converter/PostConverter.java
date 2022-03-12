@@ -1,13 +1,11 @@
 package kr.ac.hs.selab.post.converter;
 
-import kr.ac.hs.selab.board.domain.Board;
-import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.dto.PostCreateDto;
 import kr.ac.hs.selab.post.dto.PostFindByBoardAndPageDto;
 import kr.ac.hs.selab.post.dto.PostUpdateDto;
 import kr.ac.hs.selab.post.dto.request.PostRequest;
-import kr.ac.hs.selab.post.dto.response.PostFindByBoardAndPageResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindByBoardIdAndPageResponse;
 import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import lombok.experimental.UtilityClass;
 import org.springframework.data.domain.Page;
@@ -16,10 +14,10 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class PostConverter {
-    public Post toPost(PostCreateDto dto, Member member, Board board) {
+    public Post toPost(PostCreateDto dto, Long memberId, Long boardId) {
         return Post.builder()
-                .member(member)
-                .board(board)
+                .memberId(memberId)
+                .boardId(boardId)
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .build();
@@ -27,8 +25,8 @@ public class PostConverter {
 
     public PostFindResponse toPostFindResponse(Post post) {
         return PostFindResponse.builder()
-                .boardId(post.getBoard().getId())
-                .memberEmail(post.getMember().getEmail())
+                .boardId(post.getId())
+                .memberId(post.getMemberId())
                 .postId(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
@@ -37,8 +35,8 @@ public class PostConverter {
                 .build();
     }
 
-    public PostFindByBoardAndPageResponse toPostFindByBoardResponse(PostFindByBoardAndPageDto dto, Long totalCount, Page<Post> posts) {
-        return PostFindByBoardAndPageResponse.builder()
+    public PostFindByBoardIdAndPageResponse toPostFindByBoardResponse(PostFindByBoardAndPageDto dto, Long totalCount, Page<Post> posts) {
+        return PostFindByBoardIdAndPageResponse.builder()
                 .boardId(dto.getBoardId())
                 .totalCount(totalCount)
                 .pageNumber(dto.getPageable().getPageNumber())
@@ -52,10 +50,10 @@ public class PostConverter {
                 .build();
     }
 
-    private PostFindByBoardAndPageResponse.PostInnerResponse toPostInnerResponse(Post post) {
-        return PostFindByBoardAndPageResponse.PostInnerResponse
+    private PostFindByBoardIdAndPageResponse.PostInnerResponse toPostInnerResponse(Post post) {
+        return PostFindByBoardIdAndPageResponse.PostInnerResponse
                 .builder()
-                .memberEmail(post.getMember().getEmail())
+                .memberId(post.getMemberId())
                 .postId(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())

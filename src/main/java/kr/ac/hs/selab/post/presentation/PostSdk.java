@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.post.dto.request.PostRequest;
-import kr.ac.hs.selab.post.dto.response.PostFindByBoardAndPageResponse;
+import kr.ac.hs.selab.post.dto.response.PostFindByBoardIdAndPageResponse;
 import kr.ac.hs.selab.post.dto.response.PostFindResponse;
 import kr.ac.hs.selab.post.dto.response.PostResponse;
 import org.springframework.data.domain.Pageable;
@@ -34,8 +34,8 @@ public interface PostSdk {
             @ApiResponse(code = 201, message = "게시글 조회 성공"),
             @ApiResponse(code = 400, message = "게시글 조회 실패")
     })
-    ResponseTemplate<PostFindByBoardAndPageResponse> findByBoardAndPage(Long boardId,
-                                                                        Pageable pageable);
+    ResponseTemplate<PostFindByBoardIdAndPageResponse> findByBoardAndPage(Long boardId,
+                                                                          Pageable pageable);
 
     @Operation(summary = "게시글 수정", description = "새로운 게시글 정보를 이용해서 게시글을 수정한다.")
     @ApiResponses({

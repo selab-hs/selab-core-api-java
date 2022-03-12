@@ -12,8 +12,8 @@ public class CommentFindResponse {
     @Schema(description = "게시글 id")
     private final Long postId;
 
-    @Schema(description = "작성자 이메일")
-    private final String memberEmail;
+    @Schema(description = "작성자 id")
+    private final Long memberId;
 
     @Schema(description = "댓글 id")
     private final Long commentId;

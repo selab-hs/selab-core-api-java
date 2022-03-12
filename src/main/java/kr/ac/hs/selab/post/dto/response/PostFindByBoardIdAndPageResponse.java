@@ -9,7 +9,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class PostFindByBoardAndPageResponse {
+public class PostFindByBoardIdAndPageResponse {
     @Schema(description = "게시판 id")
     private final Long boardId;
 
@@ -32,7 +32,7 @@ public class PostFindByBoardAndPageResponse {
     @Getter
     public static class PostInnerResponse {
         @Schema(description = "작성자 이메일")
-        private final String memberEmail;
+        private final Long memberId;
 
         @Schema(description = "게시글 id")
         private final Long postId;
