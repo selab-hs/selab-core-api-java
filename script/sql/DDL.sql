@@ -57,15 +57,11 @@ create table post
         primary key,
     created_at       datetime     null,
     modified_at      datetime     null,
+    board_id         bigint       not null,
     post_content     varchar(255) not null,
     post_delete_flag bit          not null,
-    post_title       varchar(255) not null,
-    board_id         bigint       not null,
     member_id        bigint       not null,
-    constraint FK2t7katxxymxif93a9osshl0ns
-        foreign key (board_id) references board (board_id),
-    constraint FK83s99f4kx8oiqm3ro0sasmpww
-        foreign key (member_id) references member (member_id)
+    post_title       varchar(255) not null
 );
 
 
@@ -79,11 +75,7 @@ create table comment
     comment_content     varchar(255) not null,
     comment_delete_flag bit          not null,
     member_id           bigint       not null,
-    post_id             bigint       not null,
-    constraint FKmrrrpi513ssu63i2783jyiv9m
-        foreign key (member_id) references member (member_id),
-    constraint FKs1slvnkuemjsq2kj4h3vhx7i1
-        foreign key (post_id) references post (post_id)
+    post_id             bigint       not null
 );
 
 
@@ -97,11 +89,7 @@ create table post_like
     member_id    bigint   not null,
     post_id      bigint   not null,
     constraint UK6b8s3f8oiog3im43ddg35bxnn
-        unique (member_id, post_id),
-    constraint FKj7iy0k7n3d0vkh8o7ibjna884
-        foreign key (post_id) references post (post_id),
-    constraint FKqjxwr6kkv6pw2e4pwy4yktxyk
-        foreign key (member_id) references member (member_id)
+        unique (member_id, post_id)
 );
 
 
@@ -115,10 +103,6 @@ create table comment_like
     comment_id      bigint   not null,
     member_id       bigint   not null,
     constraint UKne7gphq9o8iuq6o6qr61olqwc
-        unique (member_id, comment_id),
-    constraint FKjtrao5djvpcj49cxcmbenif3g
-        foreign key (member_id) references member (member_id),
-    constraint FKqlv8phl1ibeh0efv4dbn3720p
-        foreign key (comment_id) references comment (comment_id)
+        unique (member_id, comment_id)
 );
 
