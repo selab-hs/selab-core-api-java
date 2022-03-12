@@ -21,12 +21,11 @@ public class Terms extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @Column(name = "member_id")
+    private Long memberId;
 
-    public Terms(Category category, Member member) {
+    public Terms(Category category, Long memberId) {
         this.category = category;
-        this.member = member;
+        this.memberId = memberId;
     }
 }
