@@ -26,8 +26,8 @@ public class BoardTest {
     @Test
     public void 게시판_수정하기() {
         // when
-        String newTitle = fixtureMonkey.giveMeOne(String.class);
-        String newDescription = fixtureMonkey.giveMeOne(String.class);
+        var newTitle = fixtureMonkey.giveMeOne(String.class);
+        var newDescription = fixtureMonkey.giveMeOne(String.class);
         board.update(newTitle, newDescription);
 
         // then
@@ -38,7 +38,7 @@ public class BoardTest {
     @Test
     public void 게시판_소프트_삭제하기() {
         // given
-        String oldTitle = board.getTitle();
+        var oldTitle = board.getTitle();
 
         // when
         board.delete();

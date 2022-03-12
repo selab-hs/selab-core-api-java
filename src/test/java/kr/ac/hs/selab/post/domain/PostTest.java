@@ -26,8 +26,8 @@ class PostTest {
     @Test
     void 수정_성공() {
         // when
-        String newTitle = fixtureMonkey.giveMeOne(String.class);
-        String newContent = fixtureMonkey.giveMeOne(String.class);
+        var newTitle = fixtureMonkey.giveMeOne(String.class);
+        var newContent = fixtureMonkey.giveMeOne(String.class);
         post.update(newTitle, newContent);
 
         // then
