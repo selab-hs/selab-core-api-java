@@ -19,7 +19,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,18 +64,14 @@ public class BoardFacadeTest {
     public void 아이디로_게시판_찾기_성공() {
         // given
         var board = fixtureMonkey.giveMeOne(Board.class);
-        var boardCreateDto = new BoardCreateDto(board.getTitle(), board.getDescription());
         var expected = BoardConverter.toBoardFindResponse(board);
 
         // mocking
-        Mockito.when(boardService.create(any()))
-                .thenReturn(board);
         Mockito.when(boardService.findById(anyLong()))
                 .thenReturn(board);
 
         // when
-        var boardResponse = boardFacade.create(boardCreateDto);
-        var actual = boardFacade.findBoardResponseById(boardResponse.getId());
+        var actual = boardFacade.findBoardResponseById(board.getId());
 
         // then
         assertEquals(expected.getTitle(), actual.getTitle());
@@ -99,20 +94,13 @@ public class BoardFacadeTest {
     public void 전체_게시판_찾기_성공() {
         // given
         var boards = fixtureMonkey.giveMe(Board.class, 10);
-        var boardCreateDtos = boards.stream()
-                .map(board -> new BoardCreateDto(board.getTitle(), board.getDescription()))
-                .collect(Collectors.toList());
         var expected = BoardConverter.toBoardFindAllResponse(boards);
 
         // mocking
-        Mockito.when(boardService.create(any()))
-                .thenReturn(boards.get(0));
         Mockito.when(boardService.findAll())
                 .thenReturn(boards);
 
         // when
-        IntStream.range(0, 10)
-                .forEach(i -> boardFacade.create(boardCreateDtos.get(i)));
         BoardFindAllResponse actual = boardFacade.findBoardFindAllResponse();
 
         // when
@@ -125,24 +113,18 @@ public class BoardFacadeTest {
     public void 게시판_수정하기_성공() {
         // given
         var board = fixtureMonkey.giveMeOne(Board.class);
-        var boardCreateDto = new BoardCreateDto(board.getTitle(), board.getDescription());
-
         var boardUpdateDto = BoardUpdateDto.builder()
                 .id(board.getId())
                 .title(fixtureMonkey.giveMeOne(String.class))
                 .description(fixtureMonkey.giveMeOne(String.class))
                 .build();
-
         var expected = new BoardResponse(board.getId());
 
         // mocking
-        Mockito.when(boardService.create(any()))
-                .thenReturn(board);
         Mockito.when(boardService.update(any()))
                 .thenReturn(board);
 
         // when
-        boardFacade.create(boardCreateDto);
         var actual = boardFacade.update(boardUpdateDto);
 
         // then
@@ -153,18 +135,17 @@ public class BoardFacadeTest {
     public void 게시판_삭제하기_성공() {
         // given
         var board = fixtureMonkey.giveMeOne(Board.class);
-        var boardCreateDto = new BoardCreateDto(board.getTitle(), board.getDescription());
         var expected = new BoardResponse(board.getId());
 
         // mocking
-        Mockito.when(boardService.create(any()))
-                .thenReturn(board);
         Mockito.when(boardService.delete(anyLong()))
                 .thenReturn(board);
+        Mockito.doNothing()
+                .when(publisher)
+                .publishEvent(BoardEvent.of(board));
 
         // when
-        var boardResponse = boardFacade.create(boardCreateDto);
-        var actual = boardFacade.delete(boardResponse.getId());
+        var actual = boardFacade.delete(expected.getId());
 
         // then
         assertEquals(expected.getId(), actual.getId());
