@@ -13,14 +13,13 @@ public class TermsService {
     private final TermsRepository termsRepository;
 
     @Transactional
-    public void save(Category category, Long memberId) {
-        var terms = new Terms(category, memberId);
-        termsRepository.save(terms);
+    public void sign(Long memberId) {
+        save(Category.PRIVACY, memberId);
+        save(Category.SERVICE, memberId);
     }
 
     @Transactional
-    public void sign(Long memberId) {
-        termsRepository.save(new Terms(Category.SERVICE, memberId));
-        termsRepository.save(new Terms(Category.PRIVACY, memberId));
+    public void save(Category category, Long memberId) {
+        termsRepository.save(new Terms(category, memberId));
     }
 }

@@ -26,8 +26,4 @@ public enum Category {
     private boolean isEquals(String description) {
         return this.getDescription().equals(description);
     }
-
-    public static List<Category> sign() {
-        return List.of(Category.PRIVACY, Category.SERVICE);
-    }
 }

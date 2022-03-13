@@ -1,7 +1,6 @@
 package kr.ac.hs.selab.terms.domain;
 
 import kr.ac.hs.selab.common.domain.BaseEntity;
-import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.terms.domain.vo.Category;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
