@@ -21,7 +21,7 @@ create table member
 );
 
 
-# 회원 가입 시 약관 테이블 정의
+# 약관 테이블 정의
 create table terms
 (
     terms_id       bigint auto_increment
@@ -29,9 +29,7 @@ create table terms
     created_at     datetime     null,
     modified_at    datetime     null,
     terms_category varchar(255) null,
-    member_id      bigint       null,
-    constraint FKfxtbtqu1tos5iweudpsmh7j2i
-        foreign key (member_id) references member (member_id)
+    member_id      bigint       null
 );
 
 
@@ -105,4 +103,3 @@ create table comment_like
     constraint UKne7gphq9o8iuq6o6qr61olqwc
         unique (member_id, comment_id)
 );
-
