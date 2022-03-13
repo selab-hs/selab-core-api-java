@@ -1,7 +1,6 @@
 package kr.ac.hs.selab.terms.domain;
 
 import kr.ac.hs.selab.common.domain.BaseEntity;
-import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.terms.domain.vo.Category;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -21,12 +20,11 @@ public class Terms extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @Column(name = "member_id")
+    private Long memberId;
 
-    public Terms(Category category, Member member) {
+    public Terms(Category category, Long memberId) {
         this.category = category;
-        this.member = member;
+        this.memberId = memberId;
     }
 }

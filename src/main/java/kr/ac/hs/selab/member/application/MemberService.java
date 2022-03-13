@@ -18,15 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public MemberCreateResponse create(MemberCreateBundle bundle) {
-        isDuplication(bundle);
-        var instance = MemberConverter.toMember(bundle, passwordEncoder);
-        instance.termsOfSign();
-        var member = memberRepository.save(instance);
-        return MemberConverter.toCreateMemberResponse(member);
+    public Member save(Member member) {
+        return memberRepository.save(member);
     }
 
     public Member findByEmail(String email) {
@@ -34,7 +29,7 @@ public class MemberService {
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.MEMBER_NOT_EXISTS_ERROR));
     }
 
-    private void isDuplication(MemberCreateBundle bundle) {
+    public void isDuplication(MemberCreateBundle bundle) {
         if (existsByEmail(bundle.getEmail())) {
             throw new DuplicationException(ErrorMessage.MEMBER_EMAIL_DUPLICATION_ERROR);
         }

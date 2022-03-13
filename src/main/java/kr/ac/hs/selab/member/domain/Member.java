@@ -14,7 +14,6 @@ import kr.ac.hs.selab.common.domain.BaseEntity;
 import kr.ac.hs.selab.member.domain.vo.Avatar;
 import kr.ac.hs.selab.member.domain.vo.Password;
 import kr.ac.hs.selab.member.domain.vo.Role;
-import kr.ac.hs.selab.member.domain.vo.Tos;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,9 +54,6 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Embedded
-    private Tos tos;
-
     @Builder
     private Member(String email, Password password, String studentId, String name,
         String nickname, Avatar avatar) {
@@ -68,11 +64,6 @@ public class Member extends BaseEntity {
         this.nickname = nickname;
         this.avatar = avatar;
         this.role = Role.USER;
-        this.tos = new Tos();
-    }
-
-    public void termsOfSign() {
-        tos.addSign(this);
     }
 
     public String getPasswordValue() {
