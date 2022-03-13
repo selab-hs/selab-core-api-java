@@ -50,7 +50,7 @@ public class PostFacadeTest {
             .build();
 
     @Test
-    public void 게시글_생성_성공() {
+    public void 게시글_생성_성공() {   // TODO stack over flow error 해결
         // given
         var member = fixtureMonkey.giveMeOne(Member.class);
         var board = fixtureMonkey.giveMeOne(Board.class);
