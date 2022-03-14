@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,17 +54,13 @@ public class BoardServiceTest {
     public void 아이디로_게시판_찾기_성공() {
         // given
         var expected = fixtureMonkey.giveMeOne(Board.class);
-        var boardCreateDto = new BoardCreateDto(expected.getTitle(), expected.getDescription());
 
         // mocking
-        Mockito.when(boardRepository.save(any()))
-                .thenReturn(expected);
         Mockito.when(boardRepository.findByIdAndDeleteFlag(anyLong(), anyBoolean()))
                 .thenReturn(Optional.of(expected));
 
         // when
-        var createdBoard = boardService.create(boardCreateDto);
-        var actual = boardService.findById(createdBoard.getId());
+        var actual = boardService.findById(expected.getId());
 
         // then
         assertEquals(expected, actual);
@@ -88,19 +83,12 @@ public class BoardServiceTest {
     public void 전체_게시판_찾기_성공() {
         // given
         var expected = fixtureMonkey.giveMe(Board.class, 10);
-        var boardCreateDtos = expected.stream()
-                .map(board -> new BoardCreateDto(board.getTitle(), board.getDescription()))
-                .collect(Collectors.toList());
 
         // mocking
-        Mockito.when(boardRepository.save(any()))
-                .thenReturn(expected.get(0));
         Mockito.when(boardRepository.findByDeleteFlag(anyBoolean()))
                 .thenReturn(expected);
 
         // when
-        IntStream.range(0, 10)
-                .forEach(i -> boardService.create(boardCreateDtos.get(i)));
         var actual = boardService.findAll();
 
         // when
@@ -112,8 +100,6 @@ public class BoardServiceTest {
     public void 게시판_수정하기_성공() {
         // given
         var board = fixtureMonkey.giveMeOne(Board.class);
-        var boardCreateDto = new BoardCreateDto(board.getTitle(), board.getDescription());
-
         var expectedTitle = fixtureMonkey.giveMeOne(String.class);
         var expectedDescription = fixtureMonkey.giveMeOne(String.class);
         var boardUpdateDto = BoardUpdateDto.builder()
@@ -123,13 +109,10 @@ public class BoardServiceTest {
                 .build();
 
         // mocking
-        Mockito.when(boardRepository.save(any()))
-                .thenReturn(board);
         Mockito.when(boardRepository.findByIdAndDeleteFlag(anyLong(), anyBoolean()))
                 .thenReturn(Optional.of(board));
 
         // when
-        boardService.create(boardCreateDto);
         var actual = boardService.update(boardUpdateDto);
 
         // then
@@ -143,17 +126,13 @@ public class BoardServiceTest {
         var expected = fixtureMonkey.giveMeBuilder(Board.class)
                 .set("deleteFlag", false)
                 .sample();
-        var boardCreateDto = new BoardCreateDto(expected.getTitle(), expected.getDescription());
 
         // mocking
-        Mockito.when(boardRepository.save(any()))
-                .thenReturn(expected);
         Mockito.when(boardRepository.findByIdAndDeleteFlag(anyLong(), anyBoolean()))
                 .thenReturn(Optional.of(expected));
 
         // when
-        var createdBoard = boardService.create(boardCreateDto);
-        var actual = boardService.delete(createdBoard.getId());
+        var actual = boardService.delete(expected.getId());
 
         // then
         assertTrue(actual.isDeleteFlag());

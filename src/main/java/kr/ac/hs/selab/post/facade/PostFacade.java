@@ -49,7 +49,7 @@ public class PostFacade {
 
     @Transactional
     public PostResponse update(PostUpdateDto dto) {
-        var post = postService.findPostById(dto.getId()).update(dto.getTitle(), dto.getContent());
+        var post = postService.update(dto);
         return new PostResponse(post.getId());
     }
 
