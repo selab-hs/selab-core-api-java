@@ -42,12 +42,12 @@ public class CommentFacade {
         var totalCount = commentService.count(post.getId());
         var comments = commentService.findCommentsByPostId(post.getId(), dto.getPageable());
 
-        return CommentConverter.toCommentsFindByPostIdAndPageResponse(dto, totalCount, comments);
+        return CommentConverter.toCommentFindByPostIdAndPageResponse(dto, totalCount, comments);
     }
 
     @Transactional
     public CommentResponse update(CommentUpdateDto dto) {
-        var comment = commentService.findCommentById(dto.getId()).update(dto.getContent());
+        var comment = commentService.update(dto);
         return new CommentResponse(comment.getId());
     }
 

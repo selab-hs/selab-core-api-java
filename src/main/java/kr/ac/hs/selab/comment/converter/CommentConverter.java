@@ -25,7 +25,7 @@ public class CommentConverter {
                 .build();
     }
 
-    public CommentFindByPostIdAndPageResponse toCommentsFindByPostIdAndPageResponse(CommentFindByPostIdAndPageDto dto, Long totalCount, Page<Comment> comments) {
+    public CommentFindByPostIdAndPageResponse toCommentFindByPostIdAndPageResponse(CommentFindByPostIdAndPageDto dto, Long totalCount, Page<Comment> comments) {
         return CommentFindByPostIdAndPageResponse.builder()
                 .postId(dto.getPostId())
                 .totalCount(totalCount)
