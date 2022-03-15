@@ -61,8 +61,7 @@ public class CommentService {
 
     @Transactional
     public void deleteByPost(Long postId) {
-        commentRepository.findByPostIdAndDeleteFlag(postId, Constants.NOT_DELETED)
-                .forEach(Comment::delete);
+        findCommentsByPostId(postId).forEach(Comment::delete);
     }
 
     @Transactional

@@ -76,7 +76,7 @@ public class PostServiceTest {
     }
 
     @Test
-    public void 아이디로_게시글_하나_조회하기_성공() {
+    public void 아이디로_게시글_하나_조회_성공() {
         // given
         var expected = fixtureMonkey.giveMeOne(Post.class);
 
@@ -92,7 +92,7 @@ public class PostServiceTest {
     }
 
     @Test
-    public void 게시글_아이디로_게시글_조회하기_성공() {
+    public void 게시판_아이디로_게시글_조회_성공() {
         // given
         var boardId = fixtureMonkey.giveMeOne(Long.class);
         var expected = fixtureMonkey.giveMeBuilder(Post.class)
@@ -111,7 +111,7 @@ public class PostServiceTest {
     }
 
     @Test
-    public void 게시글_아이디와_페이지로_게시글_조회하기_성공() {
+    public void 게시판_아이디와_페이지로_게시글_조회_성공() {
         // given
         var boardId = fixtureMonkey.giveMeOne(Long.class);
         var posts = fixtureMonkey.giveMeBuilder(Post.class)
@@ -133,7 +133,7 @@ public class PostServiceTest {
     }
 
     @Test
-    public void 게시글_수정하기_성공() {
+    public void 게시글_수정_성공() {
         // given
         var post = fixtureMonkey.giveMeOne(Post.class);
         var newTitle = fixtureMonkey.giveMeOne(String.class);
@@ -157,7 +157,7 @@ public class PostServiceTest {
     }
 
     @Test
-    public void 게시글_아이디로_삭제하기_성공() {
+    public void 게시글_아이디로_삭제_성공() {
         // given
         var post = fixtureMonkey.giveMeBuilder(Post.class)
                 .set("deleteFlag", false)
@@ -175,7 +175,7 @@ public class PostServiceTest {
     }
 
     @Test
-    public void 게시판_아이디로_게시글_삭제하기() {
+    public void 게시판_아이디로_게시글_삭제_성공() {
         // given
         var boardId = fixtureMonkey.giveMeOne(Long.class);
         var posts = fixtureMonkey.giveMeBuilder(Post.class)
