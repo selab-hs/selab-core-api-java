@@ -39,12 +39,12 @@ public class JwtTokenProvider implements InitializingBean {
         return Decoders.BASE64.decode(jwtProperties.getSecret());
     }
 
-    public String create(Authentication authentication) {
+    public String getJwt(Authentication authentication) {
         return new Jwt(
                 jwtProperties.getIssuer(),
                 key,
                 jwtProperties.getTokenValidityInSeconds()
-        ).createToken(authentication);
+        ).getJwtToken(authentication);
     }
 
     // TODO : Provider와 상관 없는 내용임으로 분리해야 한다.

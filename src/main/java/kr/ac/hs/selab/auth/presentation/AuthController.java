@@ -38,7 +38,7 @@ public class AuthController implements AuthSdk {
                 .authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final var token = tokenProvider.create(authentication);
+        final var token = tokenProvider.getJwt(authentication);
 
         final var response = AuthConverter.toAuthLoginResponse(
                 authentication, token);

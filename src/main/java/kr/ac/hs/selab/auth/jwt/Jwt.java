@@ -18,13 +18,15 @@ public class Jwt {
     private final Key key;
     private final Long tokenValidityInSeconds;
 
+    // JWT 진행
     public Jwt(String issuer, Key key, Long tokenValidityInSeconds) {
         this.issuer = issuer;
         this.key = key;
         this.tokenValidityInSeconds = tokenValidityInSeconds;
     }
 
-    public String createToken(final Authentication authentication) {
+    // ??
+    public String getJwtToken(final Authentication authentication) {
         var authorities = authoritiesToString(authentication);
         var now = currentTime();
         var validity = expireTime(now);
