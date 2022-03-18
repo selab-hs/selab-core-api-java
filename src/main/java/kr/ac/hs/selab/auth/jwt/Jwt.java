@@ -6,42 +6,41 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.security.Key;
+import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
 public class Jwt {
 
-    private static final int TOKEN_VALIDITY_TIME = 1000;
-    private static final String AUTHORITIES_KEY = "auth";
-
     private final String issuer;
     private final Key key;
     private final Long tokenValidityInSeconds;
+    private final Collection<? extends GrantedAuthority> authorities;
+    private final String name;
 
-    // JWT 진행
-    public Jwt(String issuer, Key key, Long tokenValidityInSeconds) {
+    public Jwt(String issuer, Key key, Long tokenValidityInSeconds, Collection<? extends GrantedAuthority> authorities, String name) {
         this.issuer = issuer;
         this.key = key;
         this.tokenValidityInSeconds = tokenValidityInSeconds;
+        this.authorities = authorities;
+        this.name = name;
     }
 
-    // ??
-    public String getJwtToken(final Authentication authentication) {
-        var authorities = authoritiesToString(authentication);
+    public String create() {
         var now = currentTime();
         var validity = expireTime(now);
 
         return Jwts.builder()
-                .setSubject(authentication.getName())
+                .setSubject(name)
                 .setIssuer(issuer)
-                .claim(AUTHORITIES_KEY, authorities)
+                .claim("auth", authoritiesToString())
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
     }
 
-    private String authoritiesToString(Authentication authentication) {
-        return authentication.getAuthorities().stream()
+    private String authoritiesToString() {
+        return authorities.stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
     }
@@ -51,6 +50,6 @@ public class Jwt {
     }
 
     private Date expireTime(long now) {
-        return new Date(now + tokenValidityInSeconds * TOKEN_VALIDITY_TIME);
+        return new Date(now + tokenValidityInSeconds * 1000);
     }
 }

@@ -19,14 +19,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-// TODO : 조금씩 뿌시자!
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider implements InitializingBean {
 
-    private static final String AUTHORITIES_KEY = "auth";
-    private static final String EMPTY_REGEX = "";
     private final JwtProperties jwtProperties;
     private Key key;
 
@@ -39,12 +36,14 @@ public class JwtTokenProvider implements InitializingBean {
         return Decoders.BASE64.decode(jwtProperties.getSecret());
     }
 
-    public String getJwt(Authentication authentication) {
+    public Jwt create(Collection<? extends GrantedAuthority> authorities, String name) {
         return new Jwt(
                 jwtProperties.getIssuer(),
                 key,
-                jwtProperties.getTokenValidityInSeconds()
-        ).getJwtToken(authentication);
+                jwtProperties.getTokenValidityInSeconds(),
+                authorities,
+                name
+        );
     }
 
     // TODO : Provider와 상관 없는 내용임으로 분리해야 한다.
@@ -69,14 +68,14 @@ public class JwtTokenProvider implements InitializingBean {
 
     // 이건아님
     private Collection<? extends GrantedAuthority> makeAuthorities(Claims claims) {
-        return Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+        return Arrays.stream(claims.get("auth").toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 
     // 이건아님
     private User newPrincipal(Claims claims, Collection<? extends GrantedAuthority> authorities) {
-        return new User(claims.getSubject(), EMPTY_REGEX, authorities);
+        return new User(claims.getSubject(), "", authorities);
     }
 
     // 이건아님
@@ -88,6 +87,7 @@ public class JwtTokenProvider implements InitializingBean {
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token);
+
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("잘못된 JWT 서명입니다.");
@@ -96,8 +96,8 @@ public class JwtTokenProvider implements InitializingBean {
         } catch (UnsupportedJwtException e) {
             log.info("지원되지 않는 JWT 토큰입니다.");
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
             log.info("JWT 토큰이 잘못되었습니다.");
+            e.printStackTrace();
         }
         return false;
     }
