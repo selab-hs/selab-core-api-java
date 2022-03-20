@@ -2,7 +2,6 @@ package kr.ac.hs.selab.auth.jwt;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
@@ -59,20 +58,21 @@ public class JwtFilter implements Filter {
 
                 var jwtToken = bearerToken.substring(7);
 
-                if (tokenProvider.validateToken(jwtToken)) {
-                    var authentication = tokenProvider.getAuthentication(jwtToken);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                var isJwtToken = tokenProvider.create().validateToken(jwtToken);
+
+                if (isJwtToken) {
+                    tokenProvider.getAuthentication(jwtToken).setAuthentication();
                 }
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private boolean isToken(String bearerToken) {
+    private boolean isToken(final String bearerToken) {
         return StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ");
     }
 
-    private boolean isChecking(String path) {
+    private boolean isChecking(final String path) {
         return !EXCLUDE_URL.contains(path) && !SWAGGER_EXCLUDE_URL.contains(path) && !HEALTH.equals(path);
     }
 }

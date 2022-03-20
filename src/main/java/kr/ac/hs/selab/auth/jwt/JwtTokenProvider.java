@@ -1,14 +1,13 @@
 package kr.ac.hs.selab.auth.jwt;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import kr.ac.hs.selab.common.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -36,24 +35,25 @@ public class JwtTokenProvider implements InitializingBean {
         return Decoders.BASE64.decode(jwtProperties.getSecret());
     }
 
-    public Jwt create(Collection<? extends GrantedAuthority> authorities, String name) {
+    public Jwt create() {
         return new Jwt(
                 jwtProperties.getIssuer(),
                 key,
-                jwtProperties.getTokenValidityInSeconds(),
-                authorities,
-                name
+                jwtProperties.getTokenValidityInSeconds()
         );
     }
 
     // TODO : Provider와 상관 없는 내용임으로 분리해야 한다.
     // 이건아님
-    public Authentication getAuthentication(String token) {
+    public JwtAuthentication getAuthentication(String token) {
         var claims = makeClaims(token);
         var authorities = makeAuthorities(claims);
-        var principal = newPrincipal(claims, authorities);
 
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        return new JwtAuthentication(
+                new User(claims.getSubject(), "", authorities),
+                token,
+                authorities
+        );
     }
 
     // 이건아님
@@ -71,34 +71,5 @@ public class JwtTokenProvider implements InitializingBean {
         return Arrays.stream(claims.get("auth").toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-    }
-
-    // 이건아님
-    private User newPrincipal(Claims claims, Collection<? extends GrantedAuthority> authorities) {
-        return new User(claims.getSubject(), "", authorities);
-    }
-
-    // 이건아님
-    // Exception 잡아서 진행하기!!
-    public boolean validateToken(String token) {
-        try {
-            Jwts
-                    .parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(token);
-
-            return true;
-        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            log.info("잘못된 JWT 서명입니다.");
-        } catch (ExpiredJwtException e) {
-            log.info("만료된 JWT 토큰입니다.");
-        } catch (UnsupportedJwtException e) {
-            log.info("지원되지 않는 JWT 토큰입니다.");
-        } catch (IllegalArgumentException e) {
-            log.info("JWT 토큰이 잘못되었습니다.");
-            e.printStackTrace();
-        }
-        return false;
     }
 }

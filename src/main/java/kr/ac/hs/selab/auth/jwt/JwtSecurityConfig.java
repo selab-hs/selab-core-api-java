@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @RequiredArgsConstructor
 public class JwtSecurityConfig extends
-    SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+        SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @NotNull
     private final JwtTokenProvider jwtTokenProvider;
