@@ -49,7 +49,7 @@ public class NoticeServiceTest {
                 .thenReturn(expected);
 
         // when
-        var actual = noticeService.create(expected.getMemberId(), noticeCreateDto);
+        var actual = noticeService.create(noticeCreateDto);
 
         // then
         assertEquals(expected, actual);

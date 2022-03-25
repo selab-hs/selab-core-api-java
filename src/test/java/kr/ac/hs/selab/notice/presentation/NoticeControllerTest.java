@@ -3,6 +3,8 @@ package kr.ac.hs.selab.notice.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
+import kr.ac.hs.selab.common.utils.SecurityUtils;
+import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
 import kr.ac.hs.selab.notice.domain.Notice;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
@@ -22,8 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -65,7 +66,7 @@ public class NoticeControllerTest {
 //        // mocking
 //        Mockito.when(SecurityUtils.getCurrentUsername())
 //                .thenReturn(member.getEmail());
-//        Mockito.when(noticeFacade.create(any()))
+//        Mockito.when(noticeFacade.create(anyString(), any()))
 //                .thenReturn(noticeResponse);
 //
 //        // when, then
@@ -128,7 +129,7 @@ public class NoticeControllerTest {
         var noticeResponse = new NoticeResponse(notice.getId());
 
         // mocking
-        Mockito.when(noticeFacade.update(any()))
+        Mockito.when(noticeFacade.update(anyLong(), any()))
                 .thenReturn(noticeResponse);
 
         // when, then

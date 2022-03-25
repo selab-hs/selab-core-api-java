@@ -21,8 +21,8 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
 
     @Transactional
-    public Notice create(Long memberId, NoticeCreateDto dto) {
-        return noticeRepository.save(NoticeConverter.toNotice(memberId, dto));
+    public Notice create(NoticeCreateDto dto) {
+        return noticeRepository.save(NoticeConverter.toNotice(dto));
     }
 
     public Long count() {

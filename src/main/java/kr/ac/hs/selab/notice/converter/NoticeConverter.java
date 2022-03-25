@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class NoticeConverter {
-    public Notice toNotice(Long memberId, NoticeCreateDto dto) {
+    public Notice toNotice(NoticeCreateDto dto) {
         return Notice.builder()
-                .memberId(memberId)
+                .memberId(dto.getMemberId())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .image(dto.getImage())
@@ -30,6 +30,7 @@ public class NoticeConverter {
                 .memberId(notice.getMemberId())
                 .title(notice.getTitle())
                 .content(notice.getContent())
+                .image(notice.getImage())
                 .createdAt(notice.getCreatedAt())
                 .modifiedAt(notice.getModifiedAt())
                 .build();
@@ -48,9 +49,9 @@ public class NoticeConverter {
                 .build();
     }
 
-    public NoticeCreateDto toNoticeCreateDto(String memberEmail, NoticeRequest request) {
+    public NoticeCreateDto toNoticeCreateDto(Long memberId, NoticeRequest request) {
         return NoticeCreateDto.builder()
-                .memberEmail(memberEmail)
+                .memberId(memberId)
                 .title(request.getTitle())
                 .content(request.getContent())
                 .image(request.getImage())
@@ -62,6 +63,7 @@ public class NoticeConverter {
                 .id(id)
                 .title(request.getTitle())
                 .content(request.getContent())
+                .image(request.getImage())
                 .build();
     }
 }

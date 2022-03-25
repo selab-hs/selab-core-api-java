@@ -8,8 +8,8 @@ import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.notice.application.NoticeService;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
 import kr.ac.hs.selab.notice.domain.Notice;
-import kr.ac.hs.selab.notice.dto.NoticeCreateDto;
 import kr.ac.hs.selab.notice.dto.NoticeUpdateDto;
+import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,22 +48,21 @@ public class NoticeFacadeTest {
         var notice = fixtureMonkey.giveMeBuilder(Notice.class)
                 .set("memberId", member.getId())
                 .sample();
-        var noticeCreateDto = NoticeCreateDto.builder()
-                .memberEmail(member.getEmail())
-                .title(notice.getTitle())
-                .content(notice.getContent())
-                .image(notice.getImage())
-                .build();
+        var noticeRequest = new NoticeRequest(
+                notice.getTitle(),
+                notice.getContent(),
+                notice.getImage()
+        );
         var expected = new BoardResponse(notice.getId());
 
         // mocking
         Mockito.when(memberService.findByEmail(anyString()))
                 .thenReturn(member);
-        Mockito.when(noticeService.create(anyLong(), any()))
+        Mockito.when(noticeService.create(any()))
                 .thenReturn(notice);
 
         // when
-        var actual = noticeFacade.create(noticeCreateDto);
+        var actual = noticeFacade.create(member.getEmail(), noticeRequest);
 
         // then
         assertEquals(expected.getId(), actual.getId());
@@ -118,12 +117,11 @@ public class NoticeFacadeTest {
     public void 공지사항_수정하기() {
         // given
         var notice = fixtureMonkey.giveMeOne(Notice.class);
-        var noticeUpdateDto = NoticeUpdateDto.builder()
-                .id(notice.getId())
-                .title(fixtureMonkey.giveMeOne(String.class))
-                .content(fixtureMonkey.giveMeOne(String.class))
-                .image(fixtureMonkey.giveMeOne(String.class))
-                .build();
+        var noticeRequest = new NoticeRequest(
+                fixtureMonkey.giveMeOne(String.class),
+                fixtureMonkey.giveMeOne(String.class),
+                fixtureMonkey.giveMeOne(String.class)
+        );
         var expected = new BoardResponse(notice.getId());
 
         // mocking
@@ -131,7 +129,7 @@ public class NoticeFacadeTest {
                 .thenReturn(notice);
 
         // when
-        var actual = noticeFacade.update(noticeUpdateDto);
+        var actual = noticeFacade.update(notice.getId(), noticeRequest);
 
         // then
         assertEquals(expected.getId(), actual.getId());

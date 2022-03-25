@@ -3,8 +3,8 @@ package kr.ac.hs.selab.notice.facade;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.notice.application.NoticeService;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
-import kr.ac.hs.selab.notice.dto.NoticeCreateDto;
 import kr.ac.hs.selab.notice.dto.NoticeUpdateDto;
+import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
@@ -20,9 +20,12 @@ public class NoticeFacade {
     private final MemberService memberService;
 
     @Transactional
-    public NoticeResponse create(NoticeCreateDto dto) {
-        var member = memberService.findByEmail(dto.getMemberEmail());
-        var notice = noticeService.create(member.getId(), dto);
+    public NoticeResponse create(String memberEmail, NoticeRequest request) {
+        var memberId = memberService.findByEmail(memberEmail).getId();
+
+        var dto = NoticeConverter.toNoticeCreateDto(memberId, request);
+        var notice = noticeService.create(dto);
+
         return new NoticeResponse(notice.getId());
     }
 
@@ -39,7 +42,8 @@ public class NoticeFacade {
     }
 
     @Transactional
-    public NoticeResponse update(NoticeUpdateDto dto) {
+    public NoticeResponse update(Long noticeId, NoticeRequest request) {
+        var dto = NoticeConverter.toNoticeUpdateDto(noticeId, request);
         var notice = noticeService.update(dto);
         return new NoticeResponse(notice.getId());
     }

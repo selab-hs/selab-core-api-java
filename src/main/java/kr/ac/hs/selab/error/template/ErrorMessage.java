@@ -59,7 +59,7 @@ public enum ErrorMessage {
     /**
      * NOTICE ERROR RESPONSE MESSAGE
      */
-    NOTICE_NOT_EXISTS_ERROR("E-N-0001", "존재하지 않는 공지사항입니다.")
+    NOTICE_NOT_EXISTS_ERROR("E-N-0001", "존재하지 않는 공지사항입니다."),
 
     ;
 

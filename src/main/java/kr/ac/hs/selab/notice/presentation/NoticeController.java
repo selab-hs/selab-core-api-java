@@ -26,9 +26,7 @@ public class NoticeController implements NoticeSdk {
     @PostMapping
     public ResponseTemplate<NoticeResponse> create(@Validated @RequestBody NoticeRequest request) {
         var memberEmail = SecurityUtils.getCurrentUsername();
-        var dto = NoticeConverter.toNoticeCreateDto(memberEmail, request);
-
-        var response = noticeFacade.create(dto);
+        var response = noticeFacade.create(memberEmail, request);
         return ResponseTemplate.created(ResponseMessage.NOTICE_CREATE_SUCCESS, response);
     }
 
@@ -49,8 +47,7 @@ public class NoticeController implements NoticeSdk {
     @PutMapping("/{id}")
     public ResponseTemplate<NoticeResponse> update(@PathVariable Long id,
                                                    @Validated @RequestBody NoticeRequest request) {
-        var dto = NoticeConverter.toNoticeUpdateDto(id, request);
-        var response = noticeFacade.update(dto);
+        var response = noticeFacade.update(id, request);
         return ResponseTemplate.ok(ResponseMessage.NOTICE_UPDATE_SUCCESS, response);
     }
 
