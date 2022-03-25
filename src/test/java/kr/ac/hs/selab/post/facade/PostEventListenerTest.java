@@ -4,7 +4,7 @@ import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
 import kr.ac.hs.selab.comment.application.CommentService;
 import kr.ac.hs.selab.comment.domain.Comment;
-import kr.ac.hs.selab.commentLike.application.CommentLikeService;
+import kr.ac.hs.selab.comment_like.application.CommentLikeService;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.domain.event.PostEvent;
 import kr.ac.hs.selab.postLike.application.PostLikeService;
