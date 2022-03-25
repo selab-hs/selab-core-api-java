@@ -8,7 +8,7 @@ import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.notice.application.NoticeService;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
 import kr.ac.hs.selab.notice.domain.Notice;
-import kr.ac.hs.selab.notice.dto.NoticeUpdateDto;
+import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
 import org.junit.jupiter.api.Test;
@@ -89,14 +89,16 @@ public class NoticeFacadeTest {
     public void 전체_공지사항_페이지로_찾기() {
         // given
         var totalCount = 100L;
-        var pageNumber = 1;
-        var pageSize = 20;
-
+        var pageable = PageRequest.of(1, 20);
         var notices = fixtureMonkey.giveMe(Notice.class, (int) totalCount);
-        var pageable = PageRequest.of(pageNumber, pageSize);
         var noticePage = new PageImpl<>(notices, pageable, totalCount);
 
-        var expected = NoticeConverter.toNoticeFindAllByPageResponse(totalCount, pageable, noticePage);
+        var noticeFindAllByPageDto = NoticeFindAllByPageDto.builder()
+                .totalCount(totalCount)
+                .pageable(pageable)
+                .notices(noticePage)
+                .build();
+        var expected = NoticeConverter.toNoticeFindAllByPageResponse(noticeFindAllByPageDto);
 
         // mocking
         Mockito.when(noticeService.count())

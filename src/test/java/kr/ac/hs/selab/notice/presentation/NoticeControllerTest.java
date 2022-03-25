@@ -3,10 +3,9 @@ package kr.ac.hs.selab.notice.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
-import kr.ac.hs.selab.common.utils.SecurityUtils;
-import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
 import kr.ac.hs.selab.notice.domain.Notice;
+import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
 import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
 import kr.ac.hs.selab.notice.facade.NoticeFacade;
@@ -24,7 +23,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -99,14 +99,15 @@ public class NoticeControllerTest {
     public void 공지사항_전체_페이지로_조회하기() throws Exception {
         // given
         var totalCount = 100L;
-        var pageNumber = 1;
-        var pageSize = 20;
-
+        var pageable = PageRequest.of(1, 20);
         var notices = fixtureMonkey.giveMe(Notice.class, (int) totalCount);
-        var pageable = PageRequest.of(pageNumber, pageSize);
-        var noticePage = new PageImpl<>(notices, pageable, totalCount);
 
-        var noticeFindAllResponse = NoticeConverter.toNoticeFindAllByPageResponse(totalCount, pageable, noticePage);
+        var noticeFindAllByPageDto = NoticeFindAllByPageDto.builder()
+                .totalCount(totalCount)
+                .pageable(pageable)
+                .notices(new PageImpl<>(notices, pageable, totalCount))
+                .build();
+        var noticeFindAllResponse = NoticeConverter.toNoticeFindAllByPageResponse(noticeFindAllByPageDto);
 
         // mocking
         Mockito.when(noticeFacade.findNoticeFindAllByPageResponse(any()))

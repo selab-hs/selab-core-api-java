@@ -3,7 +3,7 @@ package kr.ac.hs.selab.notice.facade;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.notice.application.NoticeService;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
-import kr.ac.hs.selab.notice.dto.NoticeUpdateDto;
+import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindResponse;
@@ -36,9 +36,12 @@ public class NoticeFacade {
     }
 
     public NoticeFindAllByPageResponse findNoticeFindAllByPageResponse(Pageable pageable) {
-        var totalCount = noticeService.count();
-        var notices = noticeService.findAllByPage(pageable);
-        return NoticeConverter.toNoticeFindAllByPageResponse(totalCount, pageable, notices);
+        var noticeFindAllByPageDto = NoticeFindAllByPageDto.builder()
+                .totalCount(noticeService.count())
+                .pageable(pageable)
+                .notices(noticeService.findAllByPage(pageable))
+                .build();
+        return NoticeConverter.toNoticeFindAllByPageResponse(noticeFindAllByPageDto);
     }
 
     @Transactional

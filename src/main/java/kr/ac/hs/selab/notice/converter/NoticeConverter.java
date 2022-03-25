@@ -2,13 +2,12 @@ package kr.ac.hs.selab.notice.converter;
 
 import kr.ac.hs.selab.notice.domain.Notice;
 import kr.ac.hs.selab.notice.dto.NoticeCreateDto;
+import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
 import kr.ac.hs.selab.notice.dto.NoticeUpdateDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindResponse;
 import lombok.experimental.UtilityClass;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,15 +35,16 @@ public class NoticeConverter {
                 .build();
     }
 
-    public NoticeFindAllByPageResponse toNoticeFindAllByPageResponse(Long totalCount, Pageable pageable, Page<Notice> notices) {
-        List<NoticeFindResponse> noticeResponses = notices.stream()
+    public NoticeFindAllByPageResponse toNoticeFindAllByPageResponse(NoticeFindAllByPageDto noticeFindAllByPageDto) {
+        List<NoticeFindResponse> noticeResponses = noticeFindAllByPageDto.getNotices()
+                .stream()
                 .map(NoticeConverter::toNoticeFindResponse)
                 .collect(Collectors.toList());
         return NoticeFindAllByPageResponse.builder()
-                .totalCount(totalCount)
-                .pageNumber(pageable.getPageNumber())
-                .pageSize(pageable.getPageSize())
-                .sort(pageable.getSort().toString())
+                .totalCount(noticeFindAllByPageDto.getTotalCount())
+                .pageNumber(noticeFindAllByPageDto.getPageable().getPageNumber())
+                .pageSize(noticeFindAllByPageDto.getPageable().getPageSize())
+                .sort(noticeFindAllByPageDto.getPageable().getSort().toString())
                 .notices(noticeResponses)
                 .build();
     }
