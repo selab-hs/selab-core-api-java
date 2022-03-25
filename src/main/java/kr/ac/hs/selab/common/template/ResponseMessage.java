@@ -64,6 +64,13 @@ public enum ResponseMessage implements Serializable {
     NOTICE_UPDATE_SUCCESS("R-N-0003", "공지사항을 성공적으로 수정했습니다."),
     NOTICE_DELETE_SUCCESS("R-N-0004", "공지사항을 성공적으로 삭제했습니다."),
 
+    /**
+     * NOTICE LIKE SUCCESS RESPONSE MESSAGE
+     */
+    NOTICE_LIKE_CREATE_SUCCESS("R-NL-0001", "공지사항 좋아요를 성공했습니다."),
+    NOTICE_LIKE_FIND_SUCCESS("R-NL-0002", "공지사항 좋아요 조회를 성공했습니다."),
+    NOTICE_LIKE_DELETE_SUCCESS("R-NL-0003", "공지사항 좋아요 삭제를 성공했습니다."),
+
     ;
 
     private final String code;
