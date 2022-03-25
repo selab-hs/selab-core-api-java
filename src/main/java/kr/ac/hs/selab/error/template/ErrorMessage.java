@@ -55,6 +55,12 @@ public enum ErrorMessage {
      **/
     TERMS_NOT_EXISTS_ERROR("E-T-0001", "존재하지 않는 약관 카테코리입니다."),
 
+
+    /**
+     * NOTICE ERROR RESPONSE MESSAGE
+     */
+    NOTICE_NOT_EXISTS_ERROR("E-N-0001", "존재하지 않는 공지사항입니다.")
+
     ;
 
     private final String code;
