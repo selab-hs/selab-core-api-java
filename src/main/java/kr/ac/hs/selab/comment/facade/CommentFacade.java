@@ -8,7 +8,7 @@ import kr.ac.hs.selab.comment.dto.CommentUpdateDto;
 import kr.ac.hs.selab.comment.dto.response.CommentFindByPostIdAndPageResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentFindResponse;
 import kr.ac.hs.selab.comment.dto.response.CommentResponse;
-import kr.ac.hs.selab.commentLike.application.CommentLikeService;
+import kr.ac.hs.selab.comment_like.application.CommentLikeService;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.post.application.PostService;
 import lombok.RequiredArgsConstructor;
