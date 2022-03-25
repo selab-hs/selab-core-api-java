@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.commentLike.domain;
+package kr.ac.hs.selab.comment_like.domain;
 
 import kr.ac.hs.selab.common.domain.BaseEntity;
 import lombok.AccessLevel;

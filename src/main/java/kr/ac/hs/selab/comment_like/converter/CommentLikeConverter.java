@@ -1,7 +1,7 @@
-package kr.ac.hs.selab.commentLike.converter;
+package kr.ac.hs.selab.comment_like.converter;
 
-import kr.ac.hs.selab.commentLike.domain.CommentLike;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeFindResponse;
+import kr.ac.hs.selab.comment_like.domain.CommentLike;
+import kr.ac.hs.selab.comment_like.dto.response.CommentLikeFindResponse;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

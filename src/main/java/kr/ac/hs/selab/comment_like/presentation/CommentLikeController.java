@@ -1,10 +1,10 @@
-package kr.ac.hs.selab.commentLike.presentation;
+package kr.ac.hs.selab.comment_like.presentation;
 
-import kr.ac.hs.selab.commentLike.dto.CommentLikeDto;
-import kr.ac.hs.selab.commentLike.dto.CommentLikeFindDto;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeFindResponse;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeResponse;
-import kr.ac.hs.selab.commentLike.facade.CommentLikeFacade;
+import kr.ac.hs.selab.comment_like.dto.CommentLikeDto;
+import kr.ac.hs.selab.comment_like.dto.CommentLikeFindDto;
+import kr.ac.hs.selab.comment_like.dto.response.CommentLikeFindResponse;
+import kr.ac.hs.selab.comment_like.dto.response.CommentLikeResponse;
+import kr.ac.hs.selab.comment_like.facade.CommentLikeFacade;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.utils.SecurityUtils;

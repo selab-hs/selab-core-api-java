@@ -1,10 +1,10 @@
-package kr.ac.hs.selab.commentLike.application;
+package kr.ac.hs.selab.comment_like.application;
 
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
 import kr.ac.hs.selab.comment.domain.Comment;
-import kr.ac.hs.selab.commentLike.domain.CommentLike;
-import kr.ac.hs.selab.commentLike.infrastructure.CommentLikeRepository;
+import kr.ac.hs.selab.comment_like.domain.CommentLike;
+import kr.ac.hs.selab.comment_like.infrastructure.CommentLikeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

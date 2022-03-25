@@ -1,11 +1,11 @@
-package kr.ac.hs.selab.commentLike.presentation;
+package kr.ac.hs.selab.comment_like.presentation;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeFindResponse;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeResponse;
+import kr.ac.hs.selab.comment_like.dto.response.CommentLikeFindResponse;
+import kr.ac.hs.selab.comment_like.dto.response.CommentLikeResponse;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 

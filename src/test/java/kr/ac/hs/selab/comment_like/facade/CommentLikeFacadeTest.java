@@ -1,13 +1,13 @@
-package kr.ac.hs.selab.commentLike.facade;
+package kr.ac.hs.selab.comment_like.facade;
 
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
 import kr.ac.hs.selab.comment.application.CommentService;
 import kr.ac.hs.selab.comment.domain.Comment;
-import kr.ac.hs.selab.commentLike.application.CommentLikeService;
-import kr.ac.hs.selab.commentLike.domain.CommentLike;
-import kr.ac.hs.selab.commentLike.dto.CommentLikeDto;
-import kr.ac.hs.selab.commentLike.dto.CommentLikeFindDto;
+import kr.ac.hs.selab.comment_like.application.CommentLikeService;
+import kr.ac.hs.selab.comment_like.domain.CommentLike;
+import kr.ac.hs.selab.comment_like.dto.CommentLikeDto;
+import kr.ac.hs.selab.comment_like.dto.CommentLikeFindDto;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.domain.Member;
 import org.junit.jupiter.api.Test;

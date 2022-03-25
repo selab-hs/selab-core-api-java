@@ -1,13 +1,13 @@
-package kr.ac.hs.selab.commentLike.presentation;
+package kr.ac.hs.selab.comment_like.presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
 import kr.ac.hs.selab.comment.domain.Comment;
-import kr.ac.hs.selab.commentLike.converter.CommentLikeConverter;
-import kr.ac.hs.selab.commentLike.domain.CommentLike;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeResponse;
-import kr.ac.hs.selab.commentLike.facade.CommentLikeFacade;
+import kr.ac.hs.selab.comment_like.converter.CommentLikeConverter;
+import kr.ac.hs.selab.comment_like.domain.CommentLike;
+import kr.ac.hs.selab.comment_like.dto.response.CommentLikeResponse;
+import kr.ac.hs.selab.comment_like.facade.CommentLikeFacade;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;

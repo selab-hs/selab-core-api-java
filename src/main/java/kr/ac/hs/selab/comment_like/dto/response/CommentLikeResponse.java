@@ -1,4 +1,4 @@
-package kr.ac.hs.selab.commentLike.dto.response;
+package kr.ac.hs.selab.comment_like.dto.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,12 +1,12 @@
-package kr.ac.hs.selab.commentLike.facade;
+package kr.ac.hs.selab.comment_like.facade;
 
 import kr.ac.hs.selab.comment.application.CommentService;
-import kr.ac.hs.selab.commentLike.application.CommentLikeService;
-import kr.ac.hs.selab.commentLike.converter.CommentLikeConverter;
-import kr.ac.hs.selab.commentLike.dto.CommentLikeDto;
-import kr.ac.hs.selab.commentLike.dto.CommentLikeFindDto;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeFindResponse;
-import kr.ac.hs.selab.commentLike.dto.response.CommentLikeResponse;
+import kr.ac.hs.selab.comment_like.application.CommentLikeService;
+import kr.ac.hs.selab.comment_like.converter.CommentLikeConverter;
+import kr.ac.hs.selab.comment_like.dto.CommentLikeDto;
+import kr.ac.hs.selab.comment_like.dto.CommentLikeFindDto;
+import kr.ac.hs.selab.comment_like.dto.response.CommentLikeFindResponse;
+import kr.ac.hs.selab.comment_like.dto.response.CommentLikeResponse;
 import kr.ac.hs.selab.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

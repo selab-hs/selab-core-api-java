@@ -1,8 +1,8 @@
-package kr.ac.hs.selab.commentLike.application;
+package kr.ac.hs.selab.comment_like.application;
 
 import kr.ac.hs.selab.comment.domain.Comment;
-import kr.ac.hs.selab.commentLike.domain.CommentLike;
-import kr.ac.hs.selab.commentLike.infrastructure.CommentLikeRepository;
+import kr.ac.hs.selab.comment_like.domain.CommentLike;
+import kr.ac.hs.selab.comment_like.infrastructure.CommentLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

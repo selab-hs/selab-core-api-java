@@ -8,7 +8,7 @@ import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.comment.dto.CommentCreateDto;
 import kr.ac.hs.selab.comment.dto.CommentFindByPostIdAndPageDto;
 import kr.ac.hs.selab.comment.dto.CommentUpdateDto;
-import kr.ac.hs.selab.commentLike.application.CommentLikeService;
+import kr.ac.hs.selab.comment_like.application.CommentLikeService;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.post.application.PostService;
