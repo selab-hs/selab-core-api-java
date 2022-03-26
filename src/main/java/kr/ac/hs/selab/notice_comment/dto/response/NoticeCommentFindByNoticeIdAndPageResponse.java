@@ -26,11 +26,11 @@ public class NoticeCommentFindByNoticeIdAndPageResponse {
     private final String sort;
 
     @Schema(description = "공지사항의 댓글 전체 목록")
-    private final List<NoticeCommentInnerResponse> noticeComments;
+    private final List<InnerResponse> noticeComments;
 
     @Builder
     @Getter
-    public static class NoticeCommentInnerResponse {
+    public static class InnerResponse {
         @Schema(description = "작성자 id")
         private final Long memberId;
 

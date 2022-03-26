@@ -27,7 +27,7 @@ public interface NoticeCommentSdk {
             @ApiResponse(code = 201, message = "공지사항 댓글 조회 성공"),
             @ApiResponse(code = 400, message = "공지사항 댓글 조회 실패")
     })
-    ResponseTemplate<NoticeCommentFindResponse> find(@Parameter(description = "공지사항 댓글 id 값") Long noticeId);
+    ResponseTemplate<NoticeCommentFindResponse> findByNoticeCommentId(@Parameter(description = "공지사항 댓글 id 값") Long noticeId);
 
     @Operation(summary = "공지사항의 전체 댓글 조회", description = "공지사항에 해당하는 전체 댓글을 조회한다.")
     @ApiResponses({

@@ -127,7 +127,7 @@ public class NoticeCommentServiceTest {
                 .thenReturn(expected);
 
         // when
-        var actual = noticeCommentService.findByNoticeCommentFindByNoticeIdAndPageDto(dto);
+        var actual = noticeCommentService.findByNoticeIdAndPageDto(dto);
 
         // then
         assertEquals(expected, actual);

@@ -2,7 +2,6 @@ package kr.ac.hs.selab.notice_comment.domain;
 
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
-import kr.ac.hs.selab.comment.domain.Comment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +24,7 @@ class NoticeCommentTest {
     }
 
     @Test
-    void 수정_성공() {
+    void 수정하기() {
         // when
         var newContent = fixtureMonkey.giveMeOne(String.class);
         noticeComment.update(newContent);
@@ -35,7 +34,7 @@ class NoticeCommentTest {
     }
 
     @Test
-    void 삭제_성공() {
+    void 삭제하기() {
         // when
         noticeComment.delete();
 

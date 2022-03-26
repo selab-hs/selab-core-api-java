@@ -27,13 +27,12 @@ public class NoticeCommentController implements NoticeCommentSdk {
                                                           @Validated @RequestBody NoticeCommentRequest request) {
         var memberEmail = SecurityUtils.getCurrentUsername();
         var response = noticeCommentFacade.create(noticeId, memberEmail, request);
-
         return ResponseTemplate.created(ResponseMessage.NOTICE_COMMENT_CREATE_SUCCESS, response);
     }
 
     @Override
     @GetMapping("/notice-comments/{commentId}")
-    public ResponseTemplate<NoticeCommentFindResponse> find(@PathVariable Long commentId) {
+    public ResponseTemplate<NoticeCommentFindResponse> findByNoticeCommentId(@PathVariable Long commentId) {
         var response = noticeCommentFacade.findByNoticeCommentId(commentId);
         return ResponseTemplate.ok(ResponseMessage.NOTICE_COMMENT_FIND_SUCCESS, response);
     }
@@ -55,9 +54,9 @@ public class NoticeCommentController implements NoticeCommentSdk {
     }
 
     @Override
-    @PatchMapping("/notice-comments/{noticeCommentId}")
-    public ResponseTemplate<NoticeCommentResponse> delete(@PathVariable Long noticeCommentId) {
-        var response = noticeCommentFacade.delete(noticeCommentId);
+    @PatchMapping("/notice-comments/{commentId}")
+    public ResponseTemplate<NoticeCommentResponse> delete(@PathVariable Long commentId) {
+        var response = noticeCommentFacade.delete(commentId);
         return ResponseTemplate.ok(ResponseMessage.NOTICE_COMMENT_DELETE_SUCCESS, response);
     }
 }

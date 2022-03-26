@@ -81,15 +81,12 @@ public class NoticeCommentFacadeTest {
     public void 공지사항_아이디와_페이지로_댓글_조회하기() {
         // given
         var totalCount = 100L;
-        var pageNumber = 1;
-        var pageSize = 20;
-
         var notice = fixtureMonkey.giveMeOne(Notice.class);
         var comments = fixtureMonkey.giveMeBuilder(NoticeComment.class)
                 .set("noticeId", notice.getId())
                 .sampleList((int) totalCount);
 
-        var pageable = PageRequest.of(pageNumber, pageSize);
+        var pageable = PageRequest.of(1, 20);
         var commentPage = new PageImpl<>(comments, pageable, totalCount);
         var dto = new NoticeCommentFindByNoticeIdAndPageDto(notice.getId(), pageable);
         var expected = NoticeCommentConverter.toNoticeCommentFindByNoticeIdAndPageResponse(
@@ -101,7 +98,7 @@ public class NoticeCommentFacadeTest {
         // mocking
         Mockito.when(noticeCommentService.count(anyLong()))
                 .thenReturn((long) comments.size());
-        Mockito.when(noticeCommentService.findByNoticeCommentFindByNoticeIdAndPageDto(any()))
+        Mockito.when(noticeCommentService.findByNoticeIdAndPageDto(any()))
                 .thenReturn(commentPage);
 
         // when

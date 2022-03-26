@@ -87,14 +87,12 @@ public class NoticeCommentControllerTest {
     public void 공지사항_아이디_값과_페이지로_댓글_조회하기() throws Exception {
         // given
         var totalCount = 100L;
-        var pageNumber = 1;
-        var pageSize = 20;
         var noticeId = fixtureMonkey.giveMeOne(Long.class);
 
         var comments = fixtureMonkey.giveMeBuilder(NoticeComment.class)
                 .set("noticeId", noticeId)
                 .sampleList((int) totalCount);
-        var pageable = PageRequest.of(pageNumber, pageSize);
+        var pageable = PageRequest.of(1, 20);
         var commentPage = new PageImpl<>(comments, pageable, totalCount);
         var dto = new NoticeCommentFindByNoticeIdAndPageDto(noticeId, pageable);
 
@@ -146,7 +144,7 @@ public class NoticeCommentControllerTest {
                 .thenReturn(response);
 
         // when, then
-        mockMvc.perform(patch("/api/v1/notice-comments/{noticeCommentId}", comment.getId()))
+        mockMvc.perform(patch("/api/v1/notice-comments/{commentId}", comment.getId()))
                 .andExpect(status().isOk());
     }
 }

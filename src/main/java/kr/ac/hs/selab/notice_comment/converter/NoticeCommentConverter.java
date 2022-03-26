@@ -32,22 +32,22 @@ public class NoticeCommentConverter {
     }
 
     public NoticeCommentFindByNoticeIdAndPageResponse toNoticeCommentFindByNoticeIdAndPageResponse(NoticeCommentFindByNoticeIdAndPageDto dto, Long totalCount, Page<NoticeComment> comments) {
+        var responses = comments.stream()
+                .map(NoticeCommentConverter::toNoticeCommentFindByNoticeIdAndPageResponseInnerResponse)
+                .collect(Collectors.toList());
+
         return NoticeCommentFindByNoticeIdAndPageResponse.builder()
                 .noticeId(dto.getNoticeId())
                 .totalCount(totalCount)
                 .pageNumber(dto.getPageable().getPageNumber())
                 .pageSize(dto.getPageable().getPageSize())
                 .sort(dto.getPageable().getSort().toString())
-                .noticeComments(
-                        comments.stream()
-                                .map(NoticeCommentConverter::toNoticeCommentInnerResponse)
-                                .collect(Collectors.toList())
-                )
+                .noticeComments(responses)
                 .build();
     }
 
-    private NoticeCommentFindByNoticeIdAndPageResponse.NoticeCommentInnerResponse toNoticeCommentInnerResponse(NoticeComment comment) {
-        return NoticeCommentFindByNoticeIdAndPageResponse.NoticeCommentInnerResponse
+    private NoticeCommentFindByNoticeIdAndPageResponse.InnerResponse toNoticeCommentFindByNoticeIdAndPageResponseInnerResponse(NoticeComment comment) {
+        return NoticeCommentFindByNoticeIdAndPageResponse.InnerResponse
                 .builder()
                 .memberId(comment.getMemberId())
                 .noticeCommentId(comment.getId())

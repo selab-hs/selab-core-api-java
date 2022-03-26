@@ -42,7 +42,7 @@ public class NoticeCommentFacade {
         var totalCount = noticeCommentService.count(noticeId);
 
         var dto = new NoticeCommentFindByNoticeIdAndPageDto(noticeId, pageable);
-        var comments = noticeCommentService.findByNoticeCommentFindByNoticeIdAndPageDto(dto);
+        var comments = noticeCommentService.findByNoticeIdAndPageDto(dto);
 
         return NoticeCommentConverter.toNoticeCommentFindByNoticeIdAndPageResponse(dto, totalCount, comments);
     }

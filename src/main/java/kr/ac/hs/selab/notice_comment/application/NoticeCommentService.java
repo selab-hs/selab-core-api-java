@@ -42,7 +42,7 @@ public class NoticeCommentService {
         return noticeCommentRepository.findByNoticeIdAndDeleteFlag(noticeId, Constants.NOT_DELETED);
     }
 
-    public Page<NoticeComment> findByNoticeCommentFindByNoticeIdAndPageDto(NoticeCommentFindByNoticeIdAndPageDto dto) {
+    public Page<NoticeComment> findByNoticeIdAndPageDto(NoticeCommentFindByNoticeIdAndPageDto dto) {
         return noticeCommentRepository.findByNoticeIdAndDeleteFlag(
                 dto.getNoticeId(),
                 Constants.NOT_DELETED,
