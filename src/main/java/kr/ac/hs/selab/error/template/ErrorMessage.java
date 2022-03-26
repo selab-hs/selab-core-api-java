@@ -66,6 +66,11 @@ public enum ErrorMessage {
      */
     NOTICE_COMMENT_NOT_EXISTS_ERROR("E-NC-0001", "존재하지 않는 공지사항의 댓글입니다."),
 
+    /**
+     * FREE POST ERROR RESPONSE MESSAGE
+     */
+    FREE_POST_NOT_EXISTS_ERROR("E-F-0001", "존재하지 않는 자유게시글입니다."),
+
     ;
 
     private final String code;
