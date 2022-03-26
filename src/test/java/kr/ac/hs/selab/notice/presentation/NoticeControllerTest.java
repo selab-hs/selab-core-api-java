@@ -3,6 +3,8 @@ package kr.ac.hs.selab.notice.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
+import kr.ac.hs.selab.common.utils.SecurityUtils;
+import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
 import kr.ac.hs.selab.notice.domain.Notice;
 import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
@@ -23,8 +25,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,17 +57,18 @@ public class NoticeControllerTest {
 //                .set("content", "소프트웨어 엔지니어 연구실 연구원분들을 위한 홈페이지입니다.")
 //                .set("memberId", member.getId())
 //                .sample();
-//        var noticeRequest = new NoticeRequest(
+//
+//        var request = new NoticeRequest(
 //                notice.getTitle(),
 //                notice.getContent()
 //        );
-//        var noticeResponse = new NoticeResponse(notice.getId());
+//        var response = new NoticeResponse(notice.getId());
 //
 //        // mocking
 //        Mockito.when(SecurityUtils.getCurrentUsername())
 //                .thenReturn(member.getEmail());
 //        Mockito.when(noticeFacade.create(anyString(), any()))
-//                .thenReturn(noticeResponse);
+//                .thenReturn(response);
 //
 //        // when, then
 //        mockMvc.perform(
@@ -74,7 +76,7 @@ public class NoticeControllerTest {
 //                                .accept(MediaType.APPLICATION_JSON)
 //                                .contentType(MediaType.APPLICATION_JSON)
 //                                .characterEncoding("utf-8")
-//                                .content(objectMapper.writeValueAsString(noticeRequest))
+//                                .content(objectMapper.writeValueAsString(request))
 //                )
 //                .andExpect(status().isOk());
     }
@@ -83,11 +85,11 @@ public class NoticeControllerTest {
     public void 아이디로_공지사항_조회하기() throws Exception {
         // given
         var notice = fixtureMonkey.giveMeOne(Notice.class);
-        var noticeFindResponse = NoticeConverter.toNoticeFindResponse(notice);
+        var response = NoticeConverter.toNoticeFindResponse(notice);
 
         // mocking
         Mockito.when(noticeFacade.findNoticeResponseById(anyLong()))
-                .thenReturn(noticeFindResponse);
+                .thenReturn(response);
 
         // when, then
         mockMvc.perform(get("/api/v1/notices/{id}", notice.getId()))
@@ -101,16 +103,16 @@ public class NoticeControllerTest {
         var pageable = PageRequest.of(1, 20);
         var notices = fixtureMonkey.giveMe(Notice.class, (int) totalCount);
 
-        var noticeFindAllByPageDto = NoticeFindAllByPageDto.builder()
+        var dto = NoticeFindAllByPageDto.builder()
                 .totalCount(totalCount)
                 .pageable(pageable)
                 .notices(new PageImpl<>(notices, pageable, totalCount))
                 .build();
-        var noticeFindAllResponse = NoticeConverter.toNoticeFindAllByPageResponse(noticeFindAllByPageDto);
+        var response = NoticeConverter.toNoticeFindAllByPageResponse(dto);
 
         // mocking
         Mockito.when(noticeFacade.findNoticeFindAllByPageResponse(any()))
-                .thenReturn(noticeFindAllResponse);
+                .thenReturn(response);
 
         // when, then
         mockMvc.perform(get("/api/v1/notices"))
@@ -121,15 +123,15 @@ public class NoticeControllerTest {
     public void 공지사항_수정하기() throws Exception {
         // given
         var notice = fixtureMonkey.giveMeOne(Notice.class);
-        var noticeRequest = new NoticeRequest(
+        var request = new NoticeRequest(
                 "공지사항 수정이 있겠습니다.",
                 "수정 내용은 아래와 같습니다."
         );
-        var noticeResponse = new NoticeResponse(notice.getId());
+        var response = new NoticeResponse(notice.getId());
 
         // mocking
         Mockito.when(noticeFacade.update(anyLong(), any()))
-                .thenReturn(noticeResponse);
+                .thenReturn(response);
 
         // when, then
         mockMvc.perform(
@@ -137,7 +139,7 @@ public class NoticeControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .characterEncoding("utf-8")
-                                .content(objectMapper.writeValueAsString(noticeRequest))
+                                .content(objectMapper.writeValueAsString(request))
                 )
                 .andExpect(status().isOk());
     }
@@ -146,11 +148,11 @@ public class NoticeControllerTest {
     public void 공지사항_삭제하기() throws Exception {
         // given
         var notice = fixtureMonkey.giveMeOne(Notice.class);
-        var noticeResponse = new NoticeResponse(notice.getId());
+        var response = new NoticeResponse(notice.getId());
 
         // mocking
         Mockito.when(noticeFacade.delete(anyLong()))
-                .thenReturn(noticeResponse);
+                .thenReturn(response);
 
         // when, then
         mockMvc.perform(patch("/api/v1/notices/{id}", notice.getId()))

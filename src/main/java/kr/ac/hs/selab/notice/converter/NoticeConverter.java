@@ -33,17 +33,17 @@ public class NoticeConverter {
                 .build();
     }
 
-    public NoticeFindAllByPageResponse toNoticeFindAllByPageResponse(NoticeFindAllByPageDto noticeFindAllByPageDto) {
-        List<NoticeFindResponse> noticeResponses = noticeFindAllByPageDto.getNotices()
+    public NoticeFindAllByPageResponse toNoticeFindAllByPageResponse(NoticeFindAllByPageDto dto) {
+        var noticeFindResponses = dto.getNotices()
                 .stream()
                 .map(NoticeConverter::toNoticeFindResponse)
                 .collect(Collectors.toList());
         return NoticeFindAllByPageResponse.builder()
-                .totalCount(noticeFindAllByPageDto.getTotalCount())
-                .pageNumber(noticeFindAllByPageDto.getPageable().getPageNumber())
-                .pageSize(noticeFindAllByPageDto.getPageable().getPageSize())
-                .sort(noticeFindAllByPageDto.getPageable().getSort().toString())
-                .notices(noticeResponses)
+                .totalCount(dto.getTotalCount())
+                .pageNumber(dto.getPageable().getPageNumber())
+                .pageSize(dto.getPageable().getPageSize())
+                .sort(dto.getPageable().getSort().toString())
+                .notices(noticeFindResponses)
                 .build();
     }
 

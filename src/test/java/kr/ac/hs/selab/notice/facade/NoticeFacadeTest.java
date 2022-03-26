@@ -11,6 +11,7 @@ import kr.ac.hs.selab.notice.domain.Notice;
 import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -48,7 +49,7 @@ public class NoticeFacadeTest {
         var notice = fixtureMonkey.giveMeBuilder(Notice.class)
                 .set("memberId", member.getId())
                 .sample();
-        var noticeRequest = new NoticeRequest(
+        var request = new NoticeRequest(
                 notice.getTitle(),
                 notice.getContent()
         );
@@ -61,7 +62,7 @@ public class NoticeFacadeTest {
                 .thenReturn(notice);
 
         // when
-        var actual = noticeFacade.create(member.getEmail(), noticeRequest);
+        var actual = noticeFacade.create(member.getEmail(), request);
 
         // then
         assertEquals(expected.getId(), actual.getId());
@@ -92,12 +93,12 @@ public class NoticeFacadeTest {
         var notices = fixtureMonkey.giveMe(Notice.class, (int) totalCount);
         var noticePage = new PageImpl<>(notices, pageable, totalCount);
 
-        var noticeFindAllByPageDto = NoticeFindAllByPageDto.builder()
+        var dto = NoticeFindAllByPageDto.builder()
                 .totalCount(totalCount)
                 .pageable(pageable)
                 .notices(noticePage)
                 .build();
-        var expected = NoticeConverter.toNoticeFindAllByPageResponse(noticeFindAllByPageDto);
+        var expected = NoticeConverter.toNoticeFindAllByPageResponse(dto);
 
         // mocking
         Mockito.when(noticeService.count())
@@ -118,18 +119,18 @@ public class NoticeFacadeTest {
     public void 공지사항_수정하기() {
         // given
         var notice = fixtureMonkey.giveMeOne(Notice.class);
-        var noticeRequest = new NoticeRequest(
+        var request = new NoticeRequest(
                 fixtureMonkey.giveMeOne(String.class),
                 fixtureMonkey.giveMeOne(String.class)
         );
-        var expected = new BoardResponse(notice.getId());
+        var expected = new NoticeResponse(notice.getId());
 
         // mocking
         Mockito.when(noticeService.update(any()))
                 .thenReturn(notice);
 
         // when
-        var actual = noticeFacade.update(notice.getId(), noticeRequest);
+        var actual = noticeFacade.update(notice.getId(), request);
 
         // then
         assertEquals(expected.getId(), actual.getId());
@@ -139,7 +140,7 @@ public class NoticeFacadeTest {
     public void 공지사항_삭제하기() {
         // given
         var notice = fixtureMonkey.giveMeOne(Notice.class);
-        var expected = new BoardResponse(notice.getId());
+        var expected = new NoticeResponse(notice.getId());
 
         // mocking
         Mockito.when(noticeService.delete(anyLong()))

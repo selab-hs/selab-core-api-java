@@ -36,12 +36,12 @@ public class NoticeFacade {
     }
 
     public NoticeFindAllByPageResponse findNoticeFindAllByPageResponse(Pageable pageable) {
-        var noticeFindAllByPageDto = NoticeFindAllByPageDto.builder()
+        var dto = NoticeFindAllByPageDto.builder()
                 .totalCount(noticeService.count())
                 .pageable(pageable)
                 .notices(noticeService.findAllByPage(pageable))
                 .build();
-        return NoticeConverter.toNoticeFindAllByPageResponse(noticeFindAllByPageDto);
+        return NoticeConverter.toNoticeFindAllByPageResponse(dto);
     }
 
     @Transactional
