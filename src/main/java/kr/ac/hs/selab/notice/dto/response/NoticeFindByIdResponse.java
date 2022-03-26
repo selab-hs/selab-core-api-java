@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
-public class NoticeFindResponse {
+public class NoticeFindByIdResponse {
     @Schema(description = "작성자 아이디")
     private final Long memberId;
 
@@ -20,9 +20,6 @@ public class NoticeFindResponse {
 
     @Schema(description = "공지사항 내용")
     private final String content;
-
-    @Schema(description = "공지사항 이미지")
-    private final String image;
 
     @Schema(description = "공지사항 생성 시간")
     private final LocalDateTime createdAt;

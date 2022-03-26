@@ -4,11 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
 @Getter
-public class NoticeFindAllByPageResponse {
+public class NoticeFindByPageResponse {
     @Schema(description = "공지사항 전체 개수")
     private final Long totalCount;
 
@@ -22,5 +23,5 @@ public class NoticeFindAllByPageResponse {
     private final String sort;
 
     @Schema(description = "공지사항 전체 리스트")
-    private final List<NoticeFindResponse> notices;
+    private final List<NoticeFindByIdResponse> notices;
 }

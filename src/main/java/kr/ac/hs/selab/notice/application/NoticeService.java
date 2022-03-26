@@ -34,13 +34,13 @@ public class NoticeService {
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.NOTICE_NOT_EXISTS_ERROR));
     }
 
-    public Page<Notice> findAllByPage(Pageable pageable) {
+    public Page<Notice> findByPage(Pageable pageable) {
         return noticeRepository.findByDeleteFlag(Constants.NOT_DELETED, pageable);
     }
 
     @Transactional
     public Notice update(NoticeUpdateDto dto) {
-        return findById(dto.getId()).update(dto.getTitle(), dto.getContent(), dto.getImage());
+        return findById(dto.getId()).update(dto.getTitle(), dto.getContent());
     }
 
     @Transactional

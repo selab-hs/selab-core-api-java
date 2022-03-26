@@ -3,10 +3,9 @@ package kr.ac.hs.selab.notice.presentation;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.utils.SecurityUtils;
-import kr.ac.hs.selab.notice.converter.NoticeConverter;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByIdResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
 import kr.ac.hs.selab.notice.facade.NoticeFacade;
 import lombok.RequiredArgsConstructor;
@@ -32,14 +31,14 @@ public class NoticeController implements NoticeSdk {
 
     @Override
     @GetMapping("/{id}")
-    public ResponseTemplate<NoticeFindResponse> find(@PathVariable Long id) {
-        var response = noticeFacade.findNoticeResponseById(id);
+    public ResponseTemplate<NoticeFindByIdResponse> findById(@PathVariable Long id) {
+        var response = noticeFacade.findById(id);
         return ResponseTemplate.ok(ResponseMessage.NOTICE_FIND_SUCCESS, response);
     }
 
     @GetMapping
-    public ResponseTemplate<NoticeFindAllByPageResponse> findAllByPage(@PageableDefault(size = 20, page = 0, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        var response = noticeFacade.findNoticeFindAllByPageResponse(pageable);
+    public ResponseTemplate<NoticeFindByPageResponse> findByPage(@PageableDefault(size = 20, page = 0, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        var response = noticeFacade.findByPage(pageable);
         return ResponseTemplate.ok(ResponseMessage.NOTICE_FIND_SUCCESS, response);
     }
 
