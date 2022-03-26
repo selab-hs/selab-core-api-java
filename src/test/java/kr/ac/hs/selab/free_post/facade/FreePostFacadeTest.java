@@ -2,7 +2,6 @@ package kr.ac.hs.selab.free_post.facade;
 
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
-import kr.ac.hs.selab.board.dto.response.BoardResponse;
 import kr.ac.hs.selab.free_post.application.FreePostService;
 import kr.ac.hs.selab.free_post.converter.FreePostConverter;
 import kr.ac.hs.selab.free_post.domain.FreePost;
@@ -11,7 +10,6 @@ import kr.ac.hs.selab.free_post.dto.request.FreePostRequest;
 import kr.ac.hs.selab.free_post.dto.response.FreePostResponse;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.member.domain.Member;
-import kr.ac.hs.selab.notice.domain.Notice;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -119,7 +117,7 @@ public class FreePostFacadeTest {
     public void 자유게시글_수정하기() {
         // given
         var post = fixtureMonkey.giveMeOne(FreePost.class);
-        var noticeRequest = new FreePostRequest(
+        var request = new FreePostRequest(
                 fixtureMonkey.giveMeOne(String.class),
                 fixtureMonkey.giveMeOne(String.class)
         );
@@ -130,7 +128,7 @@ public class FreePostFacadeTest {
                 .thenReturn(post);
 
         // when
-        var actual = freePostFacade.update(post.getId(), noticeRequest);
+        var actual = freePostFacade.update(post.getId(), request);
 
         // then
         assertEquals(expected.getId(), actual.getId());

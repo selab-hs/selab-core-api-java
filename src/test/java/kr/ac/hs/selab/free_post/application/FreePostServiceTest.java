@@ -6,8 +6,6 @@ import kr.ac.hs.selab.free_post.domain.FreePost;
 import kr.ac.hs.selab.free_post.dto.FreePostCreateDto;
 import kr.ac.hs.selab.free_post.dto.FreePostUpdateDto;
 import kr.ac.hs.selab.free_post.infrastructure.FreePostRepository;
-import kr.ac.hs.selab.notice.domain.Notice;
-import kr.ac.hs.selab.notice.dto.NoticeUpdateDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

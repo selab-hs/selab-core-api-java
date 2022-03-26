@@ -7,6 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public class FreePostResponse {
-    @Schema(description = "자유게시글 ID")
+    @Schema(description = "자유게시글 id")
     private final Long id;
 }

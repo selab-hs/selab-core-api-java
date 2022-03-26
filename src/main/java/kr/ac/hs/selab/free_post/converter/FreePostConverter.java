@@ -5,11 +5,10 @@ import kr.ac.hs.selab.free_post.dto.FreePostCreateDto;
 import kr.ac.hs.selab.free_post.dto.FreePostFindByPageDto;
 import kr.ac.hs.selab.free_post.dto.FreePostUpdateDto;
 import kr.ac.hs.selab.free_post.dto.request.FreePostRequest;
-import kr.ac.hs.selab.free_post.dto.response.FreePostFindByPageResponse;
 import kr.ac.hs.selab.free_post.dto.response.FreePostFindByIdResponse;
+import kr.ac.hs.selab.free_post.dto.response.FreePostFindByPageResponse;
 import lombok.experimental.UtilityClass;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -34,16 +33,17 @@ public class FreePostConverter {
     }
 
     public FreePostFindByPageResponse toFreePostFindByPageResponse(FreePostFindByPageDto dto) {
-        var freePostFindByIdResponses = dto.getFreePosts()
+        var responses = dto.getFreePosts()
                 .stream()
                 .map(FreePostConverter::toFreePostFindByIdResponse)
                 .collect(Collectors.toList());
+
         return FreePostFindByPageResponse.builder()
                 .totalCount(dto.getTotalCount())
                 .pageNumber(dto.getPageable().getPageNumber())
                 .pageSize(dto.getPageable().getPageSize())
                 .sort(dto.getPageable().getSort().toString())
-                .freePosts(freePostFindByIdResponses)
+                .freePosts(responses)
                 .build();
     }
 
