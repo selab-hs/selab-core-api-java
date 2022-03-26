@@ -22,28 +22,28 @@ public class FreePostConverter {
                 .build();
     }
 
-    public FreePostFindByIdResponse toFreePostFindByIdResponse(FreePost notice) {
+    public FreePostFindByIdResponse toFreePostFindByIdResponse(FreePost post) {
         return FreePostFindByIdResponse.builder()
-                .freePostId(notice.getId())
-                .memberId(notice.getMemberId())
-                .title(notice.getTitle())
-                .content(notice.getContent())
-                .createdAt(notice.getCreatedAt())
-                .modifiedAt(notice.getModifiedAt())
+                .freePostId(post.getId())
+                .memberId(post.getMemberId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .createdAt(post.getCreatedAt())
+                .modifiedAt(post.getModifiedAt())
                 .build();
     }
 
-    public FreePostFindByPageResponse toFreePostFindByPageResponse(FreePostFindByPageDto freePostFindAllByPageDto) {
-        List<FreePostFindByIdResponse> freePostResponses = freePostFindAllByPageDto.getFreePosts()
+    public FreePostFindByPageResponse toFreePostFindByPageResponse(FreePostFindByPageDto dto) {
+        var freePostFindByIdResponses = dto.getFreePosts()
                 .stream()
                 .map(FreePostConverter::toFreePostFindByIdResponse)
                 .collect(Collectors.toList());
         return FreePostFindByPageResponse.builder()
-                .totalCount(freePostFindAllByPageDto.getTotalCount())
-                .pageNumber(freePostFindAllByPageDto.getPageable().getPageNumber())
-                .pageSize(freePostFindAllByPageDto.getPageable().getPageSize())
-                .sort(freePostFindAllByPageDto.getPageable().getSort().toString())
-                .freePosts(freePostResponses)
+                .totalCount(dto.getTotalCount())
+                .pageNumber(dto.getPageable().getPageNumber())
+                .pageSize(dto.getPageable().getPageSize())
+                .sort(dto.getPageable().getSort().toString())
+                .freePosts(freePostFindByIdResponses)
                 .build();
     }
 
