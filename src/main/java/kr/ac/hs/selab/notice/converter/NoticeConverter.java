@@ -5,8 +5,8 @@ import kr.ac.hs.selab.notice.dto.NoticeCreateDto;
 import kr.ac.hs.selab.notice.dto.NoticeFindByPageDto;
 import kr.ac.hs.selab.notice.dto.NoticeUpdateDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindByIdResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
 import lombok.experimental.UtilityClass;
 
 import java.util.stream.Collectors;
@@ -35,7 +35,7 @@ public class NoticeConverter {
     public NoticeFindByPageResponse toNoticeFindByPageResponse(NoticeFindByPageDto dto) {
         var responses = dto.getNotices()
                 .stream()
-                .map(NoticeConverter::toNoticeFindByPageResponseInnerClass)
+                .map(NoticeConverter::toNoticeFindByIdResponse)
                 .collect(Collectors.toList());
 
         return NoticeFindByPageResponse.builder()
@@ -44,17 +44,6 @@ public class NoticeConverter {
                 .pageSize(dto.getPageable().getPageSize())
                 .sort(dto.getPageable().getSort().toString())
                 .notices(responses)
-                .build();
-    }
-
-    private NoticeFindByPageResponse.InnerClass toNoticeFindByPageResponseInnerClass(Notice notice) {
-        return NoticeFindByPageResponse.InnerClass
-                .builder()
-                .memberId(notice.getMemberId())
-                .title(notice.getTitle())
-                .content(notice.getContent())
-                .createdAt(notice.getCreatedAt())
-                .modifiedAt(notice.getModifiedAt())
                 .build();
     }
 

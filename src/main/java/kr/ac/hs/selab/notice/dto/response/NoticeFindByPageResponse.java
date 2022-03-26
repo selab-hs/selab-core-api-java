@@ -13,9 +13,6 @@ public class NoticeFindByPageResponse {
     @Schema(description = "공지사항 전체 개수")
     private final Long totalCount;
 
-    @Schema(description = "공지사항 아이디")
-    private final Long noticeId;
-
     @Schema(description = "공지사항 페이지 번호")
     private final int pageNumber;
 
@@ -26,24 +23,5 @@ public class NoticeFindByPageResponse {
     private final String sort;
 
     @Schema(description = "공지사항 전체 리스트")
-    private final List<InnerClass> notices;
-
-    @Builder
-    @Getter
-    public static class InnerClass {
-        @Schema(description = "작성자 아이디")
-        private final Long memberId;
-
-        @Schema(description = "공지사항 제목")
-        private final String title;
-
-        @Schema(description = "공지사항 내용")
-        private final String content;
-
-        @Schema(description = "공지사항 생성 시간")
-        private final LocalDateTime createdAt;
-
-        @Schema(description = "공지사항 수정 시간")
-        private final LocalDateTime modifiedAt;
-    }
+    private final List<NoticeFindByIdResponse> notices;
 }
