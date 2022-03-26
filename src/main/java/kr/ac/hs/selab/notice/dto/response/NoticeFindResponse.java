@@ -21,9 +21,6 @@ public class NoticeFindResponse {
     @Schema(description = "공지사항 내용")
     private final String content;
 
-    @Schema(description = "공지사항 이미지")
-    private final String image;
-
     @Schema(description = "공지사항 생성 시간")
     private final LocalDateTime createdAt;
 

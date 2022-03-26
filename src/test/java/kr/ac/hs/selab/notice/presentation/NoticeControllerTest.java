@@ -58,8 +58,7 @@ public class NoticeControllerTest {
 //                .sample();
 //        var noticeRequest = new NoticeRequest(
 //                notice.getTitle(),
-//                notice.getContent(),
-//                notice.getImage()
+//                notice.getContent()
 //        );
 //        var noticeResponse = new NoticeResponse(notice.getId());
 //
@@ -124,8 +123,7 @@ public class NoticeControllerTest {
         var notice = fixtureMonkey.giveMeOne(Notice.class);
         var noticeRequest = new NoticeRequest(
                 "공지사항 수정이 있겠습니다.",
-                "수정 내용은 아래와 같습니다.",
-                null
+                "수정 내용은 아래와 같습니다."
         );
         var noticeResponse = new NoticeResponse(notice.getId());
 

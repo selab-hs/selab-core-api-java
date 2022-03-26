@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
@@ -20,7 +19,4 @@ public class NoticeRequest {
     @Schema(description = "공지사항 내용")
     @NotBlank(message = "공지사항 내용을 입력해 주세요.")
     private String content;
-
-    @Schema(description = "공지사항 이미지")
-    private String image;
 }

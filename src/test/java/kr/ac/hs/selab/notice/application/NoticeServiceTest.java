@@ -41,7 +41,6 @@ public class NoticeServiceTest {
         var noticeCreateDto = NoticeCreateDto.builder()
                 .title(expected.getTitle())
                 .content(expected.getContent())
-                .image(expected.getImage())
                 .build();
 
         // mocking
@@ -115,12 +114,10 @@ public class NoticeServiceTest {
         var notice = fixtureMonkey.giveMeOne(Notice.class);
         var expectedTitle = fixtureMonkey.giveMeOne(String.class);
         var expectedContent = fixtureMonkey.giveMeOne(String.class);
-        var expectedImage = fixtureMonkey.giveMeOne(String.class);
         var noticeUpdateDto = NoticeUpdateDto.builder()
                 .id(notice.getId())
                 .title(expectedTitle)
                 .content(expectedContent)
-                .image(expectedImage)
                 .build();
 
         // mocking
@@ -133,7 +130,6 @@ public class NoticeServiceTest {
         // then
         assertEquals(expectedTitle, actual.getTitle());
         assertEquals(expectedContent, actual.getContent());
-        assertEquals(expectedImage, actual.getImage());
     }
 
     @Test

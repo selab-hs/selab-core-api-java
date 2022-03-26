@@ -40,7 +40,7 @@ public class NoticeService {
 
     @Transactional
     public Notice update(NoticeUpdateDto dto) {
-        return findById(dto.getId()).update(dto.getTitle(), dto.getContent(), dto.getImage());
+        return findById(dto.getId()).update(dto.getTitle(), dto.getContent());
     }
 
     @Transactional

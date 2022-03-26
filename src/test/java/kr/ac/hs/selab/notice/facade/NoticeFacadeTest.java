@@ -50,8 +50,7 @@ public class NoticeFacadeTest {
                 .sample();
         var noticeRequest = new NoticeRequest(
                 notice.getTitle(),
-                notice.getContent(),
-                notice.getImage()
+                notice.getContent()
         );
         var expected = new BoardResponse(notice.getId());
 
@@ -120,7 +119,6 @@ public class NoticeFacadeTest {
         // given
         var notice = fixtureMonkey.giveMeOne(Notice.class);
         var noticeRequest = new NoticeRequest(
-                fixtureMonkey.giveMeOne(String.class),
                 fixtureMonkey.giveMeOne(String.class),
                 fixtureMonkey.giveMeOne(String.class)
         );

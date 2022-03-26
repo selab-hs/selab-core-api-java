@@ -19,7 +19,6 @@ public class NoticeConverter {
                 .memberId(dto.getMemberId())
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .image(dto.getImage())
                 .build();
     }
 
@@ -29,7 +28,6 @@ public class NoticeConverter {
                 .memberId(notice.getMemberId())
                 .title(notice.getTitle())
                 .content(notice.getContent())
-                .image(notice.getImage())
                 .createdAt(notice.getCreatedAt())
                 .modifiedAt(notice.getModifiedAt())
                 .build();
@@ -54,7 +52,6 @@ public class NoticeConverter {
                 .memberId(memberId)
                 .title(request.getTitle())
                 .content(request.getContent())
-                .image(request.getImage())
                 .build();
     }
 
@@ -63,7 +60,6 @@ public class NoticeConverter {
                 .id(id)
                 .title(request.getTitle())
                 .content(request.getContent())
-                .image(request.getImage())
                 .build();
     }
 }

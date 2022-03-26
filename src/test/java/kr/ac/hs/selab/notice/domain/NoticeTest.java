@@ -28,8 +28,7 @@ public class NoticeTest {
         // when
         var newTitle = fixtureMonkey.giveMeOne(String.class);
         var newContent = fixtureMonkey.giveMeOne(String.class);
-        var newImage = fixtureMonkey.giveMeOne(String.class);
-        notice.update(newTitle, newContent, newImage);
+        notice.update(newTitle, newContent);
 
         // then
         assertEquals(newTitle, notice.getTitle());
