@@ -61,6 +61,11 @@ public enum ErrorMessage {
      */
     NOTICE_NOT_EXISTS_ERROR("E-N-0001", "존재하지 않는 공지사항입니다."),
 
+    /**
+     * COMMENT ERROR RESPONSE MESSAGE
+     */
+    NOTICE_COMMENT_NOT_EXISTS_ERROR("E-NC-0001", "존재하지 않는 공지사항의 댓글입니다."),
+
     ;
 
     private final String code;
