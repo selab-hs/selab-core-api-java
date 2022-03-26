@@ -2,14 +2,13 @@ package kr.ac.hs.selab.notice.converter;
 
 import kr.ac.hs.selab.notice.domain.Notice;
 import kr.ac.hs.selab.notice.dto.NoticeCreateDto;
-import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
+import kr.ac.hs.selab.notice.dto.NoticeFindByPageDto;
 import kr.ac.hs.selab.notice.dto.NoticeUpdateDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByIdResponse;
 import lombok.experimental.UtilityClass;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -22,8 +21,8 @@ public class NoticeConverter {
                 .build();
     }
 
-    public NoticeFindResponse toNoticeFindResponse(Notice notice) {
-        return NoticeFindResponse.builder()
+    public NoticeFindByIdResponse toNoticeFindByIdResponse(Notice notice) {
+        return NoticeFindByIdResponse.builder()
                 .noticeId(notice.getId())
                 .memberId(notice.getMemberId())
                 .title(notice.getTitle())
@@ -33,17 +32,29 @@ public class NoticeConverter {
                 .build();
     }
 
-    public NoticeFindAllByPageResponse toNoticeFindAllByPageResponse(NoticeFindAllByPageDto dto) {
-        var noticeFindResponses = dto.getNotices()
+    public NoticeFindByPageResponse toNoticeFindByPageResponse(NoticeFindByPageDto dto) {
+        var responses = dto.getNotices()
                 .stream()
-                .map(NoticeConverter::toNoticeFindResponse)
+                .map(NoticeConverter::toNoticeFindByPageResponseInnerClass)
                 .collect(Collectors.toList());
-        return NoticeFindAllByPageResponse.builder()
+
+        return NoticeFindByPageResponse.builder()
                 .totalCount(dto.getTotalCount())
                 .pageNumber(dto.getPageable().getPageNumber())
                 .pageSize(dto.getPageable().getPageSize())
                 .sort(dto.getPageable().getSort().toString())
-                .notices(noticeFindResponses)
+                .notices(responses)
+                .build();
+    }
+
+    private NoticeFindByPageResponse.InnerClass toNoticeFindByPageResponseInnerClass(Notice notice) {
+        return NoticeFindByPageResponse.InnerClass
+                .builder()
+                .memberId(notice.getMemberId())
+                .title(notice.getTitle())
+                .content(notice.getContent())
+                .createdAt(notice.getCreatedAt())
+                .modifiedAt(notice.getModifiedAt())
                 .build();
     }
 

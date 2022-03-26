@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
-public class NoticeFindResponse {
+public class NoticeFindByIdResponse {
     @Schema(description = "작성자 아이디")
     private final Long memberId;
 

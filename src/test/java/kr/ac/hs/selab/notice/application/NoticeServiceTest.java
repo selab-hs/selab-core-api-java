@@ -99,7 +99,7 @@ public class NoticeServiceTest {
                 .thenReturn(expected);
 
         // when
-        var actual = noticeService.findAllByPage(pageable);
+        var actual = noticeService.findByPage(pageable);
 
         // when
         assertEquals(expected, actual);

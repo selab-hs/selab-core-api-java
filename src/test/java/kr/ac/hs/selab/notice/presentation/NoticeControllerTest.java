@@ -3,11 +3,9 @@ package kr.ac.hs.selab.notice.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
-import kr.ac.hs.selab.common.utils.SecurityUtils;
-import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
 import kr.ac.hs.selab.notice.domain.Notice;
-import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
+import kr.ac.hs.selab.notice.dto.NoticeFindByPageDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
 import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
 import kr.ac.hs.selab.notice.facade.NoticeFacade;
@@ -85,10 +83,10 @@ public class NoticeControllerTest {
     public void 아이디로_공지사항_조회하기() throws Exception {
         // given
         var notice = fixtureMonkey.giveMeOne(Notice.class);
-        var response = NoticeConverter.toNoticeFindResponse(notice);
+        var response = NoticeConverter.toNoticeFindByIdResponse(notice);
 
         // mocking
-        Mockito.when(noticeFacade.findNoticeResponseById(anyLong()))
+        Mockito.when(noticeFacade.findById(anyLong()))
                 .thenReturn(response);
 
         // when, then
@@ -103,15 +101,15 @@ public class NoticeControllerTest {
         var pageable = PageRequest.of(1, 20);
         var notices = fixtureMonkey.giveMe(Notice.class, (int) totalCount);
 
-        var dto = NoticeFindAllByPageDto.builder()
+        var dto = NoticeFindByPageDto.builder()
                 .totalCount(totalCount)
                 .pageable(pageable)
                 .notices(new PageImpl<>(notices, pageable, totalCount))
                 .build();
-        var response = NoticeConverter.toNoticeFindAllByPageResponse(dto);
+        var response = NoticeConverter.toNoticeFindByPageResponse(dto);
 
         // mocking
-        Mockito.when(noticeFacade.findNoticeFindAllByPageResponse(any()))
+        Mockito.when(noticeFacade.findByPage(any()))
                 .thenReturn(response);
 
         // when, then

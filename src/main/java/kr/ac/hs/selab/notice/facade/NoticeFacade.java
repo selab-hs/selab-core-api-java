@@ -3,10 +3,10 @@ package kr.ac.hs.selab.notice.facade;
 import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.notice.application.NoticeService;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
-import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
+import kr.ac.hs.selab.notice.dto.NoticeFindByPageDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByIdResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -30,18 +30,18 @@ public class NoticeFacade {
     }
 
     @Transactional
-    public NoticeFindResponse findNoticeResponseById(Long id) {
+    public NoticeFindByIdResponse findById(Long id) {
         var notice = noticeService.findById(id);
-        return NoticeConverter.toNoticeFindResponse(notice);
+        return NoticeConverter.toNoticeFindByIdResponse(notice);
     }
 
-    public NoticeFindAllByPageResponse findNoticeFindAllByPageResponse(Pageable pageable) {
-        var dto = NoticeFindAllByPageDto.builder()
+    public NoticeFindByPageResponse findByPage(Pageable pageable) {
+        var dto = NoticeFindByPageDto.builder()
                 .totalCount(noticeService.count())
                 .pageable(pageable)
-                .notices(noticeService.findAllByPage(pageable))
+                .notices(noticeService.findByPage(pageable))
                 .build();
-        return NoticeConverter.toNoticeFindAllByPageResponse(dto);
+        return NoticeConverter.toNoticeFindByPageResponse(dto);
     }
 
     @Transactional

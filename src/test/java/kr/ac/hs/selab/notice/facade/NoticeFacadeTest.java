@@ -8,9 +8,9 @@ import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.notice.application.NoticeService;
 import kr.ac.hs.selab.notice.converter.NoticeConverter;
 import kr.ac.hs.selab.notice.domain.Notice;
-import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
+import kr.ac.hs.selab.notice.dto.NoticeFindByPageDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -72,14 +72,14 @@ public class NoticeFacadeTest {
     public void 아이디로_공지사항_찾기() {
         // given
         var notice = fixtureMonkey.giveMeOne(Notice.class);
-        var expected = NoticeConverter.toNoticeFindResponse(notice);
+        var expected = NoticeConverter.toNoticeFindByIdResponse(notice);
 
         // mocking
         Mockito.when(noticeService.findById(anyLong()))
                 .thenReturn(notice);
 
         // when
-        var actual = noticeFacade.findNoticeResponseById(notice.getId());
+        var actual = noticeFacade.findById(notice.getId());
 
         // then
         assertEquals(expected.getTitle(), actual.getTitle());
@@ -93,21 +93,21 @@ public class NoticeFacadeTest {
         var notices = fixtureMonkey.giveMe(Notice.class, (int) totalCount);
         var noticePage = new PageImpl<>(notices, pageable, totalCount);
 
-        var dto = NoticeFindAllByPageDto.builder()
+        var dto = NoticeFindByPageDto.builder()
                 .totalCount(totalCount)
                 .pageable(pageable)
                 .notices(noticePage)
                 .build();
-        var expected = NoticeConverter.toNoticeFindAllByPageResponse(dto);
+        var expected = NoticeConverter.toNoticeFindByPageResponse(dto);
 
         // mocking
         Mockito.when(noticeService.count())
                 .thenReturn(totalCount);
-        Mockito.when(noticeService.findAllByPage(any()))
+        Mockito.when(noticeService.findByPage(any()))
                 .thenReturn(noticePage);
 
         // when
-        NoticeFindAllByPageResponse actual = noticeFacade.findNoticeFindAllByPageResponse(pageable);
+        NoticeFindByPageResponse actual = noticeFacade.findByPage(pageable);
 
         // when
         assertEquals(expected.getTotalCount(), actual.getTotalCount());
