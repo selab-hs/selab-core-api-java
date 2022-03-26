@@ -79,6 +79,14 @@ public enum ResponseMessage implements Serializable {
     FREE_POST_UPDATE_SUCCESS("R-F-0003", "자유게시글을 성공적으로 수정했습니다."),
     FREE_POST_DELETE_SUCCESS("R-F-0004", "자유게시글을 성공적으로 삭제했습니다."),
 
+    /**
+     * FREE POST COMMENT SUCCESS RESPONSE MASSAGE
+     */
+    FREE_POST_COMMENT_CREATE_SUCCESS("R-FC-0001", "자유게시글 댓글을 성공적으로 생성했습니다."),
+    FREE_POST_COMMENT_FIND_SUCCESS("R-FC-0002", "자유게시글 댓글을 성공적으로 조회했습니다."),
+    FREE_POST_COMMENT_UPDATE_SUCCESS("R-FC-0003", "자유게시글 댓글을 성공적으로 수정했습니다."),
+    FREE_POST_COMMENT_DELETE_SUCCESS("R-FC-0004", "자유게시글 댓글을 성공적으로 삭제했습니다."),
+
     ;
 
     private final String code;
