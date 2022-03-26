@@ -26,9 +26,6 @@ public class Notice extends BaseEntity {
     @Column(name = "notice_content", nullable = false)
     private String content;
 
-    @Column(name = "notice_image")
-    private String image;
-
     @Column(name = "notice_delete_flag", nullable = false)
     private boolean deleteFlag;
 
@@ -36,18 +33,16 @@ public class Notice extends BaseEntity {
     private static final String HYPHEN = "-";
 
     @Builder
-    private Notice(Long memberId, String title, String content, String image) {
+    private Notice(Long memberId, String title, String content) {
         this.title = title;
         this.memberId = memberId;
         this.content = content;
-        this.image = image;
         this.deleteFlag = false;
     }
 
-    public Notice update(String title, String content, String image) {
+    public Notice update(String title, String content) {
         this.title = title;
         this.content = content;
-        this.image = image;
         return this;
     }
 

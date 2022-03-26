@@ -2,14 +2,13 @@ package kr.ac.hs.selab.notice.converter;
 
 import kr.ac.hs.selab.notice.domain.Notice;
 import kr.ac.hs.selab.notice.dto.NoticeCreateDto;
-import kr.ac.hs.selab.notice.dto.NoticeFindAllByPageDto;
+import kr.ac.hs.selab.notice.dto.NoticeFindByPageDto;
 import kr.ac.hs.selab.notice.dto.NoticeUpdateDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindAllByPageResponse;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByIdResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
 import lombok.experimental.UtilityClass;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -19,33 +18,32 @@ public class NoticeConverter {
                 .memberId(dto.getMemberId())
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .image(dto.getImage())
                 .build();
     }
 
-    public NoticeFindResponse toNoticeFindResponse(Notice notice) {
-        return NoticeFindResponse.builder()
+    public NoticeFindByIdResponse toNoticeFindByIdResponse(Notice notice) {
+        return NoticeFindByIdResponse.builder()
                 .noticeId(notice.getId())
                 .memberId(notice.getMemberId())
                 .title(notice.getTitle())
                 .content(notice.getContent())
-                .image(notice.getImage())
                 .createdAt(notice.getCreatedAt())
                 .modifiedAt(notice.getModifiedAt())
                 .build();
     }
 
-    public NoticeFindAllByPageResponse toNoticeFindAllByPageResponse(NoticeFindAllByPageDto noticeFindAllByPageDto) {
-        List<NoticeFindResponse> noticeResponses = noticeFindAllByPageDto.getNotices()
+    public NoticeFindByPageResponse toNoticeFindByPageResponse(NoticeFindByPageDto dto) {
+        var responses = dto.getNotices()
                 .stream()
-                .map(NoticeConverter::toNoticeFindResponse)
+                .map(NoticeConverter::toNoticeFindByIdResponse)
                 .collect(Collectors.toList());
-        return NoticeFindAllByPageResponse.builder()
-                .totalCount(noticeFindAllByPageDto.getTotalCount())
-                .pageNumber(noticeFindAllByPageDto.getPageable().getPageNumber())
-                .pageSize(noticeFindAllByPageDto.getPageable().getPageSize())
-                .sort(noticeFindAllByPageDto.getPageable().getSort().toString())
-                .notices(noticeResponses)
+
+        return NoticeFindByPageResponse.builder()
+                .totalCount(dto.getTotalCount())
+                .pageNumber(dto.getPageable().getPageNumber())
+                .pageSize(dto.getPageable().getPageSize())
+                .sort(dto.getPageable().getSort().toString())
+                .notices(responses)
                 .build();
     }
 
@@ -54,7 +52,6 @@ public class NoticeConverter {
                 .memberId(memberId)
                 .title(request.getTitle())
                 .content(request.getContent())
-                .image(request.getImage())
                 .build();
     }
 
@@ -63,7 +60,6 @@ public class NoticeConverter {
                 .id(id)
                 .title(request.getTitle())
                 .content(request.getContent())
-                .image(request.getImage())
                 .build();
     }
 }

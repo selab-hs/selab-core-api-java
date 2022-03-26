@@ -38,10 +38,9 @@ public class NoticeServiceTest {
     public void 공지사항_생성하기() {
         // given
         var expected = fixtureMonkey.giveMeOne(Notice.class);
-        var noticeCreateDto = NoticeCreateDto.builder()
+        var dto = NoticeCreateDto.builder()
                 .title(expected.getTitle())
                 .content(expected.getContent())
-                .image(expected.getImage())
                 .build();
 
         // mocking
@@ -49,7 +48,7 @@ public class NoticeServiceTest {
                 .thenReturn(expected);
 
         // when
-        var actual = noticeService.create(noticeCreateDto);
+        var actual = noticeService.create(dto);
 
         // then
         assertEquals(expected, actual);
@@ -91,10 +90,7 @@ public class NoticeServiceTest {
     public void 전체_공지사항_페이지로_찾기() {
         // given
         var totalCount = 100L;
-        var pageNumber = 1;
-        var pageSize = 20;
-
-        var pageable = PageRequest.of(pageNumber, pageSize);
+        var pageable = PageRequest.of(1, 20);
         var notices = fixtureMonkey.giveMe(Notice.class, (int) totalCount);
         var expected = new PageImpl<>(notices, pageable, totalCount);
 
@@ -103,7 +99,7 @@ public class NoticeServiceTest {
                 .thenReturn(expected);
 
         // when
-        var actual = noticeService.findAllByPage(pageable);
+        var actual = noticeService.findByPage(pageable);
 
         // when
         assertEquals(expected, actual);
@@ -115,12 +111,11 @@ public class NoticeServiceTest {
         var notice = fixtureMonkey.giveMeOne(Notice.class);
         var expectedTitle = fixtureMonkey.giveMeOne(String.class);
         var expectedContent = fixtureMonkey.giveMeOne(String.class);
-        var expectedImage = fixtureMonkey.giveMeOne(String.class);
-        var noticeUpdateDto = NoticeUpdateDto.builder()
+
+        var dto = NoticeUpdateDto.builder()
                 .id(notice.getId())
                 .title(expectedTitle)
                 .content(expectedContent)
-                .image(expectedImage)
                 .build();
 
         // mocking
@@ -128,12 +123,11 @@ public class NoticeServiceTest {
                 .thenReturn(Optional.of(notice));
 
         // when
-        var actual = noticeService.update(noticeUpdateDto);
+        var actual = noticeService.update(dto);
 
         // then
         assertEquals(expectedTitle, actual.getTitle());
         assertEquals(expectedContent, actual.getContent());
-        assertEquals(expectedImage, actual.getImage());
     }
 
     @Test

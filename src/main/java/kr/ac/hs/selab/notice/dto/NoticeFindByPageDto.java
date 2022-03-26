@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 @Builder
 @Getter
-public class NoticeFindAllByPageDto {
+public class NoticeFindByPageDto {
     private final Long totalCount;
     private final Pageable pageable;
     private final Page<Notice> notices;
