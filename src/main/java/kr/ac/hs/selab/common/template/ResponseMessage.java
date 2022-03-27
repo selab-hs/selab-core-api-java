@@ -95,6 +95,11 @@ public enum ResponseMessage implements Serializable {
     FREE_POST_COMMENT_UPDATE_SUCCESS("R-FC-0003", "자유게시글 댓글을 성공적으로 수정했습니다."),
     FREE_POST_COMMENT_DELETE_SUCCESS("R-FC-0004", "자유게시글 댓글을 성공적으로 삭제했습니다."),
 
+    /**
+     * CORE QA SUCCESS RESPONSE MESSAGE
+     **/
+    CORE_QA_CREATE_SUCCESS("R-CQ-0001", "코어 QA 성공적으로 생성했습니다."),
+
     ;
 
     private final String code;
