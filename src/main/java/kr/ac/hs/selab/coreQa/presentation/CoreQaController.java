@@ -15,10 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/core-qas")
@@ -57,5 +54,11 @@ public class CoreQaController implements CoreQaSdk {
                 ResponseMessage.CORE_QA_CREATE_SUCCESS,
                 response
         );
+    }
+
+    @GetMapping("/{id}")
+    public ResponseTemplate<CoreQaReadResponse> getCoreQa(@PathVariable Long id) {
+        var response = coreQaService.get(id);
+        return ResponseTemplate.ok(ResponseMessage.CORE_QA_READ_SUCCESS, response);
     }
 }

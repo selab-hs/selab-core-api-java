@@ -4,11 +4,15 @@ import kr.ac.hs.selab.coreQa.domain.CoreQa;
 import kr.ac.hs.selab.coreQa.dto.response.CoreQaCreateResponse;
 import kr.ac.hs.selab.coreQa.dto.response.CoreQaReadResponse;
 import kr.ac.hs.selab.coreQa.infrastructure.CoreQaRepository;
+import kr.ac.hs.selab.error.exception.common.NonExitsException;
+import kr.ac.hs.selab.error.template.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +37,13 @@ public class CoreQaService {
                         new CoreQaReadResponse(coreQa.getTitle(), coreQa.getContent())
 
                 );
+    }
+
+    @Transactional(readOnly = true)
+    public CoreQaReadResponse get(Long id) {
+        var coreQa = coreQaRepository.findById(id)
+                .orElseThrow(() -> new NonExitsException(ErrorMessage.CORE_QA_NOT_EXISTS_ERROR));
+
+        return new CoreQaReadResponse(coreQa.getTitle(), coreQa.getContent());
     }
 }
