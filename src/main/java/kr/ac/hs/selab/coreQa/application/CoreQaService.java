@@ -2,8 +2,11 @@ package kr.ac.hs.selab.coreQa.application;
 
 import kr.ac.hs.selab.coreQa.domain.CoreQa;
 import kr.ac.hs.selab.coreQa.dto.response.CoreQaCreateResponse;
+import kr.ac.hs.selab.coreQa.dto.response.CoreQaReadResponse;
 import kr.ac.hs.selab.coreQa.infrastructure.CoreQaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,5 +24,14 @@ public class CoreQaService {
                 .memberId(memberId)
                 .build());
         return new CoreQaCreateResponse(coreQa.getTitle(), coreQa.getContent());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<CoreQaReadResponse> getAll(Pageable pageable) {
+        return coreQaRepository.findAll(pageable)
+                .map(coreQa ->
+                        new CoreQaReadResponse(coreQa.getTitle(), coreQa.getContent())
+
+                );
     }
 }

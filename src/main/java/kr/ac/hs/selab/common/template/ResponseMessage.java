@@ -99,7 +99,8 @@ public enum ResponseMessage implements Serializable {
      * CORE QA SUCCESS RESPONSE MESSAGE
      **/
     CORE_QA_CREATE_SUCCESS("R-CQ-0001", "코어 QA 성공적으로 생성했습니다."),
-
+    CORE_QA_READ_ALL_SUCCESS("R-CQ-0002", "코어 QA를 페이지 조회했습니다."),
+    
     ;
 
     private final String code;
