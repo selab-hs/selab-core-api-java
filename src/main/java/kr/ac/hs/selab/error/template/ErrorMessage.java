@@ -75,6 +75,10 @@ public enum ErrorMessage {
      */
     FREE_POST_COMMENT_NOT_EXISTS_ERROR("E-FC-0001", "존재하지 않는 자유게시글의 댓글입니다."),
 
+    /**
+     * CORE QA ERROR RESPONSE MESSAGE
+     */
+    CORE_QA_NOT_EXISTS_ERROR("E-CQ-0001", "존재하지 않는 QA 항목입니다."),
     ;
 
     private final String code;
