@@ -16,11 +16,11 @@ public class CoreQaFacade {
 
     @Transactional
     public CoreQaCreateResponse save(CoreQaCreateBundle bundle) {
-        var memberId = memberService.findByEmail(bundle.getEmail()).getId();
+        var memberId = memberService.findByEmail(bundle.email()).getId();
 
         return coreQaService.save(
-                bundle.getTitle(),
-                bundle.getContent(),
+                bundle.title(),
+                bundle.content(),
                 memberId
         );
     }

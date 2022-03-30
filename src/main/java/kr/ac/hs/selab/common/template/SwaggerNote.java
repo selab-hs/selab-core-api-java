@@ -1,48 +1,49 @@
 package kr.ac.hs.selab.common.template;
 
 public class SwaggerNote {
-    public static final String MEMBER_INSERT = "" +
-            "회원가입\n" +
-            "\n" +
-            "POST /api/v1/members/sign\n" +
-            "\n" +
-            "Request Body\n" +
-            "{\n" +
-            "\"email\" : \"wrjs@naver.com\", // 이메일\n" +
-            "\"password\" : \"sdputd2423\", // 비밀번호 \n" +
-            "\"studentId\" : \"201658109\", // 학번\n" +
-            "\"name\" : \"김동건\", // 김동건\n" +
-            "\"nickname\" : \"야생의 구피\" // 닉네임\n" +
-            "}\n" +
-            "\n" +
-            "Response Body\n" +
-            "{\n" +
-            "\"message\": \"MEMBER_INSERT_SUCCESS\", // api name\n" +
-            "\"code\": \"R-M-0001\", // api code\n" +
-            "\"serverDateTime\": \"2022-02-18T22:53:46.270418\", // server date time\n" +
-            "\"data\": {\n" +
-            "\"email\": \"wrjs@naver.com\" // 이메일\n" +
-            "}\n" +
-            "}";
+    public static final String MEMBER_INSERT = """
+            회원가입
+            POST /api/v1/members/sign
+                                                    
+            Request Body
+            {
+                "email" : "wrjs@naver.com", // 이메일
+                "password" : "paskjdljd!2312", // 비밀번호
+                "studentId" : "201658109", // 학번
+                "name" : "김동간", // 이름
+                "nickname" : "야생의 구피" // 닉네임
+            }
+                                                    
+            Response Body
+            {
+                "message" : "MEMBER_INSERT_SUCCESS", // API MESSAGE
+                "code" : "R-M-0001", // API CODE
+                "serverDateTime" : "2022-02-18T22:53:46.270418", // 서버 타임
+                "data" : {
+                            "email" : "wrjs@naver.com" // 이메일
+                         }
+            }                                                                   
+            """;
 
-    public static final String AUTH_LOGIN = "" +
-            "로그인\n" +
-            "\n" +
-            "POST /api/v1/auth/login\n" +
-            "\n" +
-            "Request Body\n" +
-            "{\n" +
-            "\"email\" : \"wrjs@naver.com\", // 이메일\n" +
-            "\"password\" : \"dsk3sa4356klsadk\" // 비밀번호\n" +
-            "}\n" +
-            "\n" +
-            "Response Body\n" +
-            "{\n" +
-            "\"code\" : \";asld;lksakd;laskd;lak;dlklas;dkas;dkas\"" +
-            "\"data\": {" +
-            "\"email\": \"wrjs@naver.com\"" +
-            "}," +
-            "\"message\": \"string\",\n" +
-            "\"serverDateTime\": \"2022-03-04T15:21:28.416Z\"" +
-            "}";
+    public static final String AUTH_LOGIN = """
+            로그인
+            POST /api/v1/auth/login
+                                    
+            Request Body
+            {
+                "email" : "wrjs@naver.com", // 이메일
+                "password" : "aslkjdfloaksjd1!23" // 비밀번호
+            }
+                                    
+            Response Body
+            {
+                "message": "AUTH_LOGIN_SUCCESS", // API MESSAGE
+                "code": "R-A-0001", // API CODE
+                "serverDateTime": "2022-03-28T13:37:07.676Z", // 서버 타임
+                "data": {
+                    "email": "wrjs@naver.com", // 사용자 이메일
+                    "token": "asdk.jasldkjklwejfmasldjasjdljasldfjasdj" // 사용자 토큰 데이터
+                }
+            }
+            """;
 }
