@@ -6,12 +6,13 @@ plugins {
 }
 
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = "0.8.7"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
 group = 'kr.ac.hs'
 version = 'v0.0.1'
-java.sourceCompatibility = JavaVersion.VERSION_18
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
     compileOnly {
