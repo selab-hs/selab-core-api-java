@@ -14,10 +14,10 @@ jobs:
         uses: actions/checkout@v2
 
       # Set JDK Version
-      - name: Set up jdk 11
+      - name: Set up jdk 18
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 18
 
       # Modify Permission
       - name: Grant execute permission for gradlew
