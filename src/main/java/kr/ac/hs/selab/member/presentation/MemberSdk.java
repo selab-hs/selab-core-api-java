@@ -12,7 +12,7 @@ import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 
 @Api(tags = "회원 관리")
 public interface MemberSdk {
-    @ApiOperation(value = "회원가입", notes = SwaggerNote.MEMBER_INSERT)
+    @ApiOperation(value = "회원가입", notes = SwaggerNote.MEMBER_CREATE)
     @ApiResponses(
             @ApiResponse(code = 201, message = "회원가입 성공")
     )
