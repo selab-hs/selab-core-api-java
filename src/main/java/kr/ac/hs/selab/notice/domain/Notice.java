@@ -29,9 +29,6 @@ public class Notice extends BaseEntity {
     @Column(name = "notice_delete_flag", nullable = false)
     private boolean deleteFlag;
 
-    @Transient
-    private static final String HYPHEN = "-";
-
     @Builder
     private Notice(Long memberId, String title, String content) {
         this.title = title;

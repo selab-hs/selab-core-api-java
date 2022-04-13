@@ -12,7 +12,7 @@ import kr.ac.hs.selab.notice_comment.dto.response.NoticeCommentFindResponse;
 import kr.ac.hs.selab.notice_comment.dto.response.NoticeCommentResponse;
 import org.springframework.data.domain.Pageable;
 
-@Api(tags = "Notice Comment REST API", description = "공지사항 댓글 api")
+@Api(tags = "공지사항 댓글 관리")
 public interface NoticeCommentSdk {
     @Operation(summary = "공지사항 댓글 생성", description = "공지사항 댓글 정보를 이용해서 댓글을 생성한다.")
     @ApiResponses({

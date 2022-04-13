@@ -9,7 +9,7 @@ import kr.ac.hs.selab.notice_like.dto.response.NoticeLikeFindResponse;
 import kr.ac.hs.selab.notice_like.dto.response.NoticeLikeResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@Api(tags = "Notice Like REST API", description = "공지사항 좋아요 api")
+@Api(tags = "공지사항 좋아요")
 public interface NoticeLikeSdk {
     @Operation(summary = "공지사항 좋아요 생성", description = "공지사항에 좋아요를 한다.")
     @ApiResponses({

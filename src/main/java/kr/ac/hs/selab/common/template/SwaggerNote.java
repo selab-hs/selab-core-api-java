@@ -303,4 +303,257 @@ public class SwaggerNote {
                 }
             }
             """;
+
+    public final String NOTICE_CREATE = """
+            공지사항 생성
+            POST api/v1/notices
+                                    
+            Request Body
+            {
+              "title": "환영합니다. 홈페이지가 개설됐습니다.", // 공지사항 제목
+              "content": "소프트웨어 엔지니어 연구실 연구원분들을 위한 홈페이지입니다." // 공지사항 내용
+            }
+                                    
+            Response Body
+            {
+                "message": "NOTICE_CREATE_SUCCESS",
+                "code": "R-N-0001",
+                "serverDateTime": "2022-04-13T10:38:51.537986",
+                "data": {
+                    "id": 1 // 공지사항 아이디
+                }
+            }
+            """;
+
+    public final String NOTICE_FIND = """
+            공지사항 조회
+            GET api/v1/notices/{id}
+            
+            Path Variable
+            "id": 1 // 공지사항 아이디
+                                    
+            Response Body
+            {
+                "message": "NOTICE_FIND_SUCCESS",
+                "code": "R-N-0002",
+                "serverDateTime": "2022-04-13T10:41:36.349139",
+                "data": {
+                    "memberId": 1, // 회원 아이디
+                    "noticeId": 1, // 공지사항 아이디
+                    "title": "환영합니다. 홈페이지가 개설됐습니다.", // 공지사항 제목
+                    "content": "소프트웨어 엔지니어 연구실 연구원분들을 위한 홈페이지입니다.", // 공지사항 내용
+                    "createdAt": "2022-04-13T10:38:52", // 공지사항 생성 시간
+                    "modifiedAt": "2022-04-13T10:38:52" // 공지사항 수정 시간
+                }
+            }
+            """;
+
+    public final String NOTICE_FIND_BY_PAGE = """
+            공지사항 전체 조회
+            GET api/v1/notices
+                                    
+            Params
+            "page": 0 // 페이지 쪽수
+            
+            Response Body
+            {
+                "message": "NOTICE_FIND_SUCCESS",
+                "code": "R-N-0002",
+                "serverDateTime": "2022-04-13T10:42:31.67513",
+                "data": {
+                    "totalCount": 2,
+                    "pageNumber": 0,
+                    "pageSize": 20,
+                    "sort": "createdAt: DESC",
+                    "notices": [
+                        {
+                            "memberId": 1,
+                            "noticeId": 2,
+                            "title": "환영합니다. 홈페이지가 개설됐습니다.",
+                            "content": "소프트웨어 엔지니어 연구실 연구원분들을 위한 홈페이지입니다.",
+                            "createdAt": "2022-04-13T10:41:34",
+                            "modifiedAt": "2022-04-13T10:41:34"
+                        },
+                        {
+                            "memberId": 1,
+                            "noticeId": 1,
+                            "title": "환영합니다. 홈페이지가 개설됐습니다.",
+                            "content": "소프트웨어 엔지니어 연구실 연구원분들을 위한 홈페이지입니다.",
+                            "createdAt": "2022-04-13T10:38:52",
+                            "modifiedAt": "2022-04-13T10:38:52"
+                        }
+                    ]
+                }
+            }
+            """;
+
+    public final String NOTICE_UPDATE = """
+            공지사항 수정
+            PUT api/v1/notices/{id}
+            
+            Path Variable
+            "id": 1 // 공지사항 아이디
+                                    
+            Request Body
+            {
+              "title": "공지사항 수정이 있겠습니다.",
+              "content": "수정 내용은 아래와 같습니다."
+            }
+                                    
+            Response Body
+            {
+                "message": "NOTICE_UPDATE_SUCCESS",
+                "code": "R-N-0003",
+                "serverDateTime": "2022-04-13T10:43:23.665854",
+                "data": {
+                    "id": 1
+                }
+            }
+            """;
+
+    public final String NOTICE_DELETE = """
+            공지사항 소프트 삭제
+            PATCH api/v1/notices/{id}
+            
+            Path Variable
+            "id": 1 // 공지사항 아이디
+                                    
+            Response Body
+            {
+                "message": "NOTICE_DELETE_SUCCESS",
+                "code": "R-N-0004",
+                "serverDateTime": "2022-04-13T10:44:06.964695",
+                "data": {
+                    "id": 1
+                }
+            }
+            """;
+
+    public final String NOTICE_COMMENT_CREATE = """
+            공지사항 댓글 생성
+            POST api/v1/free-posts/{freePostId}/free-post-comments
+            
+            Path Variable
+            "freePostId": 1 // 자유 게시글 아이디
+                        
+            Request Body
+            {
+              "freePostCommentContent": "푸항항 너무 웃겨요" // 자유 게시글 댓글 내용
+            }
+                                    
+            Response Body
+            {
+                "message": "FREE_POST_COMMENT_CREATE_SUCCESS",
+                "code": "R-FC-0001",
+                "serverDateTime": "2022-04-13T09:32:03.224535",
+                "data": {
+                    "freePostCommentId": 1 // 자유 게시글 댓글 아이디
+                }
+            }
+            """;
+
+    public final String NOTICE_COMMENT_FIND = """
+            공지사항 댓글 조회
+            GET api/v1/free-post-comments/{commentId}
+                                    
+            Path Variable
+            "commentId": 1 // 자유 게시글 댓글 아이디
+                                    
+            Response Body
+            {
+                "message": "FREE_POST_COMMENT_FIND_SUCCESS",
+                "code": "R-FC-0002",
+                "serverDateTime": "2022-04-13T09:42:43.747681",
+                "data": {
+                    "freePostId": 1, // 자유 게시글 아이디
+                    "memberId": 1, // 회원 아이디
+                    "freePostCommentId": 1, // 자유 게시글 댓글 아이디
+                    "freePostCommentContent": "푸항항 너무 웃겨요", // 자유 게시글 댓글 내용
+                    "createdAt": "2022-04-13T09:32:03", // 자유 게시글 댓글 생성 시간
+                    "modifiedAt": "2022-04-13T09:32:03" // 자유 게시글 댓글 수정 시간
+                }
+            }
+            """;
+
+    public final String NOTICE_COMMENT_FIND_BY_PAGE = """
+            공지사항 댓글 전체 조회
+            GET api/v1/free-posts/{freePostId}/free-post-comments?page=0
+
+            Path Variable
+            "freePostId": 1 // 자유 게시글 아이디
+            
+            Params
+            "page": 0 // 페이지 쪽수
+                                    
+            Response Body
+            {
+                "message": "FREE_POST_COMMENT_FIND_SUCCESS",
+                "code": "R-FC-0002",
+                "serverDateTime": "2022-04-13T09:46:43.895765",
+                "data": {
+                    "freePostId": 1, // 자유 게시글 아이디
+                    "totalCount": 2, // 자유 게시글 아이디에 대한 댓글 전체 개수
+                    "pageNumber": 0, // 페이지 쪽수
+                    "pageSize": 20, // 한 페이지당 개수
+                    "sort": "createdAt: DESC", // 정렬 기준
+                    "freePostComments": [
+                        {
+                            "memberId": 1, // 회원 아이디
+                            "freePostCommentId": 2, // 자유 게시글 댓글 아이디
+                            "freePostCommentContent": "푸항항 너무 웃겨요", // 자유 게시글 댓글 내용
+                            "createdAt": "2022-04-13T09:46:41", // 자유 게시글 댓글 생성 시간
+                            "modifiedAt": "2022-04-13T09:46:41" // 자유 개시글 댓글 수정 시간
+                        },
+                        {
+                            "memberId": 1,
+                            "freePostCommentId": 1,
+                            "freePostCommentContent": "푸항항 너무 웃겨요",
+                            "createdAt": "2022-04-13T09:46:40",
+                            "modifiedAt": "2022-04-13T09:46:40"
+                        }
+                    ]
+                }
+            }
+            """;
+
+    public final String NOTICE_COMMENT_UPDATE = """
+            공지사항 댓글 수정
+            PUT api/v1/free-post-comments/{commentId}
+            
+            Path Variable
+            "commentId": 1 // 자유 게시글 댓글 아이디
+                                    
+            Request Body
+            {
+              "freePostCommentContent": "웃기긴 뭐가 웃깁니까" // 자유 게시글 댓글 내용
+            }
+                                    
+            Response Body
+            {
+                "message": "FREE_POST_COMMENT_UPDATE_SUCCESS",
+                "code": "R-FC-0003",
+                "serverDateTime": "2022-04-13T10:20:10.116645",
+                "data": {
+                    "freePostCommentId": 1 // 자유 게시글 댓글 아이디
+                }
+            }
+            """;
+
+    public final String NOTICE_COMMENT_DELETE = """
+            공지사항 소프트 삭제
+            PATCH api/v1/free-post-comments/{commentId}
+            
+            Path Variable
+            "commentId": 1 // 자유 게시글 댓글 아이디
+                                    
+            Response Body
+            {
+                "message": "FREE_POST_COMMENT_DELETE_SUCCESS",
+                "code": "R-FC-0004",
+                "serverDateTime": "2022-04-13T10:21:52.667213",
+                "data": {
+                    "freePostCommentId": 1 // 자유 게시글 댓글 아이디
+                }
+            }
+            """;
 }
