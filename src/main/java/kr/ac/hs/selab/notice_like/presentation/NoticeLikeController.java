@@ -32,9 +32,9 @@ public class NoticeLikeController implements NoticeLikeSdk {
     }
 
     @Override
-    @DeleteMapping("/likes/{noticeId}")
-    public ResponseTemplate<NoticeLikeResponse> delete(@PathVariable Long noticeId) {
-        var response = noticeLikeFacade.delete(noticeId);
+    @DeleteMapping("/likes/{noticeLikeId}")
+    public ResponseTemplate<NoticeLikeResponse> delete(@PathVariable Long noticeLikeId) {
+        var response = noticeLikeFacade.delete(noticeLikeId);
         return ResponseTemplate.ok(ResponseMessage.NOTICE_LIKE_DELETE_SUCCESS, response);
     }
 }

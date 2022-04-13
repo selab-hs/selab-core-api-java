@@ -75,7 +75,7 @@ public class SwaggerNote {
     public final String FREE_POST_FIND = """
             자유 게시글 조회
             GET api/v1/free-posts/{id}
-            
+                        
             Path Variable
             "id": 1 // 자유 게시글 아이디
                                     
@@ -101,7 +101,7 @@ public class SwaggerNote {
                                     
             Params
             "page": 0 // 페이지 쪽수
-            
+                        
             Response Body
             {
                 "message": "FREE_POST_FIND_SUCCESS",
@@ -137,7 +137,7 @@ public class SwaggerNote {
     public final String FREE_POST_UPDATE = """
             자유 게시글 수정
             PUT api/v1/free-posts/{id}
-            
+                        
             Path Variable
             "id": 1 // 자유 게시글 아이디
                                     
@@ -161,7 +161,7 @@ public class SwaggerNote {
     public final String FREE_POST_DELETE = """
             자유 게시글 소프트 삭제
             PATCH api/v1/free-posts/{id}
-            
+                        
             Path Variable
             "id": 1 // 자유 게시글 아이디
                                     
@@ -179,7 +179,7 @@ public class SwaggerNote {
     public final String FREE_POST_COMMENT_CREATE = """
             자유 게시글 댓글 생성
             POST api/v1/free-posts/{freePostId}/free-post-comments
-            
+                        
             Path Variable
             "freePostId": 1 // 자유 게시글 아이디
                         
@@ -228,7 +228,7 @@ public class SwaggerNote {
 
             Path Variable
             "freePostId": 1 // 자유 게시글 아이디
-            
+                        
             Params
             "page": 0 // 페이지 쪽수
                                     
@@ -266,7 +266,7 @@ public class SwaggerNote {
     public final String FREE_POST_COMMENT_UPDATE = """
             자유 게시글 댓글 수정
             PUT api/v1/free-post-comments/{commentId}
-            
+                        
             Path Variable
             "commentId": 1 // 자유 게시글 댓글 아이디
                                     
@@ -289,7 +289,7 @@ public class SwaggerNote {
     public final String FREE_POST_COMMENT_DELETE = """
             자유 게시글 소프트 삭제
             PATCH api/v1/free-post-comments/{commentId}
-            
+                        
             Path Variable
             "commentId": 1 // 자유 게시글 댓글 아이디
                                     
@@ -328,7 +328,7 @@ public class SwaggerNote {
     public final String NOTICE_FIND = """
             공지사항 조회
             GET api/v1/notices/{id}
-            
+                        
             Path Variable
             "id": 1 // 공지사항 아이디
                                     
@@ -354,7 +354,7 @@ public class SwaggerNote {
                                     
             Params
             "page": 0 // 페이지 쪽수
-            
+                        
             Response Body
             {
                 "message": "NOTICE_FIND_SUCCESS",
@@ -390,7 +390,7 @@ public class SwaggerNote {
     public final String NOTICE_UPDATE = """
             공지사항 수정
             PUT api/v1/notices/{id}
-            
+                        
             Path Variable
             "id": 1 // 공지사항 아이디
                                     
@@ -414,7 +414,7 @@ public class SwaggerNote {
     public final String NOTICE_DELETE = """
             공지사항 소프트 삭제
             PATCH api/v1/notices/{id}
-            
+                        
             Path Variable
             "id": 1 // 공지사항 아이디
                                     
@@ -432,7 +432,7 @@ public class SwaggerNote {
     public final String NOTICE_COMMENT_CREATE = """
             공지사항 댓글 생성
             POST /api/v1/notices/{noticeId}/notice-comments
-            
+                        
             Path Variable
             "noticeId": 1 // 공지사항 아이디
                         
@@ -481,7 +481,7 @@ public class SwaggerNote {
 
             Path Variable
             "freePostId": 1 // 공지사항 아이디
-            
+                        
             Params
             "page": 0 // 페이지 쪽수
                                     
@@ -519,7 +519,7 @@ public class SwaggerNote {
     public final String NOTICE_COMMENT_UPDATE = """
             공지사항 댓글 수정
             PUT api/v1/notice-comments/{commentId}
-            
+                        
             Path Variable
             "commentId": 1 // 공지사항 댓글 아이디
                                     
@@ -542,7 +542,7 @@ public class SwaggerNote {
     public final String NOTICE_COMMENT_DELETE = """
             공지사항 소프트 삭제
             PATCH api/v1/notice-comments/{commentId}
-            
+                        
             Path Variable
             "commentId": 1 // 공지사항 댓글 아이디
                                     
@@ -553,6 +553,67 @@ public class SwaggerNote {
                 "serverDateTime": "2022-04-13T10:55:34.189577",
                 "data": {
                     "noticeCommentId": 1 // 공지사항 댓글 아이디
+                }
+            }
+            """;
+
+    public final String NOTICE_LIKE_CREATE = """
+            공지사항 좋아요 생성
+            POST api/v1/notices/{noticeId}/likes
+                        
+            Path Variable
+            "noticeId": 1 // 공지사항 아이디
+                                    
+            Response Body
+            {
+                 "message": "NOTICE_LIKE_CREATE_SUCCESS",
+                 "code": "R-NL-0001",
+                 "serverDateTime": "2022-04-13T11:02:38.251504",
+                 "data": {
+                     "id": 1 // 공지사항 좋아요 아이디
+                 }
+             }
+            """;
+
+    public final String NOTICE_LIKE_FIND = """
+            공지사항 좋아요 조회
+            GET api/v1/notices/{noticeId}/likes
+                        
+            Path Variable
+            "noticeId": 1 // 공지사항 아이디
+                                    
+            Response Body
+            {
+                "message": "NOTICE_LIKE_FIND_SUCCESS",
+                "code": "R-NL-0002",
+                "serverDateTime": "2022-04-13T11:03:11.058135",
+                "data": {
+                    "noticeId": 1,
+                    "totalCount": 1,
+                    "noticeLikes": [
+                        {
+                            "id": 1, // 공지사항 아이디
+                            "memberId": 1 // 회원 아이디
+                        }
+                    ]
+                }
+            }
+            """;
+
+    public final String NOTICE_LIKE_DELETE = """
+            공지사항 좋아요 삭제
+            DELETE api/v1/notices/likes/{noticeLikeId}
+                       
+            Path Variable
+            "noticeLikeId": 1 // 공지사항 아이디
+                                    
+            Response Body
+            {
+                "message": "NOTICE_LIKE_DELETE_SUCCESS",
+                "code": "R-NL-0003",
+                "serverDateTime": "2022-04-13T11:05:31.782016",
+                "data": {
+                    "id": 1 // 공지사항 좋아요 아이디
                 }
             }
             """;
