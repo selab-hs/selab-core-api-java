@@ -29,9 +29,6 @@ public class FreePost extends BaseEntity {
     @Column(name = "free_post_delete_flag", nullable = false)
     private boolean deleteFlag;
 
-    @Transient
-    private static final String HYPHEN = "-";
-
     @Builder
     private FreePost(Long memberId, String title, String content) {
         this.title = title;

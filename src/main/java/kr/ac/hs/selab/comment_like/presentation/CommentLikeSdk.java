@@ -9,7 +9,7 @@ import kr.ac.hs.selab.comment_like.dto.response.CommentLikeResponse;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@Api(tags = "Comment Like REST API", description = "댓글 좋아요 api")
+@Api(tags = "댓글 좋아요 관리", description = "미사용 API")
 public interface CommentLikeSdk {
     @Operation(summary = "댓글 좋아요 생성", description = "댓글에 좋아요를 한다.")
     @ApiResponses({
