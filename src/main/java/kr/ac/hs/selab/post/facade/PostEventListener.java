@@ -3,7 +3,7 @@ package kr.ac.hs.selab.post.facade;
 import kr.ac.hs.selab.comment.application.CommentService;
 import kr.ac.hs.selab.comment_like.application.CommentLikeService;
 import kr.ac.hs.selab.post.domain.event.PostEvent;
-import kr.ac.hs.selab.postLike.application.PostLikeService;
+import kr.ac.hs.selab.post_like.application.PostLikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;

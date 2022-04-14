@@ -6,7 +6,7 @@ import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.comment_like.application.CommentLikeService;
 import kr.ac.hs.selab.post.application.PostService;
 import kr.ac.hs.selab.post.domain.Post;
-import kr.ac.hs.selab.postLike.application.PostLikeService;
+import kr.ac.hs.selab.post_like.application.PostLikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
