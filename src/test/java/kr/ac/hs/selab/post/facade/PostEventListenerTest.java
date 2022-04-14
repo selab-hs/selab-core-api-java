@@ -7,7 +7,7 @@ import kr.ac.hs.selab.comment.domain.Comment;
 import kr.ac.hs.selab.comment_like.application.CommentLikeService;
 import kr.ac.hs.selab.post.domain.Post;
 import kr.ac.hs.selab.post.domain.event.PostEvent;
-import kr.ac.hs.selab.postLike.application.PostLikeService;
+import kr.ac.hs.selab.post_like.application.PostLikeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
