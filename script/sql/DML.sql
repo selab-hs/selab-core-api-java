@@ -16,7 +16,7 @@ values (?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 insert
 into terms
-    (created_at, modified_at, terms_category, member_id)
+(created_at, modified_at, terms_category, member_id)
 values (?, ?, ?, ?);
 
 
@@ -49,7 +49,7 @@ values (?, ?, ?, ?, ?, ?, ?);
 
 insert
 into post_like
-    (created_at, modified_at, member_id, post_id)
+(created_at, modified_at, member_id, post_id)
 values (?, ?, ?, ?);
 
 
@@ -71,5 +71,60 @@ values (?, ?, ?, ?, ?, ?);
 
 insert
 into comment_like
-    (created_at, modified_at, comment_id, member_id)
+(created_at, modified_at, comment_id, member_id)
 values (?, ?, ?, ?);
+
+
+
+##########
+# notice #
+##########
+
+insert
+into notice
+(created_at, modified_at, notice_content, notice_delete_flag, member_id, notice_title)
+values (?, ?, ?, ?, ?, ?);
+
+
+
+##################
+# notice comment #
+##################
+
+insert
+into notice_comment
+(created_at, modified_at, notice_comment_content, notice_comment_delete_flag, member_id, notice_id)
+values (?, ?, ?, ?, ?, ?);
+
+
+
+###############
+# notice like #
+###############
+
+insert
+into notice_like
+(created_at, modified_at, member_id, notice_id)
+values (?, ?, ?, ?);
+
+
+
+#############
+# free post #
+#############
+
+insert
+into free_post
+(created_at, modified_at, free_post_content, free_post_delete_flag, member_id, free_post_title)
+values (?, ?, ?, ?, ?, ?);
+
+
+
+#####################
+# free post comment #
+#####################
+
+insert
+into free_post_comment
+(created_at, modified_at, free_post_comment_content, free_post_comment_delete_flag, free_post_id, member_id)
+values (?, ?, ?, ?, ?, ?)
