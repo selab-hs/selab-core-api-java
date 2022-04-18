@@ -10,7 +10,7 @@ import kr.ac.hs.selab.common.template.SwaggerNote;
 import kr.ac.hs.selab.member.dto.request.MemberCreateRequest;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 
-@Api(tags = "회원 관리")
+@Api(tags = "회원 API", description = "Member Controller (MVP)")
 public interface MemberSdk {
     @ApiOperation(value = "회원가입", notes = SwaggerNote.MEMBER_CREATE)
     @ApiResponses(

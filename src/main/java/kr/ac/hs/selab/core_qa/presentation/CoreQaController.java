@@ -45,7 +45,7 @@ public class CoreQaController implements CoreQaSdk {
 
     @Override
     @GetMapping
-    public PageResponseTemplate<CoreQaReadResponse> getCoreQaAll(
+    public PageResponseTemplate<CoreQaReadResponse> findCoreQaAll(
             @PageableDefault(size = 20, page = 0, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         var response = coreQaService.getAll(pageable);
@@ -57,7 +57,7 @@ public class CoreQaController implements CoreQaSdk {
     }
 
     @GetMapping("/{id}")
-    public ResponseTemplate<CoreQaReadResponse> getCoreQa(@PathVariable Long id) {
+    public ResponseTemplate<CoreQaReadResponse> findCoreQa(@PathVariable Long id) {
         var response = coreQaService.get(id);
         return ResponseTemplate.ok(ResponseMessage.CORE_QA_READ_SUCCESS, response);
     }

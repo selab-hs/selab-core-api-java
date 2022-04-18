@@ -12,7 +12,7 @@ import kr.ac.hs.selab.board.dto.response.PostFindResponse;
 import kr.ac.hs.selab.board.dto.response.PostResponse;
 import org.springframework.data.domain.Pageable;
 
-@Api(tags = "게시글 관리", description = "미사용 API")
+@Api(tags = "게시글 API", description = "Post Controller (미사용)")
 public interface PostSdk {
     @Operation(summary = "게시글 생성", description = "게시글 정보를 이용해서 게시판을 생성한다.")
     @ApiResponses({

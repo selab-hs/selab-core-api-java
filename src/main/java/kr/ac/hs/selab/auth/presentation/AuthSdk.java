@@ -7,7 +7,7 @@ import kr.ac.hs.selab.auth.dto.response.AuthLoginResponse;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.template.SwaggerNote;
 
-@Api(tags = "로그인 관리")
+@Api(tags = "로그인 API", description = "Auth Controller (MVP)")
 public interface AuthSdk {
     @ApiOperation(value = "로그인", notes = SwaggerNote.AUTH_LOGIN)
     @ApiResponses({

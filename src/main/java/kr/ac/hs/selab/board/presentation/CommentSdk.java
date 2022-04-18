@@ -12,7 +12,7 @@ import kr.ac.hs.selab.board.dto.response.CommentResponse;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import org.springframework.data.domain.Pageable;
 
-@Api(tags = "댓글 관리", description = "미사용 API")
+@Api(tags = "댓글 API", description = "Comment Controller (미사용)")
 public interface CommentSdk {
     @Operation(summary = "댓글 생성", description = "게시글 정보를 이용해서 댓글을 생성한다.")
     @ApiResponses({

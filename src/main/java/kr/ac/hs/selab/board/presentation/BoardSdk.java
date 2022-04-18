@@ -11,7 +11,7 @@ import kr.ac.hs.selab.board.dto.response.BoardFindResponse;
 import kr.ac.hs.selab.board.dto.response.BoardResponse;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 
-@Api(tags = "게시판 관리", description = "미사용 API")
+@Api(tags = "게시판 API", description = "Board Controller (미사용)")
 public interface BoardSdk {
     @Operation(summary = "게시판 생성", description = "게시판 정보를 이용해서 게시판을 생성한다.")
     @ApiResponses({

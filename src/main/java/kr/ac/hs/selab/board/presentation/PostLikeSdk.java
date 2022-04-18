@@ -9,7 +9,7 @@ import kr.ac.hs.selab.board.dto.response.PostLikeFindResponse;
 import kr.ac.hs.selab.board.dto.response.PostLikeResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@Api(tags = "게시글 좋아요 관리", description = "미사용 API")
+@Api(tags = "게시글 좋아요 API", description = "Post Like Controller (미사용)")
 public interface PostLikeSdk {
     @Operation(summary = "게시글 좋아요 생성", description = "게시글에 좋아요를 한다.")
     @ApiResponses({

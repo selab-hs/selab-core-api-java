@@ -13,7 +13,7 @@ import kr.ac.hs.selab.notice.dto.response.NoticeCommentFindResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeCommentResponse;
 import org.springframework.data.domain.Pageable;
 
-@Api(tags = "공지사항 댓글 관리")
+@Api(tags = "공지사항 댓글 API", description = "Notice Comment Controller (MVP)")
 public interface NoticeCommentSdk {
     @ApiOperation(value = "공지사항 댓글 생성", notes = SwaggerNote.NOTICE_COMMENT_CREATE)
     @ApiResponses({

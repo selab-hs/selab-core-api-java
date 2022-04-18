@@ -13,7 +13,7 @@ import kr.ac.hs.selab.free_post.dto.response.FreePostCommentFindResponse;
 import kr.ac.hs.selab.free_post.dto.response.FreePostCommentResponse;
 import org.springframework.data.domain.Pageable;
 
-@Api(tags = "자유 게시글 댓글 관리")
+@Api(tags = "자유 게시글 댓글 API", description = "Free Post Comment Controller (MVP)")
 public interface FreePostCommentSdk {
     @ApiOperation(value = "자유게시글 댓글 생성", notes = SwaggerNote.FREE_POST_COMMENT_CREATE)
     @ApiResponses({

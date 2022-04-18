@@ -10,7 +10,7 @@ import kr.ac.hs.selab.notice.dto.response.NoticeLikeFindResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeLikeResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@Api(tags = "공지사항 좋아요")
+@Api(tags = "공지사항 좋아요 API", description = "Notice Like Controller (MPV)")
 public interface NoticeLikeSdk {
     @ApiOperation(value = "공지사항 좋아요 생성", notes = SwaggerNote.NOTICE_LIKE_CREATE)
     @ApiResponses({
