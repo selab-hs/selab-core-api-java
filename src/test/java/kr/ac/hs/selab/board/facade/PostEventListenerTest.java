@@ -5,11 +5,9 @@ import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
 import kr.ac.hs.selab.board.application.CommentLikeService;
 import kr.ac.hs.selab.board.application.CommentService;
 import kr.ac.hs.selab.board.application.PostLikeService;
-import kr.ac.hs.selab.board.application.PostService;
-import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.domain.Comment;
 import kr.ac.hs.selab.board.domain.Post;
-import kr.ac.hs.selab.board.domain.event.BoardEvent;
+import kr.ac.hs.selab.board.domain.event.PostEvent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,24 +15,19 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.ArgumentMatchers.anyLong;
-
 @ExtendWith(MockitoExtension.class)
-public class BoardEventListenerTest {
-    @Mock
-    private PostService postService;
-
+public class PostEventListenerTest {
     @Mock
     private CommentService commentService;
 
     @Mock
-    private PostLikeService postLikeService;
-
-    @Mock
     private CommentLikeService commentLikeService;
 
+    @Mock
+    private PostLikeService postLikeService;
+
     @InjectMocks
-    private BoardEventListener boardEventListener;
+    private PostEventListener postEventListener;
 
     private static final FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
             .defaultGenerator(FieldReflectionArbitraryGenerator.INSTANCE)
@@ -42,36 +35,31 @@ public class BoardEventListenerTest {
             .build();
 
     @Test
-    public void 게시판_삭제시_연관_객체_전부_삭제_성공() {
+    public void 게시글_삭제시_관련_객체_전부_삭제_성공() {
         // given
-        var board = fixtureMonkey.giveMeOne(Board.class);
-        var posts = fixtureMonkey.giveMeBuilder(Post.class)
-                .set("boardId", board.getId())
-                .sampleList(10);
+        var post = fixtureMonkey.giveMeBuilder(Post.class)
+                .set("deleteFlag", false)
+                .sample();
         var comments = fixtureMonkey.giveMeBuilder(Comment.class)
-                .set("postId", posts.get(0).getId())
+                .set("postId", post.getId())
+                .set("deleteFlag", false)
                 .sampleList(10);
 
         // mocking
-        Mockito.when(postService.findPostsByBoardId(anyLong()))
-                .thenReturn(posts);
-        Mockito.when(commentService.findCommentsByPostId(anyLong()))
+        Mockito.doNothing()
+                .when(postLikeService)
+                .deleteByPostId(post.getId());
+        Mockito.when(commentService.findCommentsByPostId(post.getId()))
                 .thenReturn(comments);
         Mockito.doNothing()
                 .when(commentLikeService)
                 .deleteByComments(comments);
         Mockito.doNothing()
                 .when(commentService)
-                .deleteByPosts(posts);
-        Mockito.doNothing()
-                .when(postLikeService)
-                .deleteByPostId(posts.get(0).getId());
-        Mockito.doNothing()
-                .when(postService)
-                .deleteByBoardId(board.getId());
+                .deleteByPost(post.getId());
 
         // when
-        boardEventListener.deleteByBoard(BoardEvent.of(board));
+        postEventListener.deleteByPost(PostEvent.of(post));
 
         // then
         // TODO void test 연구하기

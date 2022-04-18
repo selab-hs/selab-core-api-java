@@ -3,12 +3,12 @@ package kr.ac.hs.selab.free_post.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
-import kr.ac.hs.selab.free_post.converter.FreePostConverter;
-import kr.ac.hs.selab.free_post.domain.FreePost;
-import kr.ac.hs.selab.free_post.dto.FreePostFindByPageDto;
-import kr.ac.hs.selab.free_post.dto.request.FreePostRequest;
-import kr.ac.hs.selab.free_post.dto.response.FreePostResponse;
-import kr.ac.hs.selab.free_post.facade.FreePostFacade;
+import kr.ac.hs.selab.free_post.converter.FreePostCommentConverter;
+import kr.ac.hs.selab.free_post.domain.FreePostComment;
+import kr.ac.hs.selab.free_post.dto.FreePostCommentFindByFreePostIdAndPageDto;
+import kr.ac.hs.selab.free_post.dto.request.FreePostCommentRequest;
+import kr.ac.hs.selab.free_post.dto.response.FreePostCommentResponse;
+import kr.ac.hs.selab.free_post.facade.FreePostCommentFacade;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -30,11 +30,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(useDefaultFilters = false)
 @AutoConfigureMockMvc(addFilters = false)
-@Import(FreePostController.class)
+@Import(FreePostCommentController.class)
 @ExtendWith(MockitoExtension.class)
-public class FreePostControllerTest {
+public class FreePostCommentControllerTest {
     @MockBean
-    private FreePostFacade freePostFacade;
+    private FreePostCommentFacade freePostCommentFacade;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -48,29 +48,19 @@ public class FreePostControllerTest {
             .build();
 
     @Test
-    public void 자유게시글_생성하기() throws Exception {  // TODO Non exist member
+    public void 자유게시글_댓글_생성하기() throws Exception {  // TODO member 없음 error
 //        // given
-//        var member = fixtureMonkey.giveMeOne(Member.class);
-//        var post = fixtureMonkey.giveMeBuilder(FreePost.class)
-//                .set("title", "자유게시판의 제목입니다.")
-//                .set("content", "자유롭게 글을 작성하시면 됩니다.")
-//                .set("memberId", member.getId())
-//                .sample();
-//        var request = new FreePostRequest(
-//                post.getTitle(),
-//                post.getContent()
-//        );
-//        var response = new FreePostResponse(post.getId());
+//        var comment = fixtureMonkey.giveMeOne(FreePostComment.class);
+//        var request = new FreePostCommentRequest(comment.getContent());
+//        var response = new FreePostCommentResponse(comment.getId());
 //
 //        // mocking
-//        Mockito.when(SecurityUtils.getCurrentUsername())
-//                .thenReturn(member.getEmail());
-//        Mockito.when(freePostFacade.create(anyString(), any()))
+//        Mockito.when(freePostCommentFacade.create(anyLong(), anyString(), any()))
 //                .thenReturn(response);
 //
 //        // when, then
 //        mockMvc.perform(
-//                        post("/api/v1/free-posts")
+//                        post("/api/v1/free-posts/{freePostId}/free-post-comments", comment.getId())
 //                                .accept(MediaType.APPLICATION_JSON)
 //                                .contentType(MediaType.APPLICATION_JSON)
 //                                .characterEncoding("utf-8")
@@ -80,60 +70,62 @@ public class FreePostControllerTest {
     }
 
     @Test
-    public void 아이디로_자유게시글_조회하기() throws Exception {
+    public void 자유게시글_댓글_아이디_값으로_댓글_조회하기() throws Exception {
         // given
-        var post = fixtureMonkey.giveMeOne(FreePost.class);
-        var response = FreePostConverter.toFreePostFindByIdResponse(post);
+        var comment = fixtureMonkey.giveMeOne(FreePostComment.class);
+        var response = FreePostCommentConverter.toFreePostCommentFindResponse(comment);
 
         // mocking
-        Mockito.when(freePostFacade.findById(anyLong()))
+        Mockito.when(freePostCommentFacade.findByFreePostCommentId(anyLong()))
                 .thenReturn(response);
 
         // when, then
-        mockMvc.perform(get("/api/v1/free-posts/{id}", post.getId()))
+        mockMvc.perform(get("/api/v1/free-post-comments/{commentId}", comment.getId()))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void 자유게시글_페이지로_조회하기() throws Exception {
+    public void 자유게시글_아이디_값과_페이지로_댓글_조회하기() throws Exception {
         // given
         var totalCount = 100L;
-        var pageable = PageRequest.of(1, 20);
-        var posts = fixtureMonkey.giveMe(FreePost.class, (int) totalCount);
+        var freePostId = fixtureMonkey.giveMeOne(Long.class);
 
-        var dto = FreePostFindByPageDto.builder()
-                .totalCount(totalCount)
-                .pageable(pageable)
-                .freePosts(new PageImpl<>(posts, pageable, totalCount))
-                .build();
-        var response = FreePostConverter.toFreePostFindByPageResponse(dto);
+        var comments = fixtureMonkey.giveMeBuilder(FreePostComment.class)
+                .set("freePostId", freePostId)
+                .sampleList((int) totalCount);
+        var pageable = PageRequest.of(1, 20);
+        var commentPage = new PageImpl<>(comments, pageable, totalCount);
+        var dto = new FreePostCommentFindByFreePostIdAndPageDto(freePostId, pageable);
+
+        var response = FreePostCommentConverter.toFreePostCommentFindByFreePostIdAndPageResponse(
+                dto,
+                totalCount,
+                commentPage
+        );
 
         // mocking
-        Mockito.when(freePostFacade.findByPage(any()))
+        Mockito.when(freePostCommentFacade.findByFreePostIdAndPage(anyLong(), any()))
                 .thenReturn(response);
 
         // when, then
-        mockMvc.perform(get("/api/v1/free-posts"))
+        mockMvc.perform(get("/api/v1/free-posts/{freePostId}/free-post-comments", freePostId))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void 자유게시글_수정하기() throws Exception {
+    public void 자유게시글_댓글_수정하기() throws Exception {
         // given
-        var post = fixtureMonkey.giveMeOne(FreePost.class);
-        var request = new FreePostRequest(
-                "공지사항 수정이 있겠습니다.",
-                "수정 내용은 아래와 같습니다."
-        );
-        var response = new FreePostResponse(post.getId());
+        var comment = fixtureMonkey.giveMeOne(FreePostComment.class);
+        var request = new FreePostCommentRequest("심심해유심심해");
+        var response = new FreePostCommentResponse(comment.getId());
 
         // mocking
-        Mockito.when(freePostFacade.update(anyLong(), any()))
+        Mockito.when(freePostCommentFacade.update(anyLong(), any()))
                 .thenReturn(response);
 
         // when, then
         mockMvc.perform(
-                        put("/api/v1/free-posts/{id}", post.getId())
+                        put("/api/v1/free-post-comments/{commentId}", comment.getId())
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .characterEncoding("utf-8")
@@ -143,17 +135,17 @@ public class FreePostControllerTest {
     }
 
     @Test
-    public void 자유게시글_삭제하기() throws Exception {
+    public void 자유게시글_댓글_삭제하기() throws Exception {
         // given
-        var post = fixtureMonkey.giveMeOne(FreePost.class);
-        var response = new FreePostResponse(post.getId());
+        var comment = fixtureMonkey.giveMeOne(FreePostComment.class);
+        var response = new FreePostCommentResponse(comment.getId());
 
         // mocking
-        Mockito.when(freePostFacade.delete(anyLong()))
+        Mockito.when(freePostCommentFacade.delete(anyLong()))
                 .thenReturn(response);
 
         // when, then
-        mockMvc.perform(patch("/api/v1/free-posts/{id}", post.getId()))
+        mockMvc.perform(patch("/api/v1/free-post-comments/{commentId}", comment.getId()))
                 .andExpect(status().isOk());
     }
 }
