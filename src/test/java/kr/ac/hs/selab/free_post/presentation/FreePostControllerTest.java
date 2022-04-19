@@ -3,14 +3,12 @@ package kr.ac.hs.selab.free_post.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.generator.FieldReflectionArbitraryGenerator;
-import kr.ac.hs.selab.common.utils.SecurityUtils;
 import kr.ac.hs.selab.free_post.converter.FreePostConverter;
 import kr.ac.hs.selab.free_post.domain.FreePost;
 import kr.ac.hs.selab.free_post.dto.FreePostFindByPageDto;
 import kr.ac.hs.selab.free_post.dto.request.FreePostRequest;
 import kr.ac.hs.selab.free_post.dto.response.FreePostResponse;
 import kr.ac.hs.selab.free_post.facade.FreePostFacade;
-import kr.ac.hs.selab.member.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -25,7 +23,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

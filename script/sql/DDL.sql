@@ -103,3 +103,86 @@ create table comment_like
     constraint UKne7gphq9o8iuq6o6qr61olqwc
         unique (member_id, comment_id)
 );
+
+
+# 질의 응답 테이블 정의
+create table core_qa
+(
+    core_qa_id      bigint auto_increment
+        primary key,
+    created_at      datetime     null,
+    modified_at     datetime     null,
+    core_qa_content varchar(255) null,
+    member_id       bigint       null,
+    core_qa_title   varchar(255) null
+);
+
+
+# 공지사항 테이블 정의
+create table notice
+(
+    notice_id          bigint auto_increment
+        primary key,
+    created_at         datetime     null,
+    modified_at        datetime     null,
+    notice_content     varchar(255) not null,
+    notice_delete_flag bit          not null,
+    member_id          bigint       not null,
+    notice_title       varchar(255) not null
+);
+
+
+# 공지사항 댓글 테이블 정의
+create table notice_comment
+(
+    notice_comment_id          bigint auto_increment
+        primary key,
+    created_at                 datetime     null,
+    modified_at                datetime     null,
+    notice_comment_content     varchar(255) not null,
+    notice_comment_delete_flag bit          not null,
+    member_id                  bigint       not null,
+    notice_id                  bigint       not null
+);
+
+
+# 공지사항 좋아요 테이블 정의
+create table notice_like
+(
+    notice_like_id bigint auto_increment
+        primary key,
+    created_at     datetime null,
+    modified_at    datetime null,
+    member_id      bigint   not null,
+    notice_id      bigint   not null,
+    constraint UKe482ut32ct92bn6l50tmost58
+        unique (member_id, notice_id)
+);
+
+
+# 자유 게시글 테이블 정의
+create table free_post
+(
+    free_post_id          bigint auto_increment
+        primary key,
+    created_at            datetime     null,
+    modified_at           datetime     null,
+    free_post_content     varchar(255) not null,
+    free_post_delete_flag bit          not null,
+    member_id             bigint       not null,
+    free_post_title       varchar(255) not null
+);
+
+
+# 자유 게시글 댓글 테이블 정의
+create table free_post_comment
+(
+    free_post_comment_id          bigint auto_increment
+        primary key,
+    created_at                    datetime     null,
+    modified_at                   datetime     null,
+    free_post_comment_content     varchar(255) not null,
+    free_post_comment_delete_flag bit          not null,
+    free_post_id                  bigint       not null,
+    member_id                     bigint       not null
+);

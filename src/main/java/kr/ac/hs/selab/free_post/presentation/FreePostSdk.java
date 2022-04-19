@@ -14,7 +14,7 @@ import kr.ac.hs.selab.free_post.dto.response.FreePostFindByIdResponse;
 import kr.ac.hs.selab.free_post.dto.response.FreePostResponse;
 import org.springframework.data.domain.Pageable;
 
-@Api(tags = "자유 게시글 관리")
+@Api(tags = "자유 게시글 API", description = "Free Post Controller (MVP)")
 public interface FreePostSdk {
     @ApiOperation(value = "자유게시글 생성", notes = SwaggerNote.FREE_POST_CREATE)
     @ApiResponses({

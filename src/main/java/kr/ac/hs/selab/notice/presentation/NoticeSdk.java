@@ -14,7 +14,7 @@ import kr.ac.hs.selab.notice.dto.response.NoticeFindByIdResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
 import org.springframework.data.domain.Pageable;
 
-@Api(tags = "공지사항 관리")
+@Api(tags = "공지사항 API", description = "Notice Controller (MVP)")
 public interface NoticeSdk {
     @ApiOperation(value = "공지사항 생성", notes = SwaggerNote.NOTICE_CREATE)
     @ApiResponses({

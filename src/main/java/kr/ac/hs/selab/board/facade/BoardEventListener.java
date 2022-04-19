@@ -1,12 +1,12 @@
 package kr.ac.hs.selab.board.facade;
 
 import kr.ac.hs.selab.board.domain.event.BoardEvent;
-import kr.ac.hs.selab.comment.application.CommentService;
-import kr.ac.hs.selab.comment.domain.Comment;
-import kr.ac.hs.selab.comment_like.application.CommentLikeService;
-import kr.ac.hs.selab.post.application.PostService;
-import kr.ac.hs.selab.post.domain.Post;
-import kr.ac.hs.selab.post_like.application.PostLikeService;
+import kr.ac.hs.selab.board.application.CommentService;
+import kr.ac.hs.selab.board.domain.Comment;
+import kr.ac.hs.selab.board.application.CommentLikeService;
+import kr.ac.hs.selab.board.application.PostService;
+import kr.ac.hs.selab.board.domain.Post;
+import kr.ac.hs.selab.board.application.PostLikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
