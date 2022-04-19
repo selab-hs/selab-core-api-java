@@ -617,4 +617,81 @@ public class SwaggerNote {
                 }
             }
             """;
+
+    public final String CORE_QA_CREATE = """
+            질의응답 생성
+            POST /api/v1/core-qas
+                       
+            Request Body
+            {
+                "title": "이거 뭔가 이상합니다.",
+                "content": "이상하다 이상해..."
+            }
+                                   
+            Response Body
+            {
+                "message": "CORE_QA_CREATE_SUCCESS",
+                "code": "R-CQ-0001",
+                "serverDateTime": "2022-04-19T20:17:10.116227",
+                "data": {
+                    "id": 4
+                }
+            }
+            """;
+
+    public final String CORE_QA_FIND = """
+            질의응답 생성
+            POST /api/v1/core-qas/{id}
+            
+            Path Variable
+            "id": 1 // 질의응답 아이디
+                                   
+            Response Body
+            {
+                "message": "CORE_QA_FIND_SUCCESS",
+                "code": "R-CQ-0002",
+                "serverDateTime": "2022-04-19T21:28:32.339156",
+                "data": {
+                    "id": 1,
+                    "title": "이거 뭔가 이상합니다.",
+                    "content": "이상하다 이상해...",
+                    "memberId": 1
+                }
+            }
+            """;
+
+    public final String CORE_QA_FIND_BY_PAGE = """
+            질의응답 생성
+            POST /api/v1/core-qas
+                                
+            Params
+            "page": 0 // 페이지 쪽수
+               
+            Response Body
+            {
+                "message": "CORE_QA_FIND_SUCCESS",
+                "code": "R-CQ-0002",
+                "serverDateTime": "2022-04-19T21:29:44.991811",
+                "data": {
+                    "totalCount": 2,
+                    "pageNumber": 0,
+                    "pageSize": 20,
+                    "sort": "createdAt: DESC",
+                    "coreQas": [
+                        {
+                            "id": 2,
+                            "title": "이거 뭔가 이상합니다.",
+                            "content": "이상하다 이상해...",
+                            "memberId": 1
+                        },
+                        {
+                            "id": 1,
+                            "title": "이거 뭔가 이상합니다.",
+                            "content": "이상하다 이상해...",
+                            "memberId": 1
+                        }
+                    ]
+                }
+            }
+            """;
 }

@@ -1,8 +1,8 @@
 package kr.ac.hs.selab.core_qa.application;
 
+import kr.ac.hs.selab.core_qa.converter.CoreQaConverter;
 import kr.ac.hs.selab.core_qa.domain.CoreQa;
-import kr.ac.hs.selab.core_qa.dto.response.CoreQaCreateResponse;
-import kr.ac.hs.selab.core_qa.dto.response.CoreQaReadResponse;
+import kr.ac.hs.selab.core_qa.dto.bundle.CoreQaCreateBundle;
 import kr.ac.hs.selab.core_qa.infrastructure.CoreQaRepository;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
@@ -12,36 +12,27 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Service
 public class CoreQaService {
     private final CoreQaRepository coreQaRepository;
 
     @Transactional
-    public CoreQaCreateResponse save(String title, String content, Long memberId) {
-
-        CoreQa coreQa = coreQaRepository.save(CoreQa.builder()
-                .title(title)
-                .content(content)
-                .memberId(memberId)
-                .build());
-        return new CoreQaCreateResponse(coreQa.getTitle(), coreQa.getContent());
+    public CoreQa create(CoreQaCreateBundle bundle) {
+        return coreQaRepository.save(CoreQaConverter.toCoreQa(bundle));
     }
 
-    @Transactional(readOnly = true)
-    public Page<CoreQaReadResponse> getAll(Pageable pageable) {
-        return coreQaRepository.findAll(pageable)
-                .map(coreQa ->
-                        new CoreQaReadResponse(coreQa.getTitle(), coreQa.getContent())
-
-                );
+    public Long count() {
+        return coreQaRepository.count();
     }
 
-    @Transactional(readOnly = true)
-    public CoreQaReadResponse get(Long id) {
-        var coreQa = coreQaRepository.findById(id)
+    public CoreQa findById(Long id) {
+        return coreQaRepository.findById(id)
                 .orElseThrow(() -> new NonExitsException(ErrorMessage.CORE_QA_NOT_EXISTS_ERROR));
+    }
 
-        return new CoreQaReadResponse(coreQa.getTitle(), coreQa.getContent());
+    public Page<CoreQa> findByPage(Pageable pageable) {
+        return coreQaRepository.findAll(pageable);
     }
 }
