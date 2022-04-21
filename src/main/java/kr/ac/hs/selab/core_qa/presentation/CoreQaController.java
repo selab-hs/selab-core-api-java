@@ -1,14 +1,12 @@
 package kr.ac.hs.selab.core_qa.presentation;
 
-import kr.ac.hs.selab.common.template.PageResponseTemplate;
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.utils.SecurityUtils;
-import kr.ac.hs.selab.core_qa.application.CoreQaService;
-import kr.ac.hs.selab.core_qa.dto.bundle.CoreQaCreateBundle;
 import kr.ac.hs.selab.core_qa.dto.request.CoreQaCreateRequest;
-import kr.ac.hs.selab.core_qa.dto.response.CoreQaCreateResponse;
-import kr.ac.hs.selab.core_qa.dto.response.CoreQaReadResponse;
+import kr.ac.hs.selab.core_qa.dto.response.CoreQaFindByIdResponse;
+import kr.ac.hs.selab.core_qa.dto.response.CoreQaFindByPageResponse;
+import kr.ac.hs.selab.core_qa.dto.response.CoreQaResponse;
 import kr.ac.hs.selab.core_qa.facade.CoreQaFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -22,43 +20,27 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CoreQaController implements CoreQaSdk {
     private final CoreQaFacade coreQaFacade;
-    private final CoreQaService coreQaService;
 
     @Override
     @PostMapping
-    public ResponseTemplate<CoreQaCreateResponse> create(@Validated CoreQaCreateRequest request) {
+    public ResponseTemplate<CoreQaResponse> create(@Validated @RequestBody CoreQaCreateRequest request) {
         var memberEmail = SecurityUtils.getCurrentUsername();
+        var response = coreQaFacade.create(memberEmail, request);
 
-        var bundle = new CoreQaCreateBundle(
-                memberEmail,
-                request.getTitle(),
-                request.getContent()
-        );
+        return ResponseTemplate.ok(ResponseMessage.CORE_QA_CREATE_SUCCESS, response);
+    }
 
-        var response = coreQaFacade.save(bundle);
-
-        return ResponseTemplate.ok(
-                ResponseMessage.CORE_QA_CREATE_SUCCESS,
-                response
-        );
+    @Override
+    @GetMapping("/{id}")
+    public ResponseTemplate<CoreQaFindByIdResponse> find(@PathVariable Long id) {
+        var response = coreQaFacade.findById(id);
+        return ResponseTemplate.ok(ResponseMessage.CORE_QA_FIND_SUCCESS, response);
     }
 
     @Override
     @GetMapping
-    public PageResponseTemplate<CoreQaReadResponse> findCoreQaAll(
-            @PageableDefault(size = 20, page = 0, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
-    ) {
-        var response = coreQaService.getAll(pageable);
-
-        return PageResponseTemplate.ok(
-                ResponseMessage.CORE_QA_CREATE_SUCCESS,
-                response
-        );
-    }
-
-    @GetMapping("/{id}")
-    public ResponseTemplate<CoreQaReadResponse> findCoreQa(@PathVariable Long id) {
-        var response = coreQaService.get(id);
-        return ResponseTemplate.ok(ResponseMessage.CORE_QA_READ_SUCCESS, response);
+    public ResponseTemplate<CoreQaFindByPageResponse> findByPage(@PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        var response = coreQaFacade.findByPage(pageable);
+        return ResponseTemplate.ok(ResponseMessage.CORE_QA_FIND_SUCCESS, response);
     }
 }
