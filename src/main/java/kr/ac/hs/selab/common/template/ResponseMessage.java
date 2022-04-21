@@ -11,7 +11,8 @@ public enum ResponseMessage implements Serializable {
     /**
      * MEMBER SUCCESS RESPONSE MESSAGE
      **/
-    MEMBER_INSERT_SUCCESS("R-M-0001", "회원 가입을 완료했습니다."),
+    MEMBER_CREATE_SUCCESS("R-M-0001", "회원 가입을 완료했습니다."),
+    MEMBER_CHECK_SUCCESS("R-M-0002", "회원 가입 여부 확인 완료했습니다."),
 
     /**
      * AUTH SUCCESS RESPONSE MESSAGE

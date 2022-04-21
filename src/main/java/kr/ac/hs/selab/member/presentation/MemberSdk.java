@@ -7,7 +7,9 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Parameter;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.template.SwaggerNote;
+import kr.ac.hs.selab.member.dto.request.MemberExistRequest;
 import kr.ac.hs.selab.member.dto.request.MemberCreateRequest;
+import kr.ac.hs.selab.member.dto.response.MemberExistResponse;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 
 @Api(tags = "회원 API", description = "Member Controller (MVP)")
@@ -16,5 +18,11 @@ public interface MemberSdk {
     @ApiResponses(
             @ApiResponse(code = 201, message = "회원가입 성공")
     )
-    ResponseTemplate<MemberCreateResponse> insert(@Parameter(description = "회원가입 시 필요한 정보") MemberCreateRequest request);
+    ResponseTemplate<MemberCreateResponse> create(@Parameter(description = "회원가입 시 필요한 정보") MemberCreateRequest request);
+
+    @ApiOperation(value = "회원가입 여부 조회", notes = SwaggerNote.MEMBER_EXIST)
+    @ApiResponses(
+            @ApiResponse(code = 201, message = "회원여부 조회 성공")
+    )
+    ResponseTemplate<MemberExistResponse> exist(@Parameter(description = "회원 가입 여부를 확인할 이메일") MemberExistRequest request);
 }

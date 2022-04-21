@@ -63,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/api/v1/auth/login").permitAll()
                 .antMatchers("/api/v1/members/sign").permitAll()
+                .antMatchers("/api/v1/members/exist").permitAll()
                 .antMatchers("/api/**/admin/**").hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers("/api/**").hasAnyAuthority("ROLE_USER")
                 .anyRequest().authenticated()
