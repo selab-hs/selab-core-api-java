@@ -1,9 +1,13 @@
 package kr.ac.hs.selab.member.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class MemberCreateRequest {
     @NotNull

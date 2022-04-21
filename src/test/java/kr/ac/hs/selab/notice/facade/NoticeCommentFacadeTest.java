@@ -10,7 +10,6 @@ import kr.ac.hs.selab.notice.converter.NoticeCommentConverter;
 import kr.ac.hs.selab.notice.domain.NoticeComment;
 import kr.ac.hs.selab.notice.dto.NoticeCommentFindByNoticeIdAndPageDto;
 import kr.ac.hs.selab.notice.dto.request.NoticeCommentRequest;
-import kr.ac.hs.selab.notice.facade.NoticeCommentFacade;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
