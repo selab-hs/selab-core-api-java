@@ -29,6 +29,26 @@ public class SwaggerNote {
             }
             """;
 
+    public final String MEMBER_EXIST = """
+            회원가입 여부 조회
+            POST /api/v1/members/exist
+                                                     
+            Request Body
+            {
+                "memberEmail": "leeheefull@gmail.com"
+            }
+                                                     
+            Response Body
+            {
+                "message": "MEMBER_CHECK_SUCCESS",
+                "code": "R-M-0002",
+                "serverDateTime": "2022-04-21T10:28:48.764078",
+                "data": {
+                    "signup": true
+                }
+            }
+             """;
+
     public final String AUTH_LOGIN = """
             로그인
             POST /api/v1/auth/login

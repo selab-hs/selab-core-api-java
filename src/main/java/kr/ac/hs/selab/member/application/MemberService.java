@@ -41,7 +41,7 @@ public class MemberService {
         }
     }
 
-    private boolean existsByEmail(String email) {
+    public boolean existsByEmail(String email) {
         return memberRepository.existsByEmail(email);
     }
 
