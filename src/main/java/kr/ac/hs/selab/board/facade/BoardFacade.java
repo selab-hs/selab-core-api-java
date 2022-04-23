@@ -2,7 +2,6 @@ package kr.ac.hs.selab.board.facade;
 
 import kr.ac.hs.selab.board.application.BoardService;
 import kr.ac.hs.selab.board.converter.BoardConverter;
-import kr.ac.hs.selab.board.domain.Board;
 import kr.ac.hs.selab.board.domain.event.BoardEvent;
 import kr.ac.hs.selab.board.dto.BoardCreateDto;
 import kr.ac.hs.selab.board.dto.BoardUpdateDto;
@@ -13,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Component

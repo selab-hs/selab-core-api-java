@@ -1,11 +1,11 @@
 package kr.ac.hs.selab.terms.domain.vo;
 
-import java.util.Arrays;
-import java.util.List;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
 
 @Getter
 @RequiredArgsConstructor

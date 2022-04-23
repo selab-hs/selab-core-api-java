@@ -1,14 +1,13 @@
 package kr.ac.hs.selab.error.template;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.validation.constraints.NotNull;
-
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Getter
 public class ErrorTemplate implements Serializable {

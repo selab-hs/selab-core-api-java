@@ -7,10 +7,10 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Parameter;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.template.SwaggerNote;
-import kr.ac.hs.selab.member.dto.request.MemberExistRequest;
 import kr.ac.hs.selab.member.dto.request.MemberCreateRequest;
-import kr.ac.hs.selab.member.dto.response.MemberExistResponse;
+import kr.ac.hs.selab.member.dto.request.MemberExistRequest;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
+import kr.ac.hs.selab.member.dto.response.MemberExistResponse;
 
 @Api(tags = "회원 API", description = "Member Controller (MVP)")
 public interface MemberSdk {

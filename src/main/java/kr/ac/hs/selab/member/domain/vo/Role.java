@@ -1,10 +1,11 @@
 package kr.ac.hs.selab.member.domain.vo;
 
-import java.util.Arrays;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.Arrays;
 
 @Getter
 @RequiredArgsConstructor
@@ -19,9 +20,9 @@ public enum Role {
 
     public static Role of(String description) {
         return Arrays.stream(Role.values())
-            .filter(r -> r.isEquals(description))
-            .findAny()
-            .orElse(GUEST);
+                .filter(r -> r.isEquals(description))
+                .findAny()
+                .orElse(GUEST);
     }
 
     private boolean isEquals(String description) {

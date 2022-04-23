@@ -4,13 +4,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.template.SwaggerNote;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindByIdResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
 import org.springframework.data.domain.Pageable;
 

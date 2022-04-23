@@ -1,12 +1,12 @@
 package kr.ac.hs.selab.board.application;
 
 import kr.ac.hs.selab.board.domain.Comment;
+import kr.ac.hs.selab.board.domain.Post;
 import kr.ac.hs.selab.board.dto.CommentUpdateDto;
 import kr.ac.hs.selab.board.infrastructure.CommentRepository;
 import kr.ac.hs.selab.common.utils.Constants;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
-import kr.ac.hs.selab.board.domain.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

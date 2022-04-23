@@ -1,11 +1,11 @@
 package kr.ac.hs.selab.member.infrastructure;
 
-import java.util.Optional;
-
 import kr.ac.hs.selab.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {

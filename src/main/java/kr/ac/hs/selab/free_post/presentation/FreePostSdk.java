@@ -4,13 +4,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.template.SwaggerNote;
 import kr.ac.hs.selab.free_post.dto.request.FreePostRequest;
-import kr.ac.hs.selab.free_post.dto.response.FreePostFindByPageResponse;
 import kr.ac.hs.selab.free_post.dto.response.FreePostFindByIdResponse;
+import kr.ac.hs.selab.free_post.dto.response.FreePostFindByPageResponse;
 import kr.ac.hs.selab.free_post.dto.response.FreePostResponse;
 import org.springframework.data.domain.Pageable;
 

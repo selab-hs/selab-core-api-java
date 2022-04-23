@@ -1,15 +1,5 @@
 package kr.ac.hs.selab.member.domain;
 
-import java.util.Collection;
-import java.util.Collections;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import kr.ac.hs.selab.common.domain.BaseEntity;
 import kr.ac.hs.selab.member.domain.vo.Avatar;
 import kr.ac.hs.selab.member.domain.vo.Password;
@@ -19,6 +9,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

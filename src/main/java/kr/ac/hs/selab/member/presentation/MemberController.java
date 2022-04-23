@@ -2,11 +2,10 @@ package kr.ac.hs.selab.member.presentation;
 
 import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
-import kr.ac.hs.selab.member.converter.MemberConverter;
-import kr.ac.hs.selab.member.dto.request.MemberExistRequest;
 import kr.ac.hs.selab.member.dto.request.MemberCreateRequest;
-import kr.ac.hs.selab.member.dto.response.MemberExistResponse;
+import kr.ac.hs.selab.member.dto.request.MemberExistRequest;
 import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
+import kr.ac.hs.selab.member.dto.response.MemberExistResponse;
 import kr.ac.hs.selab.member.facade.MemberFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
