@@ -12,24 +12,24 @@ public class MemberConverter {
 
     public static MemberCreateBundle toCreateMemberBundle(MemberCreateRequest request) {
         return MemberCreateBundle.builder()
-            .email(request.getEmail())
-            .password(new Password(request.getPassword()))
-            .studentId(request.getStudentId())
-            .name(request.getName())
-            .nickname(request.getNickname())
-            .avatar(new Avatar(request.getAvatar()))
-            .build();
+                .email(request.getEmail())
+                .password(new Password(request.getPassword()))
+                .studentId(request.getStudentId())
+                .name(request.getName())
+                .nickname(request.getNickname())
+                .avatar(new Avatar(request.getAvatar()))
+                .build();
     }
 
     public static Member toMember(MemberCreateBundle bundle, PasswordEncoder passwordEncoder) {
         return Member.builder()
-            .email(bundle.getEmail())
-            .password(bundle.getPassword().encode(passwordEncoder))
-            .studentId(bundle.getStudentId())
-            .name(bundle.getName())
-            .nickname(bundle.getNickname())
-            .avatar(bundle.getAvatar())
-            .build();
+                .email(bundle.getEmail())
+                .password(bundle.getPassword().encode(passwordEncoder))
+                .studentId(bundle.getStudentId())
+                .name(bundle.getName())
+                .nickname(bundle.getNickname())
+                .avatar(bundle.getAvatar())
+                .build();
     }
 
     public static MemberCreateResponse toCreateMemberResponse(Member member) {

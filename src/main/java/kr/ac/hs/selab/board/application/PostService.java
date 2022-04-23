@@ -1,13 +1,13 @@
 package kr.ac.hs.selab.board.application;
 
-import kr.ac.hs.selab.common.utils.Constants;
-import kr.ac.hs.selab.error.exception.common.NonExitsException;
-import kr.ac.hs.selab.error.template.ErrorMessage;
 import kr.ac.hs.selab.board.converter.PostConverter;
 import kr.ac.hs.selab.board.domain.Post;
 import kr.ac.hs.selab.board.dto.PostCreateDto;
 import kr.ac.hs.selab.board.dto.PostUpdateDto;
 import kr.ac.hs.selab.board.infrastructure.PostRepository;
+import kr.ac.hs.selab.common.utils.Constants;
+import kr.ac.hs.selab.error.exception.common.NonExitsException;
+import kr.ac.hs.selab.error.template.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,7 +50,7 @@ public class PostService {
     }
 
     @Transactional
-    public Post deleteById(Long id)  {
+    public Post deleteById(Long id) {
         return findPostById(id).delete();
     }
 

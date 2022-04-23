@@ -1,15 +1,12 @@
 package kr.ac.hs.selab.member.application;
 
+import kr.ac.hs.selab.error.exception.common.DuplicationException;
 import kr.ac.hs.selab.error.exception.common.NonExitsException;
 import kr.ac.hs.selab.error.template.ErrorMessage;
-import kr.ac.hs.selab.error.exception.common.DuplicationException;
-import kr.ac.hs.selab.member.converter.MemberConverter;
 import kr.ac.hs.selab.member.domain.Member;
 import kr.ac.hs.selab.member.dto.bundle.MemberCreateBundle;
-import kr.ac.hs.selab.member.dto.response.MemberCreateResponse;
 import kr.ac.hs.selab.member.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

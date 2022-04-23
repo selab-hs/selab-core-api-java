@@ -8,8 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class AuthConverter {
 
-    public static AuthLoginResponse toAuthLoginResponse(Authentication authentication,
-                                                        String token) {
+    public static AuthLoginResponse toAuthLoginResponse(Authentication authentication, String token) {
         return new AuthLoginResponse(authentication.getName(), token);
     }
 

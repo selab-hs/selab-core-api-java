@@ -5,7 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
@@ -48,9 +52,11 @@ public class JwtFilter implements Filter {
     private static final int BEARER_TOKEN_SUBSTRING_INDEX = 7;
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-                         FilterChain filterChain)
-            throws IOException, ServletException {
+    public void doFilter(
+            ServletRequest servletRequest,
+            ServletResponse servletResponse,
+            FilterChain filterChain
+    ) throws IOException, ServletException {
         var httpServletRequest = (HttpServletRequest) servletRequest;
 
         final var path = httpServletRequest.getServletPath();

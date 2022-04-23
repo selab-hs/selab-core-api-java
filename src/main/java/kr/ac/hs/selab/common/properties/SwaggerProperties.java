@@ -1,12 +1,5 @@
 package kr.ac.hs.selab.common.properties;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,6 +8,14 @@ import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.SecurityReference;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Setter
 @NoArgsConstructor
@@ -58,7 +59,7 @@ public class SwaggerProperties {
 
     public ApiInfo toApiInfo() {
         return new ApiInfo(apiTitle, apiDescription, apiVersion, temrsOfServiceUrl, toContact(),
-            license, licenseUrl, new ArrayList<>());
+                license, licenseUrl, new ArrayList<>());
     }
 
     private Contact toContact() {

@@ -1,14 +1,15 @@
 package kr.ac.hs.selab.common.properties;
 
-import java.util.Arrays;
-import java.util.List;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.List;
 
 @Setter
 @NoArgsConstructor

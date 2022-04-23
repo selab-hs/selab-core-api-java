@@ -1,7 +1,6 @@
 package kr.ac.hs.selab.board.facade;
 
 import kr.ac.hs.selab.board.application.BoardService;
-import kr.ac.hs.selab.member.application.MemberService;
 import kr.ac.hs.selab.board.application.PostService;
 import kr.ac.hs.selab.board.converter.PostConverter;
 import kr.ac.hs.selab.board.domain.event.PostEvent;
@@ -11,6 +10,7 @@ import kr.ac.hs.selab.board.dto.PostUpdateDto;
 import kr.ac.hs.selab.board.dto.response.PostFindByBoardIdAndPageResponse;
 import kr.ac.hs.selab.board.dto.response.PostFindResponse;
 import kr.ac.hs.selab.board.dto.response.PostResponse;
+import kr.ac.hs.selab.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;

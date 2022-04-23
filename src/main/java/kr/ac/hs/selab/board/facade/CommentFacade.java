@@ -1,6 +1,8 @@
 package kr.ac.hs.selab.board.facade;
 
+import kr.ac.hs.selab.board.application.CommentLikeService;
 import kr.ac.hs.selab.board.application.CommentService;
+import kr.ac.hs.selab.board.application.PostService;
 import kr.ac.hs.selab.board.converter.CommentConverter;
 import kr.ac.hs.selab.board.dto.CommentCreateDto;
 import kr.ac.hs.selab.board.dto.CommentFindByPostIdAndPageDto;
@@ -8,9 +10,7 @@ import kr.ac.hs.selab.board.dto.CommentUpdateDto;
 import kr.ac.hs.selab.board.dto.response.CommentFindByPostIdAndPageResponse;
 import kr.ac.hs.selab.board.dto.response.CommentFindResponse;
 import kr.ac.hs.selab.board.dto.response.CommentResponse;
-import kr.ac.hs.selab.board.application.CommentLikeService;
 import kr.ac.hs.selab.member.application.MemberService;
-import kr.ac.hs.selab.board.application.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

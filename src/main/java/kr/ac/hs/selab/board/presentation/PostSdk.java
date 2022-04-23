@@ -5,11 +5,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.board.dto.request.PostRequest;
 import kr.ac.hs.selab.board.dto.response.PostFindByBoardIdAndPageResponse;
 import kr.ac.hs.selab.board.dto.response.PostFindResponse;
 import kr.ac.hs.selab.board.dto.response.PostResponse;
+import kr.ac.hs.selab.common.template.ResponseTemplate;
 import org.springframework.data.domain.Pageable;
 
 @Api(tags = "게시글 API", description = "Post Controller (미사용)")

@@ -4,9 +4,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
-import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.board.dto.response.PostLikeFindResponse;
 import kr.ac.hs.selab.board.dto.response.PostLikeResponse;
+import kr.ac.hs.selab.common.template.ResponseTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Api(tags = "게시글 좋아요 API", description = "Post Like Controller (미사용)")

@@ -4,8 +4,8 @@ import kr.ac.hs.selab.common.template.ResponseMessage;
 import kr.ac.hs.selab.common.template.ResponseTemplate;
 import kr.ac.hs.selab.common.utils.SecurityUtils;
 import kr.ac.hs.selab.notice.dto.request.NoticeRequest;
-import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeFindByIdResponse;
+import kr.ac.hs.selab.notice.dto.response.NoticeFindByPageResponse;
 import kr.ac.hs.selab.notice.dto.response.NoticeResponse;
 import kr.ac.hs.selab.notice.facade.NoticeFacade;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/notices")
