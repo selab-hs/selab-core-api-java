@@ -21,7 +21,7 @@ public class MemberFacade {
     private final TermsService termsService;
 
     @Transactional
-    public MemberCreateResponse sign(MemberCreateRequest request) {
+    public void sign(MemberCreateRequest request) {
         var bundle = MemberConverter.toCreateMemberBundle(request);
         memberService.isDuplication(bundle);
 
@@ -29,7 +29,6 @@ public class MemberFacade {
         var member = memberService.save(instance);
 
         termsService.sign(member.getId());
-        return MemberConverter.toCreateMemberResponse(member);
     }
 
     public MemberExistResponse exist(MemberExistRequest request) {

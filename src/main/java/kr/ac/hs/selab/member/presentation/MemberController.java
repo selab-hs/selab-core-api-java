@@ -24,8 +24,8 @@ public class MemberController implements MemberSdk {
     @Override
     @PostMapping(value = "/sign", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseTemplate<MemberCreateResponse> create(@Validated @RequestBody MemberCreateRequest request) {
-        final var response = memberFacade.sign(request);
-        return ResponseTemplate.created(ResponseMessage.MEMBER_CREATE_SUCCESS, response);
+        memberFacade.sign(request);
+        return ResponseTemplate.noContent(ResponseMessage.MEMBER_CREATE_SUCCESS);
     }
 
     @Override

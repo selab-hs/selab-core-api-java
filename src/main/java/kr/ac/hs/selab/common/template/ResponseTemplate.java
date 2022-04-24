@@ -42,4 +42,8 @@ public class ResponseTemplate<T> implements Serializable {
     public static <T> ResponseTemplate<T> created(final ResponseMessage message, final T data) {
         return of(message, data, HttpStatus.CREATED);
     }
+
+    public static <T> ResponseTemplate<T> noContent(final ResponseMessage message) {
+        return of(message, HttpStatus.NO_CONTENT);
+    }
 }
