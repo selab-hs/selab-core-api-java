@@ -20,7 +20,7 @@ public class ResponseTemplate<T> implements Serializable {
     @Schema(description = "서버시간")
     private final LocalDateTime serverDateTime;
     @Schema(description = "응답 데이터")
-    private final T data;
+    private T data;
 
     private ResponseTemplate(@NotNull final ResponseMessage message, @NotNull final T data,
                              @NotNull final HttpStatus status) {
@@ -31,19 +31,23 @@ public class ResponseTemplate<T> implements Serializable {
         this.status = status;
     }
 
-    public static <T> ResponseTemplate<T> of(final ResponseMessage message, final T data, final HttpStatus status) {
-        return new ResponseTemplate<>(message, data, status);
+    private ResponseTemplate(@NotNull final ResponseMessage message,
+                             @NotNull final HttpStatus status) {
+        this.message = message.name();
+        this.code = message.getCode();
+        this.serverDateTime = LocalDateTime.now();
+        this.status = status;
     }
 
     public static <T> ResponseTemplate<T> ok(final ResponseMessage message, final T data) {
-        return of(message, data, HttpStatus.OK);
+        return new ResponseTemplate<>(message, data, HttpStatus.OK);
     }
 
     public static <T> ResponseTemplate<T> created(final ResponseMessage message, final T data) {
-        return of(message, data, HttpStatus.CREATED);
+        return new ResponseTemplate<>(message, data, HttpStatus.CREATED);
     }
 
     public static <T> ResponseTemplate<T> noContent(final ResponseMessage message) {
-        return of(message, HttpStatus.NO_CONTENT);
+        return new ResponseTemplate<>(message, HttpStatus.NO_CONTENT);
     }
 }
