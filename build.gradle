@@ -24,6 +24,14 @@ repositories {
     mavenCentral()
 }
 
+if (project.hasProperty('prod')) {
+    apply from: 'profile_prod.gradle'
+} else if (project.hasProperty('dev')) {
+    apply from: 'profile_dev.gradle'
+} else {
+    apply from: 'profile_local.gradle'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -58,7 +66,7 @@ test {
 }
 
 jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
+    dependsOn test
     reports {
         xml.required = false
         csv.required = false

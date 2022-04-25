@@ -14,9 +14,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @ConfigurationProperties(prefix = "jwt")
 public class JwtProperties {
-
-    @NotBlank
-    private String header;
     @Getter
     @NotBlank
     private String issuer;
