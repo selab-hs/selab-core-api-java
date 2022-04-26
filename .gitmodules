@@ -1,3 +1,3 @@
-[submodule "selab/src/main/resources/config"]
-	path = selab/src/main/resources/config
+[submodule "selab-blog-api-secret-key"]
+	path = rc/main/resources/config
 	url = https://github.com/selab-hs/selab-blog-api-secret-key
