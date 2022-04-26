@@ -25,7 +25,7 @@ jobs:
       
       # Build Gradle
       - name: Build with gradle
-        run: ./gradlew clean build
+        run: ./gradlew build -Dspring.profiles.active=dev
       
       # Login DockerHub
       - name: Login to dockerHub
