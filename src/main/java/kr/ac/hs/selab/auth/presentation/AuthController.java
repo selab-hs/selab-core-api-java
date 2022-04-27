@@ -11,10 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -27,8 +24,7 @@ public class AuthController implements AuthSdk {
     // Redis를 통해 token data 관리 진행
     @Override
     @PostMapping("/auth/login")
-    public ResponseTemplate<AuthLoginResponse> login(
-            @Validated @RequestBody AuthLoginRequest request) {
+    public ResponseTemplate<AuthLoginResponse> login(@Validated @RequestBody AuthLoginRequest request) {
         final var authenticationToken = new UsernamePasswordAuthenticationToken(
                 request.getEmail(),
                 request.getPassword()
