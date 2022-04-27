@@ -109,5 +109,5 @@
 
 ### 📎 Commit Rule
 
-* :Gitmoji" {commit message}
-* Ex) ✨ 회원 서비스 구현
+* :Gitmoji" [{issue label}/{domain}-{issue number}] {commit message}
+* Ex) ✨ [feature/member-45] 회원 서비스 구현
