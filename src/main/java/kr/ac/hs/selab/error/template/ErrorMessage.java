@@ -36,6 +36,16 @@ public enum ErrorMessage {
     MEMBER_NOT_EXISTS_ERROR("E-M-0010", "존재하지 않는 회원 입니다."),
 
     /**
+     * AUTH ERROR RESPONSE MESSAGE
+     */
+    AUTH_INTERNAL_AUTHENTICATION_SERVICE_ERROR("E-A-0001", "존재하지 않는 회원 입니다."),
+    AUTH_BAD_CREDENTIALS_ERROR("E-A-0002", "자격 증명에 실패하였습니다."),
+    AUTH_LOCKED_ERROR("E-A-0003", "잠긴 계정입니다."),
+    AUTH_DISABLE_ERROR("E-A-0004", "비활성화된 계정입니다."),
+    AUTH_ACCOUNT_EXPIRED_ERROR("E-A-0005", "만료된 계정입니다."),
+    AUTH_CREDENTIAL_EXPIRED_ERROR("E-A-0006", "비밀번호가 만료되었습니다."),
+
+    /**
      * BOARD ERROR RESPONSE MESSAGE
      **/
     BOARD_NOT_EXISTS_ERROR("E-B-0001", "존재하지 않는 게시판입니다."),
