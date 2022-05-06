@@ -5,11 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
@@ -45,6 +41,9 @@ public class JwtFilter implements Filter {
     );
 
     private final static String HEALTH = "/health";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String BEARER_TOKEN = "Bearer ";
+    private static final int BEARER_TOKEN_SUBSTRING_INDEX = 7;
 
     @Override
     public void doFilter(
@@ -56,11 +55,16 @@ public class JwtFilter implements Filter {
 
         final var path = httpServletRequest.getServletPath();
 
+        log.info("[INFO] servlet request path {}", path);
+
         if (isChecking(path)) {
-            var token = httpServletRequest.getHeader("Authorization");
-            if (tokenProvider.validateToken(token)) {
-                var authentication = tokenProvider.getAuthentication(token);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+            var bearerToken = httpServletRequest.getHeader(AUTHORIZATION_HEADER);
+            if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TOKEN)) {
+                var jwt = bearerToken.substring(BEARER_TOKEN_SUBSTRING_INDEX);
+                if (tokenProvider.validateToken(jwt)) {
+                    var authentication = tokenProvider.getAuthentication(jwt);
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);
